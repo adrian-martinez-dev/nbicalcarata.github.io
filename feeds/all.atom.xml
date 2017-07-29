@@ -41,6 +41,9 @@ sites:
     - map: interpos.app
       to: /home/vagrant/sitios/interpos/public
 &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="etc-hosts"&gt;
+&lt;h3&gt;/etc/hosts&lt;/h3&gt;
 &lt;pre class="code literal-block"&gt;
 192.168.10.10  interpos.app
 &lt;/pre&gt;
