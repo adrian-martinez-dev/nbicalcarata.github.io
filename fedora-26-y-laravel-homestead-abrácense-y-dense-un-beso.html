@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf - Ziggurat Vertigo</title>
+    <title>Fedora 26 y Laravel Homestead, abrácense y dense un beso - Ziggurat Vertigo</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -55,60 +55,55 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf</h1>
+    <h1 class="title">Fedora 26 y Laravel Homestead, abrácense y dense un beso</h1>
 
         <div class="date">
-            <p>Escrito el miércoles, 18 de diciembre del 2013
+            <p>Escrito el sábado, 29 de julio del 2017
             por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
         </div>
 
-    <div class="clearboth"><p>Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación de librerías de compatibilidad con 32 bits para poder ejecutar Steam.</p>
-<pre class="code sh literal-block">
-<span class="o">[</span>adrian&#64;crunchbang ~<span class="o">]</span>$ sudo apt-get install libgl1-mesa-glx:i386
-Leyendo lista de paquetes... Hecho
-Creando árbol de dependencias
-Leyendo la información de estado... Hecho
-No se pudieron instalar algunos paquetes. Esto puede significar que
-usted pidió una situación imposible o, si está usando la distribución
-inestable, que algunos paquetes necesarios no han sido creados o han
-sido movidos fuera de Incoming.
-La siguiente información puede ayudar a resolver la situación:
-
-Los siguientes paquetes tienen dependencias incumplidas:
-libgl1-mesa-glx:i386 : Depende: libc6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.3.6-6~<span class="o">)</span> pero no a instalarse
-                Depende: libdrm2:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.3.1<span class="o">)</span> pero no va instalarse
-                Depende: libgcc1:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>:4.1.1<span class="o">)</span> pero no va a instalarse
-                Depende: libglapi-mesa:i386 <span class="o">(=</span> .0.5-4+deb7u2<span class="o">)</span> pero no va a instalarse
-                Depende: libstdc++6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">4</span>.1.1<span class="o">)</span> pero no va a instalarse
-                Depende: libx11-6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>:1.4.99.1<span class="o">)</span> pero no va a instalarse
-                Depende: libx11-xcb1:i386 pero no va a instalarse
-                Depende: libxcb-glx0:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>.8<span class="o">)</span> pero no va a instalarse
-                Depende: libxcb1:i386 pero no va a instalarse
-                Depende: libxdamage1:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>:1.1<span class="o">)</span> pero no va a instalarse
-                Depende: libxext6:i386 pero no va a instalarse
-                Depende: libxfixes3:i386 pero no va a instalarse
-                Depende: libxxf86vm1:i386 pero no va a instalarse
-                Recomienda: libgl1-mesa-dri:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">7</span>.2<span class="o">)</span> pero no va a instalarse
-E: No se pudieron corregir los problemas, usted ha retenido paquetes rotos.
+    <div class="clearboth"><div class="section" id="homestead-en-fedora-26">
+<h2>Homestead en Fedora 26</h2>
+<div class="highlight"><pre><span></span>vagrant box add laravel/homestead
+git clone https://github.com/laravel/homestead.git Homestead
+<span class="nb">cd</span> Homestead
+git checkout v5.4.0
+bash init.sh
+</pre></div>
+<div class="section" id="homestead-yml">
+<h3>Homestead.yml</h3>
+<div class="highlight"><pre><span></span>folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &quot;nfs&quot;
+</pre></div>
+<div class="highlight"><pre><span></span>sudo dnf install nfs-utils nfs-kernel-server firewall-config
+sudo systemctl <span class="nb">enable</span> nfs-server
+sudo systemctl start nfs-server
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>nfs
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
+sudo firewall-cmd --reload
+</pre></div>
+<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solucón la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
+</div>
+<div class="section" id="example-for-easily-configuring-firewalld-using-the-firewall-config-gui">
+<h3>Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:</h3>
+<pre class="literal-block">
+- Choose &quot;Configuration: Permanent&quot; from the drop down menu
+- Select the zone you want to modify (i chose &quot;internal&quot;).
+- Go to the &quot;Interfaces&quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
+- Go to the &quot;Services&quot; tab, check &quot;mountd&quot;, &quot;nfs&quot; and &quot;rpc-bind&quot;
+- Go to the global &quot;Services&quot; tab (next to &quot;Zones&quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
+- Finally choose &quot;Options/Reload Firewalld&quot;.
 </pre>
-<!-- TEASER_END -->
-<p>El &quot;usted ha retenido paquetes rotos&quot; me pareció algo severo, teniendo en cuenta que si tengo la libreria instalada (de 64 bits) pero en fin, leyendo bastante encontré la solución <a class="reference external" href="http://superuser.com/questions/653926/how-to-fixerror-while-loading-shared-libraries-libgl-so-1">aqui</a></p>
-<p>En mi caso lo resolví desinstalando las librerías de 32 bits y ejecutando los siguientes comandos:</p>
-<pre class="code literal-block">
-[adrian&#64;crunchbang ~]$ sudo ldconfig
-[sudo] password for adrian:
-[adrian&#64;crunchbang ~]$ ls -l /usr/lib/x86_64-linux-gnu/libGLU.so.1
-lrwxrwxrwx 1 root root 19 jun  5  2013 /usr/lib/x86_64-linux-gnu/libGLU.so.1 -&gt; libGLU.so.1.3.08005
-[adrian&#64;crunchbang ~]$ dpkg -S libGL.so.1
-libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1.2
-libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
-</pre>
-<p>ldconfig sirve para volver a crear el cache de las librerías compartidas, y con ello así nos olvidamos de este problema, o al menos hasta que vuelva a intentar instalar Steam.</p>
+</div>
+</div>
 </div>
 
         <div class="tags">
             <p>Esta entrada fue etiquetada en  
-                <a href="http://nbicalcarata.github.io/tag/crunchbang.html">#crunchbang</a></p>
+                <a href="http://nbicalcarata.github.io/tag/fedora.html">#fedora</a>,                 <a href="http://nbicalcarata.github.io/tag/homestead.html">#homestead</a> y                 <a href="http://nbicalcarata.github.io/tag/laravel.html">#laravel</a></p>
         </div>
 
 

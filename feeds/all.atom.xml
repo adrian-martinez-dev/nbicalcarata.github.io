@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-29T00:03:22-05:00</updated><entry><title>Behat, hoja trampa</title><link href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="alternate"></link><published>2017-07-29T00:03:22-05:00</published><updated>2017-07-29T00:03:22-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/behat-hoja-trampa.html</id><summary type="html">&lt;div class="section" id="command-line-behat"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-29T13:02:41-05:00</updated><entry><title>Fedora 26 y Laravel Homestead, abrácense y dense un beso</title><link href="http://nbicalcarata.github.io/fedora-26-y-laravel-homestead-abr%C3%A1cense-y-dense-un-beso.html" rel="alternate"></link><published>2017-07-29T13:02:41-05:00</published><updated>2017-07-29T13:02:41-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/fedora-26-y-laravel-homestead-abrácense-y-dense-un-beso.html</id><summary type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
+&lt;h2&gt;Homestead en Fedora 26&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant box add laravel/homestead
+git clone https://github.com/laravel/homestead.git Homestead
+&lt;span class="nb"&gt;cd&lt;/span&gt; Homestead
+git checkout v5.4.0
+bash init.sh
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="section" id="homestead-yml"&gt;
+&lt;h3&gt;Homestead.yml&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &amp;quot;nfs&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install nfs-utils nfs-kernel-server firewall-config
+sudo systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; nfs-server
+sudo …&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
+&lt;h2&gt;Homestead en Fedora 26&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant box add laravel/homestead
+git clone https://github.com/laravel/homestead.git Homestead
+&lt;span class="nb"&gt;cd&lt;/span&gt; Homestead
+git checkout v5.4.0
+bash init.sh
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="section" id="homestead-yml"&gt;
+&lt;h3&gt;Homestead.yml&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &amp;quot;nfs&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install nfs-utils nfs-kernel-server firewall-config
+sudo systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; nfs-server
+sudo systemctl start nfs-server
+sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;nfs
+sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;rpc-bind
+sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;mountd
+sudo firewall-cmd --reload
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Si los comandos anteriores no funcionan y despues de &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt; la siguiente solucón la encontré en este &lt;a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="example-for-easily-configuring-firewalld-using-the-firewall-config-gui"&gt;
+&lt;h3&gt;Example for easily configuring firewalld using the &amp;quot;firewall-config&amp;quot; GUI:&lt;/h3&gt;
+&lt;pre class="literal-block"&gt;
+- Choose &amp;quot;Configuration: Permanent&amp;quot; from the drop down menu
+- Select the zone you want to modify (i chose &amp;quot;internal&amp;quot;).
+- Go to the &amp;quot;Interfaces&amp;quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
+- Go to the &amp;quot;Services&amp;quot; tab, check &amp;quot;mountd&amp;quot;, &amp;quot;nfs&amp;quot; and &amp;quot;rpc-bind&amp;quot;
+- Go to the global &amp;quot;Services&amp;quot; tab (next to &amp;quot;Zones&amp;quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
+- Finally choose &amp;quot;Options/Reload Firewalld&amp;quot;.
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="fedora"></category><category term="laravel"></category><category term="homestead"></category></entry><entry><title>Behat, hoja trampa</title><link href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="alternate"></link><published>2017-07-29T00:03:22-05:00</published><updated>2017-07-29T00:03:22-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/behat-hoja-trampa.html</id><summary type="html">&lt;div class="section" id="command-line-behat"&gt;
 &lt;h2&gt;Command line (behat)&lt;/h2&gt;
 &lt;pre class="code literal-block"&gt;
 --init                           Create the features directory
