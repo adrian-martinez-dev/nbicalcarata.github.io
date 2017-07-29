@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf - Ziggurat Vertigo</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.ico" type="image/x-icon">
+
+    <!-- newsfeeds -->
+        <link href="http://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Full Atom Feed" />
+        <link href="http://nbicalcarata.github.io/feeds/linux.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Categories Atom Feed" />
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Ziggurat Vertigo</a></div>
+       <div id="blogsubtitle"><a href="/">Apuntes diversos y hojas trampa</a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf</h1>
+
+        <div class="date">
+            <p>Escrito el miércoles, 18 de diciembre del 2013
+            por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
+        </div>
+
+    <div class="clearboth"><p>Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación de librerías de compatibilidad con 32 bits para poder ejecutar Steam.</p>
+<pre class="code sh literal-block">
+<span class="o">[</span>adrian&#64;crunchbang ~<span class="o">]</span>$ sudo apt-get install libgl1-mesa-glx:i386
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias
+Leyendo la información de estado... Hecho
+No se pudieron instalar algunos paquetes. Esto puede significar que
+usted pidió una situación imposible o, si está usando la distribución
+inestable, que algunos paquetes necesarios no han sido creados o han
+sido movidos fuera de Incoming.
+La siguiente información puede ayudar a resolver la situación:
+
+Los siguientes paquetes tienen dependencias incumplidas:
+libgl1-mesa-glx:i386 : Depende: libc6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.3.6-6~<span class="o">)</span> pero no a instalarse
+                Depende: libdrm2:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.3.1<span class="o">)</span> pero no va instalarse
+                Depende: libgcc1:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>:4.1.1<span class="o">)</span> pero no va a instalarse
+                Depende: libglapi-mesa:i386 <span class="o">(=</span> .0.5-4+deb7u2<span class="o">)</span> pero no va a instalarse
+                Depende: libstdc++6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">4</span>.1.1<span class="o">)</span> pero no va a instalarse
+                Depende: libx11-6:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>:1.4.99.1<span class="o">)</span> pero no va a instalarse
+                Depende: libx11-xcb1:i386 pero no va a instalarse
+                Depende: libxcb-glx0:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>.8<span class="o">)</span> pero no va a instalarse
+                Depende: libxcb1:i386 pero no va a instalarse
+                Depende: libxdamage1:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">1</span>:1.1<span class="o">)</span> pero no va a instalarse
+                Depende: libxext6:i386 pero no va a instalarse
+                Depende: libxfixes3:i386 pero no va a instalarse
+                Depende: libxxf86vm1:i386 pero no va a instalarse
+                Recomienda: libgl1-mesa-dri:i386 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">7</span>.2<span class="o">)</span> pero no va a instalarse
+E: No se pudieron corregir los problemas, usted ha retenido paquetes rotos.
+</pre>
+<!-- TEASER_END -->
+<p>El &quot;usted ha retenido paquetes rotos&quot; me pareció algo severo, teniendo en cuenta que si tengo la libreria instalada (de 64 bits) pero en fin, leyendo bastante encontré la solución <a class="reference external" href="http://superuser.com/questions/653926/how-to-fixerror-while-loading-shared-libraries-libgl-so-1">aqui</a></p>
+<p>En mi caso lo resolví desinstalando las librerías de 32 bits y ejecutando los siguientes comandos:</p>
+<pre class="code literal-block">
+[adrian&#64;crunchbang ~]$ sudo ldconfig
+[sudo] password for adrian:
+[adrian&#64;crunchbang ~]$ ls -l /usr/lib/x86_64-linux-gnu/libGLU.so.1
+lrwxrwxrwx 1 root root 19 jun  5  2013 /usr/lib/x86_64-linux-gnu/libGLU.so.1 -&gt; libGLU.so.1.3.08005
+[adrian&#64;crunchbang ~]$ dpkg -S libGL.so.1
+libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1.2
+libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
+</pre>
+<p>ldconfig sirve para volver a crear el cache de las librerías compartidas, y con ello así nos olvidamos de este problema, o al menos hasta que vuelva a intentar instalar Steam.</p>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="http://nbicalcarata.github.io/tag/crunchbang.html">#crunchbang</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="http://nbicalcarata.github.io/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="http://nbicalcarata.github.io/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/fedora.html">fedora</a> (3)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/html.html">html</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/neovim.html">neovim</a> (3)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/vim.html">vim</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Feeds</h3>
+   <ul>
+      <li><a href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="alternate">atom feed <i class="fa fa-rss fa-fw"></i></a></li>
+   </ul>
+</div>
+
+
+          <div class="section-container" id="copyright">
+            <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p>
+            <p>El contenido de este blog está bajo licencia <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 Internacional</a>.</p>
+          </div>
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

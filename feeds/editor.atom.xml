@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo - editor</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/editor.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2014-06-14T19:42:16+05:00</updated><entry><title>Eliminando los bordes de ventana de GVim</title><link href="http://nbicalcarata.github.io/eliminando-los-bordes-de-ventana-de-gvim.html" rel="alternate"></link><published>2014-06-14T19:42:16+05:00</published><updated>2014-06-14T19:42:16+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-14:/eliminando-los-bordes-de-ventana-de-gvim.html</id><summary type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
+&lt;pre class="code bash literal-block"&gt;
+style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+bg&lt;span class="o"&gt;[&lt;/span&gt;NORMAL&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#242424&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# this matches my gvim theme 'Normal' bg color.
+&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+widget &lt;span class="s2"&gt;&amp;quot;vim-main-window.*GtkForm&amp;quot;&lt;/span&gt; style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Antes y después&lt;/p&gt;
+&lt;img alt="" src="/images/Captura192813.png" /&gt;
+&lt;img alt="" src="/images/Captura193101.png" /&gt;
+</summary><content type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
+&lt;pre class="code bash literal-block"&gt;
+style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+bg&lt;span class="o"&gt;[&lt;/span&gt;NORMAL&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#242424&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# this matches my gvim theme 'Normal' bg color.
+&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+widget &lt;span class="s2"&gt;&amp;quot;vim-main-window.*GtkForm&amp;quot;&lt;/span&gt; style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Antes y después&lt;/p&gt;
+&lt;img alt="" src="/images/Captura192813.png" /&gt;
+&lt;img alt="" src="/images/Captura193101.png" /&gt;
+</content><category term="vim"></category><category term="gvim"></category></entry><entry><title>Configurando Vim</title><link href="http://nbicalcarata.github.io/configurando-vim.html" rel="alternate"></link><published>2014-02-10T03:00:48-06:00</published><updated>2014-02-10T03:00:48-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-10:/configurando-vim.html</id><summary type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.&lt;/p&gt;
+&lt;p&gt;Para poder hacer esto hay que leerse los .vimrc de otras personas, esto es importante para saber que opciones se estan usando y por qué. El .vimrc de spf13 es muy fácil de leer, cada sección viene comentada con su funcionalidad respectiva.&lt;/p&gt;
+&lt;div class="section" id="vundle"&gt;
+&lt;h2&gt;Vundle&lt;/h2&gt;
+&lt;p&gt;Es una abreviación de Vim Bundle, y sirve para administrar los plugins.&lt;/p&gt;
+&lt;div class="section" id="instalacion"&gt;
+&lt;h3&gt;Instalación&lt;/h3&gt;
+&lt;pre class="code sh literal-block"&gt;
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configuracion"&gt;
+&lt;h3&gt;Configuración&lt;/h3&gt;
+&lt;p&gt;Ésta es una configuración de ejemplo para nuestro .vimrc, donde los bundles son los plugins que necesitemos instalar, estos son repos de github por lo que es una manera muy practica de tenerlos centralizados y actualizados.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nocompatible&lt;/span&gt;              &lt;span class="c"&gt;&amp;quot; be iMproved, required&lt;/span&gt;
+&lt;span class="k"&gt;filetype&lt;/span&gt; off                  &lt;span class="c"&gt;&amp;quot; required&lt;/span&gt;
+
+&lt;span class="c"&gt;&amp;quot; set the runtime path to include Vundle and initialize&lt;/span&gt;
+&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;rtp&lt;/span&gt;&lt;span class="p"&gt;+=~&lt;/span&gt;&lt;span class="sr"&gt;/.vim/&lt;/span&gt;bundle/Vundle.&lt;span class="k"&gt;vim&lt;/span&gt;
+&lt;span class="k"&gt;call&lt;/span&gt; vundle#begin&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; alternatively, pass a path where Vundle should install plugins&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot;call vundle#begin(&amp;#39;~/some/path/here&amp;#39;)&lt;/span&gt;
+
+&lt;span class="c"&gt;&amp;quot; let Vundle manage Vundle, required&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;gmarik/Vundle.vim&amp;#39;&lt;/span&gt;
+
+&lt;span class="c"&gt;&amp;quot; The following are examples of different formats supported.&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; Keep Plugin commands between vundle#begin/end.&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; plugin on GitHub repo&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;tpope/vim-fugitive&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; plugin from http://vim-scripts.org/vim/scripts.html&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;L9&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; Git plugin not hosted on GitHub&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;git://git.wincent.com/command-t.git&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; git repos on your local machine (i.e. when working on your own plugin)&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;file:///home/gmarik/path/to/plugin&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; The sparkup vim script is in a subdirectory of this repo called vim.&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; Pass the path to set the runtimepath properly.&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;rstacruz/sparkup&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; {&lt;span class="s1"&gt;&amp;#39;rtp&amp;#39;&lt;/span&gt;: &lt;span class="s1"&gt;&amp;#39;vim/&amp;#39;&lt;/span&gt;}
+&lt;span class="c"&gt;&amp;quot; Avoid a name conflict with L9&lt;/span&gt;
+Plugin &lt;span class="s1"&gt;&amp;#39;user/L9&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; {&lt;span class="s1"&gt;&amp;#39;name&amp;#39;&lt;/span&gt;: &lt;span class="s1"&gt;&amp;#39;newL9&amp;#39;&lt;/span&gt;}
+
+&lt;span class="c"&gt;&amp;quot; All of your Plugins must be added before the following line&lt;/span&gt;
+&lt;span class="k"&gt;call&lt;/span&gt; vundle#&lt;span class="k"&gt;end&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;            &lt;span class="c"&gt;&amp;quot; required&lt;/span&gt;
+&lt;span class="k"&gt;filetype&lt;/span&gt; plugin indent &lt;span class="k"&gt;on&lt;/span&gt;    &lt;span class="c"&gt;&amp;quot; required&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; To ignore plugin indent changes, instead use:&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot;filetype plugin on&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; Brief help&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; :PluginList          - list configured plugins&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; :PluginInstall(!)    - install (update) plugins&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; :PluginSearch(!) foo - search (or refresh cache first) for foo&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; see :h vundle for more details or wiki for FAQ&lt;/span&gt;
+&lt;span class="c"&gt;&amp;quot; Put your non-Plugin stuff after this line&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Con &lt;tt class="docutils literal"&gt;:PluginInstall&lt;/tt&gt; se instalan o actualizan los plugins agregados, esto se puede hacer también desde linea de comandos con &lt;tt class="docutils literal"&gt;vim +PluginInstall +qall&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="plugins"&gt;
+&lt;h2&gt;Plugins&lt;/h2&gt;
+&lt;div class="section" id="syntastic"&gt;
+&lt;h3&gt;Syntastic&lt;/h3&gt;
+&lt;p&gt;Este plugin sirve para el chequeo de sintáxis del código, para instalarlo agregamos a nuestro .vimrc&lt;/p&gt;
+&lt;pre class="code vim literal-block"&gt;
+Plugin &lt;span class="s1"&gt;'scrooloose/syntastic'&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Para comprobar los syntax checkers instalados se usa el comando &lt;tt class="docutils literal"&gt;:SyntasticInfo&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Para JavaScript me incliné por jshint al ser un poco mas flexible que jslint, influenciado por este &lt;a class="reference external" href="http://anton.kovalyov.net/p/why-jshint/"&gt;post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;En caso de no tener instalado jshint:&lt;/p&gt;
+&lt;pre class="code sh literal-block"&gt;
+npm install jshint -g
+&lt;/pre&gt;
+&lt;p&gt;El parametro &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-g&lt;/span&gt;&lt;/tt&gt; es para instalarlo de forma global en el sistema.&lt;/p&gt;
+&lt;p&gt;Habilité el validador &lt;tt class="docutils literal"&gt;w3&lt;/tt&gt; porque me volvi loco con el renderizado incorrecto de una pagina web que estaba modificando y resultó que el error era un simple tag sin cerrar, así que no me importa que me suelte mensajes cada vez que guardo el archivo (asi es como funcionan, este comportamiento puede modificarse).&lt;/p&gt;
+&lt;pre class="code vim literal-block"&gt;
+&lt;span class="c"&gt;&amp;quot;Syntastic ================================&lt;/span&gt;
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:syntastic_javascript_checkers &lt;span class="p"&gt;=&lt;/span&gt; [&lt;span class="s1"&gt;'jshint'&lt;/span&gt;]
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:syntastic_html_checkers &lt;span class="p"&gt;=&lt;/span&gt; [&lt;span class="s1"&gt;'w3'&lt;/span&gt;]
+&lt;/pre&gt;
+&lt;p&gt;Este post se estará actualizando regularmente, porque vim es muy extenso y nunca se termina de encontrarle funcionalidades nuevas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="neovim"></category></entry><entry><title>Instalación y configuración de Light Table en Linux</title><link href="http://nbicalcarata.github.io/instalacion-y-configuracion-de-light-table-en-linux.html" rel="alternate"></link><published>2014-01-09T17:39:30-06:00</published><updated>2014-01-09T17:39:30-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-01-09:/instalacion-y-configuracion-de-light-table-en-linux.html</id><summary type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.&lt;/p&gt;
+&lt;div class="section" id="instalacion"&gt;
+&lt;h2&gt;Instalación&lt;/h2&gt;
+&lt;!-- TEASER_END --&gt;
+&lt;p&gt;Para instalarlo nos dirigimos a la pagina oficial del proyecto &lt;a class="reference external" href="http://www.lighttable.com"&gt;www.lighttable.com&lt;/a&gt; y bajamos el archivo correspondiente a la arquitectura de nuestra computadora, en mi caso 64 bits. Descomprimimos el archivo (esta carpeta yo la copié a &lt;em&gt;/home/adrian/Programas&lt;/em&gt;) y ejecutamos el archivo llamado LightTable&lt;/p&gt;
+&lt;p&gt;Creamos su respectivo lanzador para que nos aparezca en el menú del sistema:&lt;/p&gt;
+&lt;pre class="code sh literal-block"&gt;
+sudo geany /usr/share/applications/LightTable.desktop
+&lt;/pre&gt;
+&lt;pre class="code sh literal-block"&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;Desktop Entry&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;Name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;LightTable
+&lt;span class="nv"&gt;Comment&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;LightTable
+&lt;span class="nv"&gt;Exec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/home/adrian/Programas/LightTable/ltbin
+&lt;span class="nv"&gt;Icon&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/home/adrian/Programas/LightTable/core/img/lticon.png
+&lt;span class="nv"&gt;Terminal&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+&lt;span class="nv"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Application
+&lt;/pre&gt;
+&lt;p&gt;Y en caso de que se quiera poder ejecutar desde consola creamos un enlace simbolico en /usr/bin/local&lt;/p&gt;
+&lt;pre class="code sh literal-block"&gt;
+sudo ln -s /home/adrian/Programas/LightTable/LightTable /usr/local/bin/LightTable
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configuracion"&gt;
+&lt;h2&gt;Configuración&lt;/h2&gt;
+&lt;p&gt;En la pantalla de bienvenida vienen los tutoriales para usarlo, en lo cual no abundaré aquí, solo expondré las configuraciones que hice como los behaviours y los keymaps. Los behaviours son una forma de ajustar las preferencias del editor, y los keymaps son los atajos de teclado. El lenguaje en el que esta principalmente programado es Clojure, un dialecto de lisp, el cual usa un paradigma de programación funcional, por lo tanto el sintaxis es algo diferente a lo que estamos acostumbrados.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="behaviours"&gt;
+&lt;h2&gt;Behaviours&lt;/h2&gt;
+&lt;p&gt;Presionamos &lt;em&gt;ctrl + space&lt;/em&gt; y tecleamos &lt;em&gt;user behaviors&lt;/em&gt; y damos &lt;em&gt;enter&lt;/em&gt;, nos aparecerá esto:&lt;/p&gt;
+&lt;pre class="code clojure literal-block"&gt;
+&lt;span class="c1"&gt;;; User behaviors&lt;/span&gt;
+&lt;span class="c1"&gt;;; -----------------------------&lt;/span&gt;
+&lt;span class="c1"&gt;;; Behaviors are stored as a set of diffs that are merged together&lt;/span&gt;
+&lt;span class="c1"&gt;;; to create the final set of functionality that makes up Light Table. You can&lt;/span&gt;
+&lt;span class="c1"&gt;;; modify these diffs to either add or subtract functionality.&lt;/span&gt;
+&lt;span class="c1"&gt;;;&lt;/span&gt;
+&lt;span class="c1"&gt;;; Behaviors are added to tags, objects with those tags then automatically gain&lt;/span&gt;
+&lt;span class="c1"&gt;;; whatever logic the behavior imparts. To see a list of user-level behaviors,&lt;/span&gt;
+&lt;span class="c1"&gt;;; start typing a word related to the functionality you want in between the square&lt;/span&gt;
+&lt;span class="c1"&gt;;; brackets (e.g. &amp;quot;theme&amp;quot;).&lt;/span&gt;
+
+&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;:+&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+     &lt;span class="c1"&gt;;; The app tag is kind of like global scope. You assign behaviors that affect&lt;/span&gt;
+     &lt;span class="c1"&gt;;; all of Light Table here&lt;/span&gt;
+     &lt;span class="ss"&gt;:app&lt;/span&gt; &lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.style/set-skin&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;dark&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+
+     &lt;span class="c1"&gt;;; The editor tag is applied to all editors&lt;/span&gt;
+     &lt;span class="ss"&gt;:editor&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.editor/no-wrap&lt;/span&gt;
+              &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.style/set-theme&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+
+     &lt;span class="c1"&gt;;; Here we can add behaviors to just clojure editors&lt;/span&gt;
+     &lt;span class="ss"&gt;:editor.clojure&lt;/span&gt; &lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.langs.clj/print-length&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)]}&lt;/span&gt;
+
+ &lt;span class="c1"&gt;;; You can use the subtract key to remove behavior that may get added by&lt;/span&gt;
+ &lt;span class="c1"&gt;;; another diff&lt;/span&gt;
+ &lt;span class="ss"&gt;:-&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;:app&lt;/span&gt; &lt;span class="p"&gt;[]}}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Para editar el tema por defecto, en el tag &lt;em&gt;editor&lt;/em&gt;, nos vamos a &lt;em&gt;set-theme&lt;/em&gt;, borramos &lt;em&gt;default&lt;/em&gt; (sin borrar las comillas) y presionamos &lt;em&gt;tab&lt;/em&gt; para disparar el menu contextual del autocompletado y escogemos el que mas nos guste. Lo mismo con &lt;em&gt;set-skin&lt;/em&gt;, podemos elegir entre dark o light (viene otra opcion llamada new dark, esa la ignoramos porque esta incompleta).&lt;/p&gt;
+&lt;p&gt;El autocompletado viene deshabilitado por defecto, si queremos habilitarlo agregamos:&lt;/p&gt;
+&lt;pre class="code clojure literal-block"&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:lt.plugins.auto-complete/auto-show-on-input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Habilitar números de linea&lt;/p&gt;
+&lt;pre class="code clojure literal-block"&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.editor/line-numbers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Cambiar la tipografía&lt;/p&gt;
+&lt;pre class="code clojure literal-block"&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:lt.objs.style/font-settings&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Inconsolata&amp;quot;&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Donde el orden de los argumentos es este: &lt;em&gt;&amp;quot;Fuente&amp;quot; &amp;lt;Tamaño&amp;gt; &amp;lt;Ancho de linea en ems&amp;gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Para ver mas opciones del editor tecleamos : y presionamos tab, siempre cuidando que el corchete quede al final de todos los argumentos agregados al tag.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="keymaps"&gt;
+&lt;h2&gt;Keymaps&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;ctrl + space&lt;/em&gt; dispara el menú principal que nos da todas las opciones del editor y a muchas de ellas le podemos añadir atajos de teclado.
+Para agregar atajos de teclado damos &lt;em&gt;ctrl + space&lt;/em&gt; y escribimos &lt;em&gt;user keymap&lt;/em&gt; (de preferencia no debemos tocar los default behaviours y default keymaps, nos podemos meter en problemas).&lt;/p&gt;
+&lt;pre class="code clojure literal-block"&gt;
+&lt;span class="c1"&gt;;; User keymap&lt;/span&gt;
+&lt;span class="c1"&gt;;; -----------------------------&lt;/span&gt;
+&lt;span class="c1"&gt;;; Keymaps are stored as a set of diffs that are merged together together&lt;/span&gt;
+&lt;span class="c1"&gt;;; to create the final set of keys. You can modify these diffs to either add&lt;/span&gt;
+&lt;span class="c1"&gt;;; or subtract bindings.&lt;/span&gt;
+&lt;span class="c1"&gt;;;&lt;/span&gt;
+&lt;span class="c1"&gt;;; Like behaviors, keys are bound by tag. When objects with those tags are active&lt;/span&gt;
+&lt;span class="c1"&gt;;; the key bindings are live. Keys can be bound to any number of Light Table commands,&lt;/span&gt;
+&lt;span class="c1"&gt;;; allowing you the flexibility to execute multiple operations together. To see a list&lt;/span&gt;
+&lt;span class="c1"&gt;;; of all the commands you can execute, start typing a word related to the thing you&lt;/span&gt;
+&lt;span class="c1"&gt;;; want to do in between the square brackets (e.g. type &amp;quot;editor&amp;quot;).&lt;/span&gt;
+
+&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;:+&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;:app&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;f9&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:workspace.show&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;f8&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:toggle-console&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;ctrl-shift-n&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:tabset.new&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;ctrl-shift-w&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:tabset.close&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;ctrl-shift-h&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:tabset.prev&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;ctrl-shift-l&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:tabset.next&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+           &lt;span class="s"&gt;&amp;quot;ctrl-shift-p&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:workspace.add-folder&lt;/span&gt;&lt;span class="p"&gt;]}&lt;/span&gt;
+
+     &lt;span class="ss"&gt;:editor&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;alt-w&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:editor.watch.watch-selection&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+              &lt;span class="s"&gt;&amp;quot;alt-shift-w&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:editor.watch.unwatch&lt;/span&gt;&lt;span class="p"&gt;]}}}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Estos son los atajos que yo agregué, recomiendo explorar bastante el editor antes de agregar atajos de teclado.&lt;/p&gt;
+&lt;p&gt;En lo personal este editor me gusta mucho, y aunque va en la version 0.6.0 lo encuentro bastante funcional y entretenido de usar, aunque no olvidemos que esta en desarrollo y hay todavia muchos detalles por corregir para poder utilizarlo sin problemas.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="html"></category><category term="clojure"></category></entry></feed>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo - utilidades</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/utilidades.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-28T22:45:35-05:00</updated><entry><title>Universal Ctags</title><link href="http://nbicalcarata.github.io/universal-ctags.html" rel="alternate"></link><published>2017-07-28T22:45:35-05:00</published><updated>2017-07-28T22:45:35-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/universal-ctags.html</id><summary type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
+&lt;h2&gt;Instalación de Universal Ctags en Fedora 26&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install autoconf automake
+git clone https://github.com/universal-ctags/ctags
+&lt;span class="nb"&gt;cd&lt;/span&gt; ctags
+./autogen.sh
+./configure
+make
+sudo make install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+</summary><content type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
+&lt;h2&gt;Instalación de Universal Ctags en Fedora 26&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install autoconf automake
+git clone https://github.com/universal-ctags/ctags
+&lt;span class="nb"&gt;cd&lt;/span&gt; ctags
+./autogen.sh
+./configure
+make
+sudo make install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Bloq mayus como Control y Escape con caps2esc</title><link href="http://nbicalcarata.github.io/bloq-mayus-como-control-y-escape-con-caps2esc.html" rel="alternate"></link><published>2017-07-28T18:08:07-05:00</published><updated>2017-07-28T18:08:07-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/bloq-mayus-como-control-y-escape-con-caps2esc.html</id><summary type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer …&lt;/p&gt;</summary><content type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actua como control cuando se presiona en combinación con alguna otra tecla.&lt;/p&gt;
+&lt;div class="section" id="instalacion-de-caps2esc-en-fedora-26"&gt;
+&lt;h2&gt;Instalación de caps2esc en Fedora 26&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install systemd-devel libevdev-devel
+git clone https://github.com/oblitum/caps2esc.git
+&lt;span class="nb"&gt;cd&lt;/span&gt; caps2esc
+gcc caps2esc.c -o caps2esc -I/usr/include/libevdev-1.0 -levdev -ludev
+sudo su
+cp caps2esc /usr/bin
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;[Unit]&lt;/span&gt;
+&lt;span class="s2"&gt;Description=caps2esc&lt;/span&gt;
+
+&lt;span class="s2"&gt;[Service]&lt;/span&gt;
+&lt;span class="s2"&gt;ExecStart=/usr/bin/nice -n -20 /usr/bin/caps2esc&lt;/span&gt;
+
+&lt;span class="s2"&gt;[Install]&lt;/span&gt;
+&lt;span class="s2"&gt;WantedBy=multi-user.target&amp;quot;&lt;/span&gt; &amp;gt; /etc/systemd/system/caps2esc.service
+
+systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; caps2esc
+systemctl start caps2esc
+&lt;span class="nb"&gt;exit&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Los comandos anteriores instalan las dependencias, se clona el repositorio, compilan con gcc, se copia el binario a /usr/bin, se establece un servicio de systemd para que se inicie con el sistema, este servicio se activa y se arranca.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="fedora"></category><category term="neovim"></category></entry></feed>
