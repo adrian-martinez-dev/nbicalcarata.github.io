@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {%- for article in articles_page.object_list %}
+
+        <article class="entry-overview">
+
+            <div class="detail">
+                <header><h2>
+                    <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+                        {{ article.title }}
+                    </a>
+                </h2></header>
+
+                {% if SHOW_CONTENT_SUMMARY_ON_INDEX %}
+                   <div class="summary">{{ article.summary|striptags }}</div>
+                {% else %}
+                   <div class="clearboth">{{ article.content }}</div>
+                {% endif %}
+
+            </div>
+        </article>
+
+      {%- endfor %}
+
+      {% include 'pagination.html' %}
+
+{% endblock %}
