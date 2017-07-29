@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Playonlinux sin audio en OpenSuse 13.1 - Ziggurat Vertigo</title>
+    <title>Fedora 26 y Laravel Homestead, abrácense y dense un beso - Ziggurat Vertigo</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -53,20 +53,55 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Playonlinux sin audio en OpenSuse 13.1</h1>
+    <h1 class="title">Fedora 26 y Laravel Homestead, abrácense y dense un beso</h1>
 
         <div class="date">
-            <p>Escrito el martes, 11 de febrero del 2014
+            <p>Escrito el sábado, 29 de julio del 2017
             por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p>
         </div>
 
-    <div class="clearboth"><p>Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se ejecuta perfecto, solo que no tenia audio y al iniciar sesión no arranca si dejas seleccionada la opción &quot;Remember me&quot;.
-El audio lo solucioné instalando la libreria <tt class="docutils literal"><span class="pre">alsa-plugins-pulse-32bit</span></tt>, y con el detalle del login solo basta desmarcar la opción &quot;Remember me&quot;, asi que hay que teclear el nombre de usuario o correo y contraseña cada vez que arranquemos el juego. Happy fragging.</p>
+    <div class="clearboth"><div class="section" id="homestead-en-fedora-26">
+<h2>Homestead en Fedora 26</h2>
+<div class="highlight"><pre><span></span>vagrant box add laravel/homestead
+git clone https://github.com/laravel/homestead.git Homestead
+<span class="nb">cd</span> Homestead
+git checkout v5.4.0
+bash init.sh
+</pre></div>
+<div class="section" id="homestead-yml">
+<h3>Homestead.yml</h3>
+<div class="highlight"><pre><span></span>folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+      type: &quot;nfs&quot;
+</pre></div>
+<div class="highlight"><pre><span></span>sudo dnf install nfs-utils nfs-kernel-server firewall-config
+sudo systemctl <span class="nb">enable</span> nfs-server
+sudo systemctl start nfs-server
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>nfs
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
+sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
+sudo firewall-cmd --reload
+</pre></div>
+<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solucón la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
+</div>
+<div class="section" id="example-for-easily-configuring-firewalld-using-the-firewall-config-gui">
+<h3>Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:</h3>
+<pre class="literal-block">
+- Choose &quot;Configuration: Permanent&quot; from the drop down menu
+- Select the zone you want to modify (i chose &quot;internal&quot;).
+- Go to the &quot;Interfaces&quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
+- Go to the &quot;Services&quot; tab, check &quot;mountd&quot;, &quot;nfs&quot; and &quot;rpc-bind&quot;
+- Go to the global &quot;Services&quot; tab (next to &quot;Zones&quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
+- Finally choose &quot;Options/Reload Firewalld&quot;.
+</pre>
+</div>
+</div>
 </div>
 
         <div class="tags">
             <p>Esta entrada fue etiquetada en  
-                <a href="/tag/opensuse.html">#opensuse</a>,                 <a href="/tag/playonlinux.html">#playonlinux</a>,                 <a href="/tag/quake-live.html">#quake_live</a> y                 <a href="/tag/wine.html">#wine</a></p>
+                <a href="/tag/fedora.html">#fedora</a>,                 <a href="/tag/homestead.html">#homestead</a> y                 <a href="/tag/laravel.html">#laravel</a></p>
         </div>
 
 
