@@ -7,6 +7,9 @@
 Homestead en Fedora 26
 ======================
 
+Instrucciones
+*************
+
 .. code-block:: sh
 
   vagrant box add laravel/homestead
@@ -22,12 +25,25 @@ Homestead.yml
 .. code-block:: yml
 
   folders:
-      - map: ~/Code
-        to: /home/vagrant/Code
+      - map: ~/sitios
+        to: /home/vagrant/sitios
         type: "nfs"
+
+  sites:
+      - map: interpos.app
+        to: /home/vagrant/sitios/interpos/public
+
+.. code::
+
+  192.168.10.10  interpos.app
+
+
+Soporte nfs
+***********
 
 .. code-block:: sh
 
+  vagrant plugin install vagrant-bindfs
   sudo dnf install nfs-utils nfs-kernel-server firewall-config
   sudo systemctl enable nfs-server
   sudo systemctl start nfs-server
@@ -36,15 +52,13 @@ Homestead.yml
   sudo firewall-cmd --permanent --add-service=mountd
   sudo firewall-cmd --reload
 
-Si los comandos anteriores no funcionan y despues de ``vagrant up``, se queda bloqueado en ``==> homestead-7: Mounting NFS shared folders...`` la siguiente solucón la encontré en este enlace_.
+Si los comandos anteriores no funcionan y despues de ``vagrant up``, se queda bloqueado en ``==> homestead-7: Mounting NFS shared folders...`` la siguiente solución la encontré en este enlace_.
   
 .. _enlace: https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2
 
-Example for easily configuring firewalld using the "firewall-config" GUI:
-*************************************************************************
-
 ::
 
+  Example for easily configuring firewalld using the "firewall-config" GUI:
   - Choose "Configuration: Permanent" from the drop down menu
   - Select the zone you want to modify (i chose "internal").
   - Go to the "Interfaces" tab, assign vboxnet0 (or other host-only adapter) to the zone.
