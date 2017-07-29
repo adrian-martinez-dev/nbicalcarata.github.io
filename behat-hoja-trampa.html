@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Behat, hoja trampa - Ziggurat Vertigo</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.ico" type="image/x-icon">
+
+    <!-- newsfeeds -->
+        <link href="http://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Full Atom Feed" />
+        <link href="http://nbicalcarata.github.io/feeds/cheatsheet.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Categories Atom Feed" />
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Ziggurat Vertigo</a></div>
+       <div id="blogsubtitle"><a href="/">Apuntes diversos y hojas trampa</a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Behat, hoja trampa</h1>
+
+        <div class="date">
+            <p>Escrito el sábado, 29 de julio del 2017
+            por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
+        </div>
+
+    <div class="clearboth"><div class="section" id="command-line-behat">
+<h2>Command line (behat)</h2>
+<pre class="code literal-block">
+--init                           Create the features directory
+--config=archivo.yml             Use config file
+--format=html -out=report.html   Html report
+--expand                         Display details
+--story-syntax --lang=es         Language
+--tags='&#64;group1.&#64;group2'         Return tests on groups
+</pre>
+</div>
+<div class="section" id="feature">
+<h2>Feature</h2>
+<div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> Descriptive text of what is desired</span>
+<span class="nf">    In order to realize a named business value</span>
+<span class="nf">    As an explicit system actor</span>
+<span class="nf">    I want to ...</span>
+
+<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> Some determinable business situation</span>
+<span class="k">        Given </span><span class="nf">some precondition</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">some other precondition</span>
+<span class="nf">        </span><span class="k">When </span><span class="nf">some action by the actor</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">some other action</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">yet another action</span>
+<span class="nf">        </span><span class="k">Then </span><span class="nf">some testable outcome is achieved</span>
+<span class="nf">        </span><span class="k">And </span><span class="nf">something else we can check happens to</span>
+
+<span class="nf">    </span><span class="k">Scenario:</span><span class="nf"> A diferent situation...</span>
+</pre></div>
+</div>
+<div class="section" id="behat-in-two-words">
+<h2>Behat in two words</h2>
+<p>Behat automates the &quot;acceptance testing&quot; of the agile methodology &quot;Scrum&quot;. Each
+test is written in natural language with the gherkin syntax.</p>
+<p>A feature is described by a &lt;my-feature.feature&gt; file. A feature is a set of
+cases, called &quot;scenarios&quot;.</p>
+<p>Each scenario is defined by:</p>
+<ul class="simple">
+<li>Context (Given)</li>
+<li>Triggering events (When)</li>
+<li>An expected result (Then)</li>
+</ul>
+<p>====== Use examples ======</p>
+<div class="highlight"><pre><span></span><span class="k">Scenario Outline:</span><span class="nf"> Some determinable bussiness situation</span>
+<span class="k">        Given </span><span class="nf">I have </span><span class="nv">&lt;initialAmount&gt;</span><span class="nf"> euros</span>
+<span class="nf">        </span><span class="k">When </span><span class="nf">I add </span><span class="nv">&lt;money&gt;</span><span class="nf"> euros</span>
+<span class="nf">        </span><span class="k">Then </span><span class="nf">I should have now </span><span class="nv">&lt;finalAmount&gt;</span><span class="nf"> euros</span>
+
+<span class="nf">    </span><span class="k">Examples:</span>
+<span class="k">            |</span><span class="nv"> initialAmount</span><span class="k"> |</span><span class="nv"> money</span><span class="k">     |</span><span class="nv"> finalAmount</span><span class="k"> |</span><span class="nf"></span>
+<span class="k">            |</span><span class="s"> 15</span><span class="k">            |</span><span class="s"> 5</span><span class="k">         |</span><span class="s"> 20</span><span class="k">          |</span><span class="nf"></span>
+<span class="k">            |</span><span class="s"> 40</span><span class="k">            |</span><span class="s"> 10</span><span class="k">        |</span><span class="s"> 50</span><span class="k">          |</span><span class="nf"></span>
+<span class="k">            |</span><span class="s"> 20</span><span class="k">            |</span><span class="s"> 5</span><span class="k">         |</span><span class="s"> 25</span><span class="k">          |</span>
+</pre></div>
+</div>
+<div class="section" id="web-apps-mink">
+<h2>Web apps (Mink)</h2>
+<p>Surf</p>
+<div class="highlight"><pre><span></span><span class="k">I </span><span class="nf">am on &quot;</span><span class="s">url</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">go to &quot;</span><span class="s">url</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">reload the page</span>
+<span class="k">I </span><span class="nf">move backward one page</span>
+<span class="k">I </span><span class="nf">move forward one page</span>
+<span class="k">I </span><span class="nf">press &quot;</span><span class="s">button</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">follow &quot;</span><span class="s">link</span><span class="nf">&quot;</span>
+</pre></div>
+<p>Forms</p>
+<div class="highlight"><pre><span></span><span class="k">I </span><span class="nf">fill in &quot;</span><span class="s">form_element</span><span class="nf">&quot; with &quot;</span><span class="s">value</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">fill in &quot;</span><span class="s">value</span><span class="nf">&quot; for &quot;</span><span class="s">form_element</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">fill in the following</span>
+<span class="k">I </span><span class="nf">select &quot;</span><span class="s">form_option</span><span class="nf">&quot; from &quot;</span><span class="s">form_select</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">additionally select &quot;</span><span class="s">form_option</span><span class="nf">&quot; from &quot;</span><span class="s">form_select</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">check &quot;</span><span class="s">form_checkbox</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">uncheck &quot;</span><span class="s">form_checkbox</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">attach the file &quot;</span><span class="s">/path/file.file</span><span class="nf">&quot; to &quot;</span><span class="s">form_file</span><span class="nf">&quot;</span>
+</pre></div>
+<p>Assertions</p>
+<div class="highlight"><pre><span></span><span class="k">I </span><span class="nf">should see &quot;</span><span class="s">content</span><span class="nf">&quot;</span>
+<span class="nf">the response should contain &quot;</span><span class="s">content</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">should not see &quot;</span><span class="s">content</span><span class="nf">&quot;</span>
+<span class="nf">the response should not contain &quot;</span><span class="s">content</span><span class="nf">&quot;</span>
+<span class="nf">the &quot;</span><span class="s">form_element</span><span class="nf">&quot; field should contain &quot;</span><span class="s">value</span><span class="nf">&quot;</span>
+<span class="nf">the &quot;</span><span class="s">form_element</span><span class="nf">&quot; field should not contain &quot;</span><span class="s">value</span><span class="nf">&quot;</span>
+<span class="nf">the &quot;</span><span class="s">form_checkbox</span><span class="nf">&quot; checkbox should be checked</span>
+<span class="nf">the &quot;</span><span class="s">form_checkbox</span><span class="nf">&quot; checkbox should not be checked</span>
+<span class="k">I </span><span class="nf">should be on &quot;</span><span class="s">page</span><span class="nf">&quot;</span>
+<span class="nf">the url should match &quot;</span><span class="s">url</span><span class="nf">&quot;</span>
+<span class="nf">the &quot;</span><span class="s">num_position</span><span class="nf">&quot; element should contain &quot;</span><span class="s">value</span><span class="nf">&quot;</span>
+<span class="k">I </span><span class="nf">should see &quot;</span><span class="s">value</span><span class="nf">&quot; in the &quot;</span><span class="s">element</span><span class="nf">&quot; element</span>
+<span class="k">I </span><span class="nf">should see an &quot;</span><span class="s">element</span><span class="nf">&quot; element</span>
+<span class="k">I </span><span class="nf">should not see an &quot;</span><span class="s">element</span><span class="nf">&quot; element</span>
+<span class="k">I </span><span class="nf">should see number &quot;</span><span class="s">element</span><span class="nf">&quot; elements</span>
+<span class="nf">the response status code should be code</span>
+</pre></div>
+</div>
+<div class="section" id="mink-cheat-sheet">
+<h2>Mink Cheat Sheet</h2>
+<p>Session</p>
+<div class="highlight"><pre><span></span><span class="x">$session = new \Behat\Mink\Session($driver);</span>
+<span class="x">$session-&gt;start();   // start</span>
+<span class="x">$session-&gt;reset();   // soft-reset:</span>
+<span class="x">$session-&gt;restart(); // hard-reset:</span>
+
+<span class="x">From the main context:</span>
+<span class="x">$session = $this-&gt;getSession();</span>
+
+<span class="x">From a sub-context</span>
+<span class="x">$session = $this-&gt;getMainContext()-&gt;getSession();</span>
+
+<span class="x">isStarted() Checks whether session was started</span>
+<span class="x">start() Starts session</span>
+<span class="x">stop() Stop session</span>
+<span class="x">restart() Restart session</span>
+<span class="x">reset() Reset session</span>
+<span class="x">getPage() Returns page element</span>
+<span class="x">getSelectorHandler() Returns Selector Handler</span>
+<span class="x">visit($url) Visit specified URL</span>
+<span class="x">setBasicAuth($u,$p) HTTP Basic authentification</span>
+<span class="x">setRequestHeader($n,$v) Set request header</span>
+<span class="x">getResponseHeaders() Get all response headers</span>
+<span class="x">setCookie($n,$v) Sets cookie</span>
+<span class="x">getCookie($n) Returns cookie</span>
+<span class="x">getStatusCode() Returns response code</span>
+<span class="x">getCurrentUrl() Returns current URL</span>
+<span class="x">reload() Reload current page</span>
+<span class="x">back() Moves backward</span>
+<span class="x">forward() Move forward</span>
+<span class="x">executeScript($script) Executes javascript</span>
+<span class="x">evaluateScript($script) Returns javascript&#39; response</span>
+<span class="x">wait($time, $condition) Waits some time or until</span>
+<span class="x">javascript condition is true</span>
+</pre></div>
+<p>Available drivers</p>
+<dl class="docutils">
+<dt>Goutte&nbsp;:</dt>
+<dd><a class="reference external" href="https://github.com/fabpot/Goutte">https://github.com/fabpot/Goutte</a></dd>
+<dt>Sahi&nbsp;:</dt>
+<dd><a class="reference external" href="http://sourceforge.net/projects/sahi/">http://sourceforge.net/projects/sahi/</a></dd>
+<dt>Zombie&nbsp;:</dt>
+<dd><a class="reference external" href="http://zombie.labnotes.org/">http://zombie.labnotes.org/</a></dd>
+<dt>Selenium (1 &amp; 2 )&nbsp;:</dt>
+<dd><a class="reference external" href="http://seleniumhq.org/">http://seleniumhq.org/</a></dd>
+</dl>
+<p>Elements</p>
+<pre class="code literal-block">
+$el-&gt;has($selector, $locator)
+$el-&gt;find($selector, $locator)
+$el-&gt;findAll($selector, $locator)
+$el-&gt;getText()
+$el-&gt;getHtml()
+</pre>
+<p>HTML nodes</p>
+<pre class="code literal-block">
+$el-&gt;isVisible()
+$el-&gt;getValue()
+$el-&gt;getTagName()
+$el-&gt;getXpath()
+$el-&gt;hasAttribute($name)
+$el-&gt;getAttribute($name)
+</pre>
+<p>Forms</p>
+<pre class="code literal-block">
+$el-&gt;press()
+$el-&gt;check()
+$el-&gt;uncheck()
+$el-&gt;isChecked()
+$el-&gt;selectOption($option, $multiple)
+$el-&gt;attachFile($path)
+$el-&gt;keypress()
+$el-&gt;keyDown()
+$el-&gt;keyUp()
+</pre>
+<p>Events</p>
+<pre class="code literal-block">
+$el-&gt;click()
+$el-&gt;doubleClick()
+$el-&gt;rightClick()
+$el-&gt;mouseOver()
+$el-&gt;focus()
+$el-&gt;blur()
+$el-&gt;dragTo($element)
+</pre>
+<p>Default parameters &lt;behat.yml&gt;</p>
+<div class="highlight"><pre><span></span>default:
+ context:
+ parameters:
+ default_session: goutte
+ javascript_session: sahi
+ base_url: http://localhost
+ browser: firefox
+ goutte:
+ zend_config:
+ adapter:
+Zend\Http\Client\Adapter\Proxy
+ proxy_host: host.com
+ proxy_port: 8080
+ sahi:
+ host: localhost
+ port: 9999
+ zombie:
+ host: 127.0.0.1
+ port: 8124
+ node_bin: node
+ auto_server: true
+ selenium:
+ host: localhost
+ port: 4444
+ webdriver:
+ host http://localhost:4444/wd/hub
+</pre></div>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="http://nbicalcarata.github.io/tag/bdd.html">#bdd</a>,                 <a href="http://nbicalcarata.github.io/tag/behat.html">#behat</a> y                 <a href="http://nbicalcarata.github.io/tag/mink.html">#mink</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="http://nbicalcarata.github.io/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="http://nbicalcarata.github.io/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="http://nbicalcarata.github.io/tag/bdd.html">bdd</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/behat.html">behat</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/cheatsheet.html">cheatsheet</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/fedora.html">fedora</a> (3)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/html.html">html</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/mink.html">mink</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/neovim.html">neovim</a> (3)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/vim.html">vim</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Feeds</h3>
+   <ul>
+      <li><a href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="alternate">atom feed <i class="fa fa-rss fa-fw"></i></a></li>
+   </ul>
+</div>
+
+
+          <div class="section-container" id="copyright">
+            <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p>
+            <p>El contenido de este blog está bajo licencia <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 Internacional</a>.</p>
+          </div>
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>
