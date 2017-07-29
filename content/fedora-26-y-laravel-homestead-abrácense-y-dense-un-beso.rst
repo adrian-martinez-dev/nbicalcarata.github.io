@@ -33,6 +33,9 @@ Homestead.yml
       - map: interpos.app
         to: /home/vagrant/sitios/interpos/public
 
+/etc/hosts
+**********
+
 .. code::
 
   192.168.10.10  interpos.app

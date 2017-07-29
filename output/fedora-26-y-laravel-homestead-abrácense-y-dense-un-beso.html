@@ -64,20 +64,34 @@
 
     <div class="clearboth"><div class="section" id="homestead-en-fedora-26">
 <h2>Homestead en Fedora 26</h2>
+<div class="section" id="instrucciones">
+<h3>Instrucciones</h3>
 <div class="highlight"><pre><span></span>vagrant box add laravel/homestead
 git clone https://github.com/laravel/homestead.git Homestead
 <span class="nb">cd</span> Homestead
 git checkout v5.4.0
 bash init.sh
 </pre></div>
+</div>
 <div class="section" id="homestead-yml">
 <h3>Homestead.yml</h3>
 <div class="highlight"><pre><span></span>folders:
-    - map: ~/Code
-      to: /home/vagrant/Code
+    - map: ~/sitios
+      to: /home/vagrant/sitios
       type: &quot;nfs&quot;
+
+sites:
+    - map: interpos.app
+      to: /home/vagrant/sitios/interpos/public
 </pre></div>
-<div class="highlight"><pre><span></span>sudo dnf install nfs-utils nfs-kernel-server firewall-config
+<pre class="code literal-block">
+192.168.10.10  interpos.app
+</pre>
+</div>
+<div class="section" id="soporte-nfs">
+<h3>Soporte nfs</h3>
+<div class="highlight"><pre><span></span>vagrant plugin install vagrant-bindfs
+sudo dnf install nfs-utils nfs-kernel-server firewall-config
 sudo systemctl <span class="nb">enable</span> nfs-server
 sudo systemctl start nfs-server
 sudo firewall-cmd --permanent --add-service<span class="o">=</span>nfs
@@ -85,11 +99,9 @@ sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
 sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
 sudo firewall-cmd --reload
 </pre></div>
-<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solucón la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
-</div>
-<div class="section" id="example-for-easily-configuring-firewalld-using-the-firewall-config-gui">
-<h3>Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:</h3>
+<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solución la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
 <pre class="literal-block">
+Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:
 - Choose &quot;Configuration: Permanent&quot; from the drop down menu
 - Select the zone you want to modify (i chose &quot;internal&quot;).
 - Go to the &quot;Interfaces&quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
