@@ -40,6 +40,11 @@ Homestead.yml
 
   192.168.10.10  interpos.app
 
+Si tenemos código existente en la carpeta de proyectos:
+
+.. code::
+
+  php artisan config:clear
 
 Soporte nfs
 ***********
@@ -55,9 +60,20 @@ Soporte nfs
   sudo firewall-cmd --permanent --add-service=mountd
   sudo firewall-cmd --reload
 
-Si los comandos anteriores no funcionan y despues de ``vagrant up``, se queda bloqueado en ``==> homestead-7: Mounting NFS shared folders...`` la siguiente solución la encontré en este enlace_.
+Debido a que desde la version 2.1.1 de ``nfs-utils`` esta deshabilitado el soporte a UDP por defecto, ``vagrant up``, se queda bloqueado en ``==> homestead-7: Mounting NFS shared folders...``, solo hay que editar ``/etc/sysconfig/nfs`` y añadir ``--udp`` a ``RPCNFSDARGS``, la anterios solución la encontré en este enlace_.
+
+.. code::
+
+  RPCNFSDARGS="--udp"
   
-.. _enlace: https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2
+.. _enlace: https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/
+
+Firewall con GUI
+****************
+
+Tomado de aqui_.
+
+.. _aqui: https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2
 
 ::
 
@@ -68,4 +84,3 @@ Si los comandos anteriores no funcionan y despues de ``vagrant up``, se queda bl
   - Go to the "Services" tab, check "mountd", "nfs" and "rpc-bind"
   - Go to the global "Services" tab (next to "Zones"), select NFS and add Port 2049 UDP (only TCP is predefined).
   - Finally choose "Options/Reload Firewalld".
-

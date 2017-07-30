@@ -16,8 +16,6 @@
     <link rel="icon" href="/theme/favicon.ico" type="image/x-icon">
 
     <!-- newsfeeds -->
-        <link href="http://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Full Atom Feed" />
-        <link href="http://nbicalcarata.github.io/feeds/linux.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -59,7 +57,7 @@
 
         <div class="date">
             <p>Escrito el sábado, 29 de julio del 2017
-            por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
+            por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p>
         </div>
 
     <div class="clearboth"><div class="section" id="homestead-en-fedora-26">
@@ -84,8 +82,15 @@ sites:
     - map: interpos.app
       to: /home/vagrant/sitios/interpos/public
 </pre></div>
+</div>
+<div class="section" id="etc-hosts">
+<h3>/etc/hosts</h3>
 <pre class="code literal-block">
 192.168.10.10  interpos.app
+</pre>
+<p>Si tenemos código existente en la carpeta de proyectos:</p>
+<pre class="code literal-block">
+php artisan config:clear
 </pre>
 </div>
 <div class="section" id="soporte-nfs">
@@ -99,7 +104,14 @@ sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
 sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
 sudo firewall-cmd --reload
 </pre></div>
-<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solución la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
+<p>Debido a que desde la version 2.1.1 de <tt class="docutils literal"><span class="pre">nfs-utils</span></tt> esta deshabilitado el soporte a UDP por defecto, <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt>, solo hay que editar <tt class="docutils literal">/etc/sysconfig/nfs</tt> y añadir <tt class="docutils literal"><span class="pre">--udp</span></tt> a <tt class="docutils literal">RPCNFSDARGS</tt>, la anterios solución la encontré en este <a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/">enlace</a>.</p>
+<pre class="code literal-block">
+RPCNFSDARGS=&quot;--udp&quot;
+</pre>
+</div>
+<div class="section" id="firewall-con-gui">
+<h3>Firewall con GUI</h3>
+<p>Tomado de <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">aqui</a>.</p>
 <pre class="literal-block">
 Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:
 - Choose &quot;Configuration: Permanent&quot; from the drop down menu
@@ -115,7 +127,7 @@ Example for easily configuring firewalld using the &quot;firewall-config&quot; G
 
         <div class="tags">
             <p>Esta entrada fue etiquetada en  
-                <a href="http://nbicalcarata.github.io/tag/fedora.html">#fedora</a>,                 <a href="http://nbicalcarata.github.io/tag/homestead.html">#homestead</a> y                 <a href="http://nbicalcarata.github.io/tag/laravel.html">#laravel</a></p>
+                <a href="/tag/fedora.html">#fedora</a>,                 <a href="/tag/homestead.html">#homestead</a> y                 <a href="/tag/laravel.html">#laravel</a></p>
         </div>
 
 
@@ -130,47 +142,41 @@ Example for easily configuring firewalld using the &quot;firewall-config&quot; G
 <div class="section-container">
    <h3>Categorias</h3>
    <ul>
-        <li><a href="http://nbicalcarata.github.io/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
    </ul>
 </div>
 
 <div class="section-container">
    <h3>Etiquetas</h3>
-   <ul class="tagcloud">      <li><a href="http://nbicalcarata.github.io/tag/bdd.html">bdd</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/behat.html">behat</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/cheatsheet.html">cheatsheet</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/clojure.html">clojure</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/crunchbang.html">crunchbang</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/fedora.html">fedora</a> (4)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/gvim.html">gvim</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/homestead.html">homestead</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/html.html">html</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/laravel.html">laravel</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/mink.html">mink</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/neovim.html">neovim</a> (3)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/opensuse.html">opensuse</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/quake-live.html">quake live</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/ubuntu.html">ubuntu</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/vim.html">vim</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/wine.html">wine</a> (1)</li>
+   <ul class="tagcloud">      <li><a href="/tag/bdd.html">bdd</a> (1)</li>
+      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/cheatsheet.html">cheatsheet</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (4)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/homestead.html">homestead</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/mink.html">mink</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (3)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
    </ul>
 </div>
 
-<div class="section-container">
-   <h3>Feeds</h3>
-   <ul>
-      <li><a href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="alternate">atom feed <i class="fa fa-rss fa-fw"></i></a></li>
-   </ul>
-</div>
 
 
           <div class="section-container" id="copyright">
