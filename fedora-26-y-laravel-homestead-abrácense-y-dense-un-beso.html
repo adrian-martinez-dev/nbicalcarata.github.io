@@ -90,6 +90,10 @@ sites:
 <pre class="code literal-block">
 192.168.10.10  interpos.app
 </pre>
+<p>Si tenemos código existente en la carpeta de proyectos:</p>
+<pre class="code literal-block">
+php artisan config:clear
+</pre>
 </div>
 <div class="section" id="soporte-nfs">
 <h3>Soporte nfs</h3>
@@ -102,7 +106,14 @@ sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
 sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
 sudo firewall-cmd --reload
 </pre></div>
-<p>Si los comandos anteriores no funcionan y despues de <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt> la siguiente solución la encontré en este <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">enlace</a>.</p>
+<p>Debido a que desde la version 2.1.1 de <tt class="docutils literal"><span class="pre">nfs-utils</span></tt> esta deshabilitado el soporte a UDP por defecto, <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt>, solo hay que editar <tt class="docutils literal">/etc/sysconfig/nfs</tt> y añadir <tt class="docutils literal"><span class="pre">--udp</span></tt> a <tt class="docutils literal">RPCNFSDARGS</tt>, la anterios solución la encontré en este <a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/">enlace</a>.</p>
+<pre class="code literal-block">
+RPCNFSDARGS=&quot;--udp&quot;
+</pre>
+</div>
+<div class="section" id="firewall-con-gui">
+<h3>Firewall con GUI</h3>
+<p>Tomado de <a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">aqui</a>.</p>
 <pre class="literal-block">
 Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:
 - Choose &quot;Configuration: Permanent&quot; from the drop down menu
