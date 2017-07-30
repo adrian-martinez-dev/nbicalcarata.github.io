@@ -63,9 +63,13 @@ sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;r
 sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;mountd
 sudo firewall-cmd --reload
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Debido a que desde la version 2.1.1 de &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nfs-utils&lt;/span&gt;&lt;/tt&gt; esta deshabilitado el soporte a UDP por defecto, &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt;, solo hay que editar &lt;tt class="docutils literal"&gt;/etc/sysconfig/nfs&lt;/tt&gt; y añadir &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--udp&lt;/span&gt;&lt;/tt&gt; a &lt;tt class="docutils literal"&gt;RPCNFSDARGS&lt;/tt&gt;, la anterios solución la encontré en este &lt;a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Desde la versión 2.1.1 de &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nfs-utils&lt;/span&gt;&lt;/tt&gt; está deshabilitado el soporte a UDP por defecto, por lo que &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt;, solo hay que editar &lt;tt class="docutils literal"&gt;/etc/sysconfig/nfs&lt;/tt&gt; y añadir &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--udp&lt;/span&gt;&lt;/tt&gt; a &lt;tt class="docutils literal"&gt;RPCNFSDARGS&lt;/tt&gt;, la anterior solución la encontré en este &lt;a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;
 RPCNFSDARGS=&amp;quot;--udp&amp;quot;
+&lt;/pre&gt;
+&lt;p&gt;Virtualbox 5.1.24 &lt;a class="reference external" href="https://www.virtualbox.org/ticket/16911"&gt;bug&lt;/a&gt; workaround.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+sudo ip link set vboxnet0 up
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class="section" id="firewall-con-gui"&gt;
@@ -329,9 +333,9 @@ make
 sudo make install
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-</content><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Bloq mayus como Control y Escape con caps2esc</title><link href="http://nbicalcarata.github.io/bloq-mayus-como-control-y-escape-con-caps2esc.html" rel="alternate"></link><published>2017-07-28T18:08:07-05:00</published><updated>2017-07-28T18:08:07-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/bloq-mayus-como-control-y-escape-con-caps2esc.html</id><summary type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
-Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer …&lt;/p&gt;</summary><content type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
-Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actua como control cuando se presiona en combinación con alguna otra tecla.&lt;/p&gt;
+</content><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Bloq mayus como Control y Escape con caps2esc</title><link href="http://nbicalcarata.github.io/bloq-mayus-como-control-y-escape-con-caps2esc.html" rel="alternate"></link><published>2017-07-28T18:08:07-05:00</published><updated>2017-07-28T18:08:07-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/bloq-mayus-como-control-y-escape-con-caps2esc.html</id><summary type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonómica, ya que la posición de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer …&lt;/p&gt;</summary><content type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonómica, ya que la posición de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actúa como control cuando se presiona en combinación con alguna otra tecla.&lt;/p&gt;
 &lt;div class="section" id="instalacion-de-caps2esc-en-fedora-26"&gt;
 &lt;h2&gt;Instalación de caps2esc en Fedora 26&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install systemd-devel libevdev-devel
@@ -538,13 +542,12 @@ gksu nautilus /usr/share/icons
 &lt;li&gt;Guardamos y con &lt;em&gt;unity tweak tool&lt;/em&gt; escogemos nuestro tema personalizado.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;img alt="" class="align-center" src="/images/captura92630.jpg" /&gt;
-</content><category term="ubuntu"></category></entry><entry><title>Ajustes de post instalación de Fedora</title><link href="http://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html">&lt;p&gt;Fedora es mi distro favorita, y esta es mi guía personal sobre los ajustes que hago despues de una instalación desde cero.
-Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes caracteristicas:&lt;/p&gt;
+</content><category term="ubuntu"></category></entry><entry><title>Ajustes de post instalación de Fedora</title><link href="http://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
+Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes características:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 Distribution: Fedora release &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Heisenbug&lt;span class="o"&gt;)&lt;/span&gt;
-Kernel: Linux &lt;span class="m"&gt;3&lt;/span&gt;.13.5-200.fc20.x86_64 x86_64
-RAM …&lt;/pre&gt;</summary><content type="html">&lt;p&gt;Fedora es mi distro favorita, y esta es mi guía personal sobre los ajustes que hago despues de una instalación desde cero.
-Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes caracteristicas:&lt;/p&gt;
+Kernel: Linux &lt;span class="m"&gt;3&lt;/span&gt;.13.5-200.fc20.x86_64 x86_64 …&lt;/pre&gt;</summary><content type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
+Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes características:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 Distribution: Fedora release &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Heisenbug&lt;span class="o"&gt;)&lt;/span&gt;
 Kernel: Linux &lt;span class="m"&gt;3&lt;/span&gt;.13.5-200.fc20.x86_64 x86_64
@@ -591,20 +594,20 @@ dracut /boot/initramfs-&lt;span class="k"&gt;$(&lt;/span&gt;uname -r&lt;span cla
 &lt;/div&gt;
 &lt;div class="section" id="powertop"&gt;
 &lt;h3&gt;Powertop&lt;/h3&gt;
-&lt;p&gt;Powertop es una utilidad que sirve para gestionar las opciones de ahorro de energia que tiene disponible nuestro hardware, nos muestra una lista de los dispositivos y la cantidad de energia que estan utilizando, y tambien nos permite saber si estas opciones estan activas.
-Ejecutamos &lt;tt class="docutils literal"&gt;powertop&lt;/tt&gt; con permisos de superusuario y al desplazarnos con tab en &lt;tt class="docutils literal"&gt;Tunables&lt;/tt&gt; aparecen los dispositivos con su respectiva opcion de ahorro de energia, &lt;tt class="docutils literal"&gt;good&lt;/tt&gt; para activada, &lt;tt class="docutils literal"&gt;bad&lt;/tt&gt; para desactivada.&lt;/p&gt;
+&lt;p&gt;Powertop es una utilidad que sirve para gestionar las opciones de ahorro de energía que tiene disponible nuestro hardware, nos muestra una lista de los dispositivos y la cantidad de energía que están utilizando, y también nos permite saber si estas opciones están activas.
+Ejecutamos &lt;tt class="docutils literal"&gt;powertop&lt;/tt&gt; con permisos de superusuario y al desplazarnos con tab en &lt;tt class="docutils literal"&gt;Tunables&lt;/tt&gt; aparecen los dispositivos con su respectiva opción de ahorro de energía, &lt;tt class="docutils literal"&gt;good&lt;/tt&gt; para activada, &lt;tt class="docutils literal"&gt;bad&lt;/tt&gt; para desactivada.&lt;/p&gt;
 &lt;p&gt;Existen varias maneras de que aparezcan en &lt;tt class="docutils literal"&gt;good&lt;/tt&gt;, la forma mas sencilla, que fue implementada en la versión 2.5 es con la opción &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-html&lt;/span&gt;&lt;/tt&gt;, con la cual nos genera un archivo html donde nos muestra los comandos a utilizar para hacer los cambios permanentes.&lt;/p&gt;
 &lt;p&gt;Ejecutamos:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 sudo su
 powertop -html
 &lt;/pre&gt;
-&lt;p&gt;Esto nos genera un archivo llamado &lt;tt class="docutils literal"&gt;tml.html&lt;/tt&gt; en nuestra carpeta &lt;tt class="docutils literal"&gt;home&lt;/tt&gt;, al abrirlo en la opción &lt;tt class="docutils literal"&gt;Tuning&lt;/tt&gt; nos muestra los scripts a ejecutar al inicio para activar las gestiones de energia de los dispositivos que lo necesiten.&lt;/p&gt;
+&lt;p&gt;Esto nos genera un archivo llamado &lt;tt class="docutils literal"&gt;tml.html&lt;/tt&gt; en nuestra carpeta &lt;tt class="docutils literal"&gt;home&lt;/tt&gt;, al abrirlo en la opción &lt;tt class="docutils literal"&gt;Tuning&lt;/tt&gt; nos muestra los scripts a ejecutar al inicio para activar las gestiones de energía de los dispositivos que lo necesiten.&lt;/p&gt;
 &lt;p&gt;Creamos el script:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 gedit /usr/local/bin/startup.sh
 &lt;/pre&gt;
-&lt;p&gt;Y pegamos los comandos, en mi caso deje desactivada el ahorro de energia para el raton y el teclado, porque es incomodo hacer click para despertarlo.&lt;/p&gt;
+&lt;p&gt;Y pegamos los comandos, en mi caso deje desactivada el ahorro de energía para el ratón y el teclado, porque es incomodo hacer click para despertarlo.&lt;/p&gt;
 &lt;p&gt;[gist:id=9734529 ]&lt;/p&gt;
 &lt;p&gt;Lo hacemos ejecutable y lo arrancamos&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
