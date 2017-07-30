@@ -104,9 +104,13 @@ sudo firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
 sudo firewall-cmd --permanent --add-service<span class="o">=</span>mountd
 sudo firewall-cmd --reload
 </pre></div>
-<p>Debido a que desde la version 2.1.1 de <tt class="docutils literal"><span class="pre">nfs-utils</span></tt> esta deshabilitado el soporte a UDP por defecto, <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt>, solo hay que editar <tt class="docutils literal">/etc/sysconfig/nfs</tt> y añadir <tt class="docutils literal"><span class="pre">--udp</span></tt> a <tt class="docutils literal">RPCNFSDARGS</tt>, la anterios solución la encontré en este <a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/">enlace</a>.</p>
+<p>Desde la versión 2.1.1 de <tt class="docutils literal"><span class="pre">nfs-utils</span></tt> está deshabilitado el soporte a UDP por defecto, por lo que <tt class="docutils literal">vagrant up</tt>, se queda bloqueado en <tt class="docutils literal">==&gt; <span class="pre">homestead-7:</span> Mounting NFS shared <span class="pre">folders...</span></tt>, solo hay que editar <tt class="docutils literal">/etc/sysconfig/nfs</tt> y añadir <tt class="docutils literal"><span class="pre">--udp</span></tt> a <tt class="docutils literal">RPCNFSDARGS</tt>, la anterior solución la encontré en este <a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/">enlace</a>.</p>
 <pre class="code literal-block">
 RPCNFSDARGS=&quot;--udp&quot;
+</pre>
+<p>Virtualbox 5.1.24 <a class="reference external" href="https://www.virtualbox.org/ticket/16911">bug</a> workaround.</p>
+<pre class="code literal-block">
+sudo ip link set vboxnet0 up
 </pre>
 </div>
 <div class="section" id="firewall-con-gui">

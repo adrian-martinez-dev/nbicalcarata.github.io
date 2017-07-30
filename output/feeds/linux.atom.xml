@@ -47,6 +47,10 @@ sites:
 &lt;pre class="code literal-block"&gt;
 192.168.10.10  interpos.app
 &lt;/pre&gt;
+&lt;p&gt;Si tenemos código existente en la carpeta de proyectos:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+php artisan config:clear
+&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class="section" id="soporte-nfs"&gt;
 &lt;h3&gt;Soporte nfs&lt;/h3&gt;
@@ -59,7 +63,14 @@ sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;r
 sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;mountd
 sudo firewall-cmd --reload
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Si los comandos anteriores no funcionan y despues de &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt; la siguiente solución la encontré en este &lt;a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Debido a que desde la version 2.1.1 de &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nfs-utils&lt;/span&gt;&lt;/tt&gt; esta deshabilitado el soporte a UDP por defecto, &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt;, solo hay que editar &lt;tt class="docutils literal"&gt;/etc/sysconfig/nfs&lt;/tt&gt; y añadir &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--udp&lt;/span&gt;&lt;/tt&gt; a &lt;tt class="docutils literal"&gt;RPCNFSDARGS&lt;/tt&gt;, la anterios solución la encontré en este &lt;a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+RPCNFSDARGS=&amp;quot;--udp&amp;quot;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="firewall-con-gui"&gt;
+&lt;h3&gt;Firewall con GUI&lt;/h3&gt;
+&lt;p&gt;Tomado de &lt;a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 Example for easily configuring firewalld using the &amp;quot;firewall-config&amp;quot; GUI:
 - Choose &amp;quot;Configuration: Permanent&amp;quot; from the drop down menu
