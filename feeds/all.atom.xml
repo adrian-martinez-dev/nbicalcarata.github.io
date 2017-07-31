@@ -41,7 +41,7 @@ sites:
     - map: interpos.app
       to: /home/vagrant/sitios/interpos/public
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Siempre que se modifique ``homestead.yml`` hay que hacer ``vagrant --reload provision`` para que se vean reflejados los cambios&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Siempre que se modifique &lt;tt class="docutils literal"&gt;homestead.yml&lt;/tt&gt; hay que hacer &lt;tt class="docutils literal"&gt;vagrant &lt;span class="pre"&gt;--reload&lt;/span&gt; provision&lt;/tt&gt; para que se vean reflejados los cambios&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="etc-hosts"&gt;
 &lt;h3&gt;/etc/hosts&lt;/h3&gt;
