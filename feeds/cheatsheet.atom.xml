@@ -224,4 +224,4 @@ Zend\Http\Client\Adapter\Proxy
  host http://localhost:4444/wd/hub
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-</content><category term="mink"></category><category term="behat"></category><category term="bdd"></category></entry></feed>
+</content><category term="mink"></category><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry></feed>

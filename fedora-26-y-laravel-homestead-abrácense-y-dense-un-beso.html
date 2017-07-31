@@ -64,8 +64,8 @@
 
     <div class="clearboth"><div class="section" id="homestead-en-fedora-26">
 <h2>Homestead en Fedora 26</h2>
-<div class="section" id="instrucciones">
-<h3>Instrucciones</h3>
+<div class="section" id="instalacion">
+<h3>Instalación</h3>
 <div class="highlight"><pre><span></span>vagrant box add laravel/homestead
 git clone https://github.com/laravel/homestead.git Homestead
 <span class="nb">cd</span> Homestead
@@ -84,6 +84,7 @@ sites:
     - map: interpos.app
       to: /home/vagrant/sitios/interpos/public
 </pre></div>
+<p><strong>Siempre que se modifique ``homestead.yml`` hay que hacer ``vagrant --reload provision`` para que se vean reflejados los cambios</strong></p>
 </div>
 <div class="section" id="etc-hosts">
 <h3>/etc/hosts</h3>
@@ -96,7 +97,7 @@ php artisan config:clear
 </pre>
 </div>
 <div class="section" id="soporte-nfs">
-<h3>Soporte nfs</h3>
+<h3>Soporte NFS</h3>
 <div class="highlight"><pre><span></span>vagrant plugin install vagrant-bindfs
 sudo dnf install nfs-utils nfs-kernel-server firewall-config
 sudo systemctl <span class="nb">enable</span> nfs-server
@@ -174,6 +175,7 @@ Example for easily configuring firewalld using the &quot;firewall-config&quot; G
       <li><a href="http://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
       <li><a href="http://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
       <li><a href="http://nbicalcarata.github.io/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="http://nbicalcarata.github.io/tag/selenium.html">selenium</a> (1)</li>
       <li><a href="http://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
       <li><a href="http://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
       <li><a href="http://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
