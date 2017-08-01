@@ -27,7 +27,7 @@ sudo systemctl restart sshd
 &lt;/pre&gt;
 &lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;
-ssh -R 4444:localhost:4444 adrian&amp;#64;&amp;lt;ip-servidor&amp;gt;
+ssh -R 4444:localhost:4444 usuario&amp;#64;&amp;lt;ip-servidor&amp;gt;
 &lt;/pre&gt;
 &lt;p&gt;En la segunda ejecutamos Selenium con Chromedriver (Descargados en home):&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;
@@ -47,7 +47,7 @@ base_url: http://&amp;lt;ip_servidor&amp;gt;:&amp;lt;puerto&amp;gt;
 &lt;/div&gt;
 &lt;div class="section" id="vagrant-y-homestead"&gt;
 &lt;h2&gt;Vagrant y homestead&lt;/h2&gt;
-&lt;p&gt;Hacemos el ssh tunneling, pero sobre la dirección ip de homestead.&lt;/p&gt;
+&lt;p&gt;Hacemos el ssh tunneling, pero sobre la dirección IP de homestead.&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;
 ssh -R 4444:localhost:4444 vagrant&amp;#64;192.168.10.10
 &lt;/pre&gt;
