@@ -224,4 +224,99 @@ Zend\Http\Client\Adapter\Proxy
  host http://localhost:4444/wd/hub
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-</content><category term="mink"></category><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry></feed>
+</content><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry><entry><title>Hoja trampa de Tmux y Tmuxinator</title><link href="http://nbicalcarata.github.io/hoja-trampa-de-tmux-y-tmuxinator.html" rel="alternate"></link><published>2014-08-01T16:16:43+05:00</published><updated>2014-08-01T16:16:43+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-08-01:/hoja-trampa-de-tmux-y-tmuxinator.html</id><summary type="html">&lt;p&gt;Aqui esta una lista de los atajos de teclado de &lt;em&gt;tmux&lt;/em&gt; y comandos de &lt;em&gt;tmuxinator&lt;/em&gt;, varios de ellos son personalizados, anexo los gists con mis configuraciones.&lt;/p&gt;
+&lt;div class="section" id="tmux"&gt;
+&lt;h2&gt;Tmux&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+tmux -2                 Inicia con soporte para &lt;span class="m"&gt;256&lt;/span&gt; colores
+ctrl+a, c               Nueva pestaña
+ctrl+a, &lt;span class="c1"&gt;#               Ir a la pestaña #
+&lt;/span&gt;ctrl+a, s               Split …&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Aqui esta una lista de los atajos de teclado de &lt;em&gt;tmux&lt;/em&gt; y comandos de &lt;em&gt;tmuxinator&lt;/em&gt;, varios de ellos son personalizados, anexo los gists con mis configuraciones.&lt;/p&gt;
+&lt;div class="section" id="tmux"&gt;
+&lt;h2&gt;Tmux&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+tmux -2                 Inicia con soporte para &lt;span class="m"&gt;256&lt;/span&gt; colores
+ctrl+a, c               Nueva pestaña
+ctrl+a, &lt;span class="c1"&gt;#               Ir a la pestaña #
+&lt;/span&gt;ctrl+a, s               Split horizontal
+ctrl+a, v               Split vertical
+ctrl+a, o               Moverse entre splits
+ctrl+a, x               Cerrar split o panel
+ctrl+a, !               Cerrar todos excepto el actual
+ctrl+a+flecha arriba    Redimensionar hacia arriba panel actual
+ctrl+a+flecha abajo     Redimendionar hacia abajo panel actual
+ctrl+a, &lt;span class="o"&gt;[&lt;/span&gt;               Habilitar scroll &lt;span class="o"&gt;(&lt;/span&gt;vim&lt;span class="o"&gt;)&lt;/span&gt;
+q                       Salir del scroll mode
+&lt;/pre&gt;
+&lt;div class="section" id="tmux-conf"&gt;
+&lt;h3&gt;tmux.conf&lt;/h3&gt;
+&lt;div class="gist"&gt;
+    &lt;script src='https://gist.github.com/a8b972922a184560a02c.js'&gt;&lt;/script&gt;
+    &lt;noscript&gt;
+        &lt;pre&gt;&lt;code&gt;#Source snapshot
+source ~/dotfiles/snapshot_tmuxline
+
+# Use C-a instead of C-b as the prefix
+set -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+
+#set 256 colors
+set -g default-terminal "screen-256color"
+
+# set default shell
+set -g default-command "exec /bin/bash"
+
+set -g display-time 2000
+
+# set vi style key binding
+set -g status-keys vi
+setw -g mode-keys vi
+
+# be more responsive, changing the default delay
+set -sg escape-time 1
+
+# set scrollback
+set -g history-limit 10000
+
+# Start numbering at 1
+set-option -g base-index 1
+set-window-option -g pane-base-index 1
+
+# force a reload of the config file
+unbind r
+bind r source-file ~/.tmux.conf  \; display "Reloaded!"
+
+# automatic window renaming
+set-window-option -g automatic-rename on
+
+# aggresive resize
+setw -g aggressive-resize on
+
+# Saner splitting.
+bind v split-window -h
+bind s split-window -v
+bind S choose-session
+
+# Activity
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Log output to a text file on demand
+bind P pipe-pane -o "cat &gt;&gt;~/#W.log" \; display "Toggled logging to ~/#W.log"&lt;/code&gt;&lt;/pre&gt;
+    &lt;/noscript&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="tmuxinator"&gt;
+&lt;h2&gt;Tmuxinator&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+mux new &amp;lt;nombre_del_proyecto&amp;gt;           Crea un proyecto nuevo
+mux start &amp;lt;nombre_del_proyecto&amp;gt;         Arranca el proyecto
+mux list                                Muestra una lista de los proyectos existentes
+mux delete &amp;lt;nombre_del_proyecto&amp;gt;        Borra el proyecto
+mux doctor                              Examina problemas con la configuración
+mux &lt;span class="nb"&gt;help&lt;/span&gt;                                Muestra la ayuda
+&lt;/pre&gt;
+&lt;/div&gt;
+</content><category term="tmux"></category><category term="tmuxinator"></category></entry></feed>

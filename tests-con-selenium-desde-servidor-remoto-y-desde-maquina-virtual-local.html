@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Entradas con etiqueta "bdd" - Ziggurat Vertigo</title>
+    <title>Tests con Selenium desde servidor remoto y desde maquina virtual local - Ziggurat Vertigo</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -17,6 +17,7 @@
 
     <!-- newsfeeds -->
         <link href="http://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Full Atom Feed" />
+        <link href="http://nbicalcarata.github.io/feeds/bdd.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -54,16 +55,91 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Entradas con etiqueta “#bdd”</h1>        <article class="entry-overview">
-            <div class="detail">
-                <header><h3>
-                    <a href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="bookmark" title="Permalink to Behat, hoja trampa">
-                        Behat, hoja trampa
-                    </a>
-                </h3></header>
-                <div class="summary">Command line (behat) --init Create the features directory --config=archivo.yml Use config file --format=html -out=report.html Html report --expand Display details --story-syntax --lang=es Language --tags='@group1.@group2' Return tests on groups Feature Feature: Descriptive text of what is desired In order to realize a named business …</div>
-            </div>
-        </article>
+    <h1 class="title">Tests con Selenium desde servidor remoto y desde maquina virtual local</h1>
+
+        <div class="date">
+            <p>Escrito el lunes, 31 de julio del 2017
+            por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
+        </div>
+
+    <div class="clearboth"><div class="section" id="servidor-de-desarrollo">
+<h2>Servidor de desarrollo</h2>
+<p>Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:</p>
+<div class="section" id="etc-ssh-ssh-config">
+<h3>/etc/ssh/ssh_config</h3>
+<p>Modificamos la linea siguiente:</p>
+<pre class="code literal-block">
+GatewayPorts yes
+</pre>
+<p>Reiniciamos el servicio ssh:</p>
+<pre class="code literal-block">
+sudo systemctl restart sshd
+</pre>
+<p>Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling:</p>
+<pre class="code literal-block">
+ssh -R 4444:localhost:4444 adrian&#64;&lt;ip-servidor&gt;
+</pre>
+<p>En la segunda ejecutamos Selenium con Chromedriver (Descargados en home):</p>
+<pre class="code literal-block">
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+</pre>
+<p>En nuestro <tt class="docutils literal">behat.yml</tt>, <tt class="docutils literal">base_url</tt> debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con <tt class="docutils literal">php artisan serve</tt>:</p>
+<pre class="code literal-block">
+php artisan serve --host=&lt;ip_servidor&gt; --port=&lt;puerto&gt;
+</pre>
+</div>
+<div class="section" id="behat-yml">
+<h3>behat.yml</h3>
+<pre class="code literal-block">
+base_url: http://&lt;ip_servidor&gt;:&lt;puerto&gt;
+</pre>
+</div>
+</div>
+<div class="section" id="vagrant-y-homestead">
+<h2>Vagrant y homestead</h2>
+<p>Hacemos el ssh tunneling, pero sobre la dirección ip de homestead.</p>
+<pre class="code literal-block">
+ssh -R 4444:localhost:4444 vagrant&#64;192.168.10.10
+</pre>
+<p>En una terminal ejecutamos <tt class="docutils literal">selenium</tt> y <tt class="docutils literal">chromedriver</tt> como se indicó anteriormente:</p>
+<pre class="code literal-block">
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+</pre>
+<p>En <tt class="docutils literal">behat.yml</tt>, <tt class="docutils literal">base_url</tt> va indicada la url de nuestra aplicación, y en la sección de <tt class="docutils literal">selenium</tt>, <tt class="docutils literal">localhost:4000/wd/hub</tt> como si se ejecutara en la maquina virtual.</p>
+<div class="section" id="id1">
+<h3>behat.yml</h3>
+<div class="highlight"><pre><span></span>default:
+    translation:
+        locale: en
+    extensions:
+        Laracasts\Behat: ~
+            # env_path: .env.behat
+        Behat\MinkExtension:
+            base_url: &#39;http://interpos.app&#39;
+            default_session: laravel
+            laravel: ~
+            selenium2:
+              wd_host: http://localhost:4444/wd/hub
+              browser: chrome
+</pre></div>
+<p>En mi caso, usando el plugin <a class="reference external" href="https://github.com/janko-m/vim-test">vim-test</a>, <tt class="docutils literal">vagrant ssh</tt> no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:</p>
+<div class="highlight"><pre><span></span><span class="k">function</span><span class="p">!</span> VagrantTransform<span class="p">(</span>cmd<span class="p">)</span> abort
+  <span class="k">let</span> <span class="k">l</span>:vagrant_project <span class="p">=</span> fnamemodify<span class="p">(</span>getcwd<span class="p">(),</span><span class="s2">&quot;:t&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s2">&quot;cd ~/Homestead &amp;&amp; ssh -tt vagrant@192.168.10.10 &quot;</span>.shellescape<span class="p">(</span><span class="s1">&#39;cd /home/vagrant/sitios/&#39;</span>.vagrant_project.<span class="s1">&#39;; &#39;</span>.<span class="k">a</span>:cmd<span class="p">)</span>
+<span class="k">endfunction</span>
+
+<span class="k">let</span> <span class="k">g</span>:test#custom_transformations <span class="p">=</span> {<span class="s1">&#39;vagrant&#39;</span>: <span class="k">function</span><span class="p">(</span><span class="s1">&#39;VagrantTransform&#39;</span><span class="p">)</span>}
+<span class="k">let</span> <span class="k">g</span>:test#transformation <span class="p">=</span> <span class="s1">&#39;vagrant&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="http://nbicalcarata.github.io/tag/behat.html">#behat</a>,                 <a href="http://nbicalcarata.github.io/tag/neovim.html">#neovim</a> y                 <a href="http://nbicalcarata.github.io/tag/selenium.html">#selenium</a></p>
+        </div>
+
 
           </section>
        </div>

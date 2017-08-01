@@ -1,5 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-29T13:02:41-05:00</updated><entry><title>Fedora 26 y Laravel Homestead, abrácense y dense un beso</title><link href="http://nbicalcarata.github.io/fedora-26-y-laravel-homestead-abr%C3%A1cense-y-dense-un-beso.html" rel="alternate"></link><published>2017-07-29T13:02:41-05:00</published><updated>2017-07-29T13:02:41-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/fedora-26-y-laravel-homestead-abrácense-y-dense-un-beso.html</id><summary type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-31T18:30:42-05:00</updated><entry><title>Tests con Selenium desde servidor remoto y desde maquina virtual local</title><link href="http://nbicalcarata.github.io/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html" rel="alternate"></link><published>2017-07-31T18:30:42-05:00</published><updated>2017-07-31T18:30:42-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-31:/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html</id><summary type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
+&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
+&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
+&lt;div class="section" id="etc-ssh-ssh-config"&gt;
+&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
+&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+GatewayPorts yes
+&lt;/pre&gt;
+&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+sudo systemctl restart sshd
+&lt;/pre&gt;
+&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh …&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
+&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
+&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
+&lt;div class="section" id="etc-ssh-ssh-config"&gt;
+&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
+&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+GatewayPorts yes
+&lt;/pre&gt;
+&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+sudo systemctl restart sshd
+&lt;/pre&gt;
+&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+ssh -R 4444:localhost:4444 adrian&amp;#64;&amp;lt;ip-servidor&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;En la segunda ejecutamos Selenium con Chromedriver (Descargados en home):&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+&lt;/pre&gt;
+&lt;p&gt;En nuestro &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con &lt;tt class="docutils literal"&gt;php artisan serve&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+php artisan serve --host=&amp;lt;ip_servidor&amp;gt; --port=&amp;lt;puerto&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="behat-yml"&gt;
+&lt;h3&gt;behat.yml&lt;/h3&gt;
+&lt;pre class="code literal-block"&gt;
+base_url: http://&amp;lt;ip_servidor&amp;gt;:&amp;lt;puerto&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="vagrant-y-homestead"&gt;
+&lt;h2&gt;Vagrant y homestead&lt;/h2&gt;
+&lt;p&gt;Hacemos el ssh tunneling, pero sobre la dirección ip de homestead.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+ssh -R 4444:localhost:4444 vagrant&amp;#64;192.168.10.10
+&lt;/pre&gt;
+&lt;p&gt;En una terminal ejecutamos &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt; y &lt;tt class="docutils literal"&gt;chromedriver&lt;/tt&gt; como se indicó anteriormente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+&lt;/pre&gt;
+&lt;p&gt;En &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; va indicada la url de nuestra aplicación, y en la sección de &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;localhost:4000/wd/hub&lt;/tt&gt; como si se ejecutara en la maquina virtual.&lt;/p&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h3&gt;behat.yml&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;default:
+    translation:
+        locale: en
+    extensions:
+        Laracasts\Behat: ~
+            # env_path: .env.behat
+        Behat\MinkExtension:
+            base_url: &amp;#39;http://interpos.app&amp;#39;
+            default_session: laravel
+            laravel: ~
+            selenium2:
+              wd_host: http://localhost:4444/wd/hub
+              browser: chrome
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;En mi caso, usando el plugin &lt;a class="reference external" href="https://github.com/janko-m/vim-test"&gt;vim-test&lt;/a&gt;, &lt;tt class="docutils literal"&gt;vagrant ssh&lt;/tt&gt; no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; VagrantTransform&lt;span class="p"&gt;(&lt;/span&gt;cmd&lt;span class="p"&gt;)&lt;/span&gt; abort
+  &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;l&lt;/span&gt;:vagrant_project &lt;span class="p"&gt;=&lt;/span&gt; fnamemodify&lt;span class="p"&gt;(&lt;/span&gt;getcwd&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;cd ~/Homestead &amp;amp;&amp;amp; ssh -tt vagrant@192.168.10.10 &amp;quot;&lt;/span&gt;.shellescape&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd /home/vagrant/sitios/&amp;#39;&lt;/span&gt;.vagrant_project.&lt;span class="s1"&gt;&amp;#39;; &amp;#39;&lt;/span&gt;.&lt;span class="k"&gt;a&lt;/span&gt;:cmd&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;endfunction&lt;/span&gt;
+
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#custom_transformations &lt;span class="p"&gt;=&lt;/span&gt; {&lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;: &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;VagrantTransform&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;}
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#transformation &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="selenium"></category><category term="behat"></category><category term="neovim"></category></entry><entry><title>Fedora 26 y Laravel Homestead, abrácense y dense un beso</title><link href="http://nbicalcarata.github.io/fedora-26-y-laravel-homestead-abr%C3%A1cense-y-dense-un-beso.html" rel="alternate"></link><published>2017-07-29T13:02:41-05:00</published><updated>2017-07-29T13:02:41-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/fedora-26-y-laravel-homestead-abrácense-y-dense-un-beso.html</id><summary type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
 &lt;h2&gt;Homestead en Fedora 26&lt;/h2&gt;
 &lt;div class="section" id="instalacion"&gt;
 &lt;h3&gt;Instalación&lt;/h3&gt;
@@ -41,7 +125,7 @@ sites:
     - map: interpos.app
       to: /home/vagrant/sitios/interpos/public
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Siempre que se modifique &lt;tt class="docutils literal"&gt;homestead.yml&lt;/tt&gt; hay que hacer &lt;tt class="docutils literal"&gt;vagrant &lt;span class="pre"&gt;--reload&lt;/span&gt; provision&lt;/tt&gt; para que se vean reflejados los cambios&lt;/p&gt;
+&lt;p&gt;Siempre que se modifique &lt;tt class="docutils literal"&gt;homestead.yml&lt;/tt&gt; hay que hacer &lt;tt class="docutils literal"&gt;vagrant &lt;span class="pre"&gt;--reload&lt;/span&gt; provision&lt;/tt&gt; para que se vean reflejados los cambios.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="etc-hosts"&gt;
 &lt;h3&gt;/etc/hosts&lt;/h3&gt;
@@ -87,7 +171,7 @@ Example for easily configuring firewalld using the &amp;quot;firewall-config&amp
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="fedora"></category><category term="laravel"></category><category term="homestead"></category></entry><entry><title>Behat, hoja trampa</title><link href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="alternate"></link><published>2017-07-29T00:03:22-05:00</published><updated>2017-07-29T00:03:22-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/behat-hoja-trampa.html</id><summary type="html">&lt;div class="section" id="command-line-behat"&gt;
+</content><category term="laravel"></category><category term="homestead"></category><category term="vagrant"></category></entry><entry><title>Behat, hoja trampa</title><link href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="alternate"></link><published>2017-07-29T00:03:22-05:00</published><updated>2017-07-29T00:03:22-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/behat-hoja-trampa.html</id><summary type="html">&lt;div class="section" id="command-line-behat"&gt;
 &lt;h2&gt;Command line (behat)&lt;/h2&gt;
 &lt;pre class="code literal-block"&gt;
 --init                           Create the features directory
@@ -312,7 +396,7 @@ Zend\Http\Client\Adapter\Proxy
  host http://localhost:4444/wd/hub
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-</content><category term="mink"></category><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry><entry><title>Universal Ctags</title><link href="http://nbicalcarata.github.io/universal-ctags.html" rel="alternate"></link><published>2017-07-28T22:45:35-05:00</published><updated>2017-07-28T22:45:35-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/universal-ctags.html</id><summary type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
+</content><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry><entry><title>Universal Ctags</title><link href="http://nbicalcarata.github.io/universal-ctags.html" rel="alternate"></link><published>2017-07-28T22:45:35-05:00</published><updated>2017-07-28T22:45:35-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/universal-ctags.html</id><summary type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
 &lt;h2&gt;Instalación de Universal Ctags en Fedora 26&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install autoconf automake
 git clone https://github.com/universal-ctags/ctags
@@ -496,7 +580,7 @@ mux doctor                              Examina problemas con la configuración
 mux &lt;span class="nb"&gt;help&lt;/span&gt;                                Muestra la ayuda
 &lt;/pre&gt;
 &lt;/div&gt;
-</content><category term="tmux"></category><category term="tmuxinator"></category><category term="cheatsheet"></category></entry><entry><title>Eliminando los bordes de ventana de GVim</title><link href="http://nbicalcarata.github.io/eliminando-los-bordes-de-ventana-de-gvim.html" rel="alternate"></link><published>2014-06-14T19:42:16+05:00</published><updated>2014-06-14T19:42:16+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-14:/eliminando-los-bordes-de-ventana-de-gvim.html</id><summary type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
+</content><category term="tmux"></category><category term="tmuxinator"></category></entry><entry><title>Eliminando los bordes de ventana de GVim</title><link href="http://nbicalcarata.github.io/eliminando-los-bordes-de-ventana-de-gvim.html" rel="alternate"></link><published>2014-06-14T19:42:16+05:00</published><updated>2014-06-14T19:42:16+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-14:/eliminando-los-bordes-de-ventana-de-gvim.html</id><summary type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
 &lt;pre class="code bash literal-block"&gt;
 style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
 bg&lt;span class="o"&gt;[&lt;/span&gt;NORMAL&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#242424&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# this matches my gvim theme 'Normal' bg color.
@@ -543,7 +627,7 @@ gksu nautilus /usr/share/icons
 &lt;li&gt;Guardamos y con &lt;em&gt;unity tweak tool&lt;/em&gt; escogemos nuestro tema personalizado.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;img alt="" class="align-center" src="/images/captura92630.jpg" /&gt;
-</content><category term="ubuntu"></category></entry><entry><title>Ajustes de post instalación de Fedora</title><link href="http://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
+</content><category term="temas"></category></entry><entry><title>Ajustes de post instalación de Fedora</title><link href="http://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
 Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes características:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 Distribution: Fedora release &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Heisenbug&lt;span class="o"&gt;)&lt;/span&gt;
@@ -651,9 +735,9 @@ sudo yum install audacious audacious-libs audacious-plugins audacious-plugins-fr
 &lt;p&gt;Fedora es una gran distro, lo intente con opensuse y derivadas de debian, pero la verdad no me convencen tanto, solo espero que se resuelva pronto lo de Catalyst, aunque el driver libre funciona correctamente, lo ideal seria tener instalado el privativo para sacarle todo el jugo a la tarjeta gráfica.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="fedora"></category></entry><entry><title>Playonlinux sin audio en OpenSuse 13.1</title><link href="http://nbicalcarata.github.io/playonlinux-sin-audio-en-opensuse-131.html" rel="alternate"></link><published>2014-02-11T14:50:12-06:00</published><updated>2014-02-11T14:50:12-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-11:/playonlinux-sin-audio-en-opensuse-131.html</id><summary type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se ejecuta perfecto, solo que no tenia audio y al iniciar sesión no arranca si dejas seleccionada la opción &amp;quot;Remember me&amp;quot;.
-El audio lo solucioné instalando la libreria &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;alsa-plugins-pulse-32bit&lt;/span&gt;&lt;/tt&gt;, y con el detalle del login solo basta desmarcar la opción &amp;quot;Remember me&amp;quot;, asi que hay que teclear el nombre de usuario o correo y contraseña cada vez que arranquemos el juego. Happy fragging.&lt;/p&gt;
-</content><category term="playonlinux"></category><category term="wine"></category><category term="opensuse"></category><category term="quake live"></category></entry><entry><title>Configurando Vim</title><link href="http://nbicalcarata.github.io/configurando-vim.html" rel="alternate"></link><published>2014-02-10T03:00:48-06:00</published><updated>2014-02-10T03:00:48-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-10:/configurando-vim.html</id><summary type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.&lt;/p&gt;
+</content><category term="postinstall"></category></entry><entry><title>Playonlinux sin audio en OpenSuse 13.1</title><link href="http://nbicalcarata.github.io/playonlinux-sin-audio-en-opensuse-131.html" rel="alternate"></link><published>2014-02-11T14:50:12-06:00</published><updated>2014-02-11T14:50:12-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-11:/playonlinux-sin-audio-en-opensuse-131.html</id><summary type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se ejecuta perfecto, solo que no tenia audio y al iniciar sesión no arranca si dejas seleccionada la opción &amp;quot;Remember me&amp;quot;.
+El audio lo solucioné instalando la librería &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;alsa-plugins-pulse-32bit&lt;/span&gt;&lt;/tt&gt;, y con el detalle del login solo basta desmarcar la opción &amp;quot;Remember me&amp;quot;, así que hay que teclear el nombre de usuario o correo y contraseña cada vez que arranquemos el juego. Happy fragging.&lt;/p&gt;
+</content><category term="playonlinux"></category><category term="wine"></category><category term="quakelive"></category></entry><entry><title>Configurando Vim</title><link href="http://nbicalcarata.github.io/configurando-vim.html" rel="alternate"></link><published>2014-02-10T03:00:48-06:00</published><updated>2014-02-10T03:00:48-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-10:/configurando-vim.html</id><summary type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.&lt;/p&gt;
 &lt;p&gt;Para poder hacer esto hay que leerse los .vimrc de otras personas, esto es importante para saber que opciones se estan usando y por qué. El .vimrc de spf13 es muy fácil de leer, cada sección viene comentada con su funcionalidad respectiva.&lt;/p&gt;
 &lt;div class="section" id="vundle"&gt;
 &lt;h2&gt;Vundle&lt;/h2&gt;
@@ -735,7 +819,7 @@ npm install jshint -g
 &lt;p&gt;Este post se estará actualizando regularmente, porque vim es muy extenso y nunca se termina de encontrarle funcionalidades nuevas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="neovim"></category></entry><entry><title>Instalación y configuración de Light Table en Linux</title><link href="http://nbicalcarata.github.io/instalacion-y-configuracion-de-light-table-en-linux.html" rel="alternate"></link><published>2014-01-09T17:39:30-06:00</published><updated>2014-01-09T17:39:30-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-01-09:/instalacion-y-configuracion-de-light-table-en-linux.html</id><summary type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.&lt;/p&gt;
+</content><category term="neovim"></category></entry><entry><title>Instalación y configuración de Light Table</title><link href="http://nbicalcarata.github.io/instalacion-y-configuracion-de-light-table.html" rel="alternate"></link><published>2014-01-09T17:39:30-06:00</published><updated>2014-01-09T17:39:30-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-01-09:/instalacion-y-configuracion-de-light-table.html</id><summary type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.&lt;/p&gt;
 &lt;div class="section" id="instalacion"&gt;
 &lt;h2&gt;Instalación&lt;/h2&gt;
 &lt;!-- TEASER_END --&gt;
@@ -882,6 +966,6 @@ libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1.2
 libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
 &lt;/pre&gt;
 &lt;p&gt;ldconfig sirve para volver a crear el cache de las librerías compartidas, y con ello así nos olvidamos de este problema, o al menos hasta que vuelva a intentar instalar Steam.&lt;/p&gt;
-</content><category term="crunchbang"></category></entry><entry><title>Primer post via terminal con Nikola</title><link href="http://nbicalcarata.github.io/primer-post-via-terminal-con-nikola.html" rel="alternate"></link><published>2013-12-17T01:31:38-06:00</published><updated>2013-12-17T01:31:38-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-17:/primer-post-via-terminal-con-nikola.html</id><summary type="html">&lt;p&gt;Decidi hacerme un blog y me encontre esta herramienta escrita en python llamada Nikola, que sirve para generar paginas estaticas.&lt;/p&gt;
+</content></entry><entry><title>Primer post via terminal con Nikola</title><link href="http://nbicalcarata.github.io/primer-post-via-terminal-con-nikola.html" rel="alternate"></link><published>2013-12-17T01:31:38-06:00</published><updated>2013-12-17T01:31:38-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-17:/primer-post-via-terminal-con-nikola.html</id><summary type="html">&lt;p&gt;Decidi hacerme un blog y me encontre esta herramienta escrita en python llamada Nikola, que sirve para generar paginas estaticas.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Decidi hacerme un blog y me encontre esta herramienta escrita en python llamada Nikola, que sirve para generar paginas estaticas.&lt;/p&gt;
 </content><category term="python"></category></entry></feed>

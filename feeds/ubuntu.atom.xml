@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo - ubuntu</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/ubuntu.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2014-09-10T11:19:10+05:00</updated><entry><title>Gnome terminal darth edition en Ubuntu 14.04</title><link href="http://nbicalcarata.github.io/gnome-terminal-darth-edition-en-ubuntu-1404.html" rel="alternate"></link><published>2014-09-10T11:19:10+05:00</published><updated>2014-09-10T11:19:10+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-09-10:/gnome-terminal-darth-edition-en-ubuntu-1404.html</id><summary type="html">&lt;p&gt;Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.&lt;/p&gt;
+&lt;p&gt;Descargamos gnome-terminal-darth-edition de &lt;a class="reference external" href="http://download.opensuse.org/repositories/home:/ivonunes/Fedora_20/x86_64/gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="section" id="instalamos-alien"&gt;
+&lt;h2&gt;Instalamos alien&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+sudo apt install alien
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="convertimos-el-paquete-a-deb"&gt;
+&lt;h2&gt;Convertimos el paquete a .deb&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+&lt;span class="nb"&gt;cd&lt;/span&gt; Descargas
+sudo alien gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm
+sudo apt remove gnome-terminal-data
+sudo apt …&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.&lt;/p&gt;
+&lt;p&gt;Descargamos gnome-terminal-darth-edition de &lt;a class="reference external" href="http://download.opensuse.org/repositories/home:/ivonunes/Fedora_20/x86_64/gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="section" id="instalamos-alien"&gt;
+&lt;h2&gt;Instalamos alien&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+sudo apt install alien
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="convertimos-el-paquete-a-deb"&gt;
+&lt;h2&gt;Convertimos el paquete a .deb&lt;/h2&gt;
+&lt;pre class="code sh literal-block"&gt;
+&lt;span class="nb"&gt;cd&lt;/span&gt; Descargas
+sudo alien gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm
+sudo apt remove gnome-terminal-data
+sudo apt remove gnome-terminal
+&lt;/pre&gt;
+&lt;p&gt;Finalmente instalamos el paquete generado y éste es el resultado final:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="terminal-maximizada"&gt;
+&lt;h2&gt;Terminal maximizada&lt;/h2&gt;
+&lt;img alt="" class="align-center" src="/images/Captura2014-09-1011:31:58.png" /&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ventana"&gt;
+&lt;h2&gt;Ventana&lt;/h2&gt;
+&lt;img alt="" class="align-center" src="/images/Captura2014-09-1011:34:07.png" /&gt;
+&lt;/div&gt;
+</content><category term="terminal"></category></entry><entry><title>Mezclar los iconos por defecto del panel de Ubuntu 14.04 con Faience</title><link href="http://nbicalcarata.github.io/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html" rel="alternate"></link><published>2014-06-11T06:10:26+00:00</published><updated>2014-06-11T06:10:26+00:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-11:/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html</id><summary type="html">&lt;p&gt;Existe un detalle que ya esta resuelto en &lt;em&gt;gnome shell&lt;/em&gt;, los iconos del panel y los de la bandeja de sistema.
+En &lt;em&gt;gnome shell&lt;/em&gt; estan siguiendo ciertas lineas de diseño que benefician la experiencia de usuario, por ejemplo al hacer consistentes los iconos en el panel superior eliminaron el desastre …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Existe un detalle que ya esta resuelto en &lt;em&gt;gnome shell&lt;/em&gt;, los iconos del panel y los de la bandeja de sistema.
+En &lt;em&gt;gnome shell&lt;/em&gt; estan siguiendo ciertas lineas de diseño que benefician la experiencia de usuario, por ejemplo al hacer consistentes los iconos en el panel superior eliminaron el desastre que se convertia gnome 2 al cambiar de tema de iconos, en caso de que algunos indicadores no fueran soportados por éste.&lt;/p&gt;
+&lt;p&gt;En el caso de &lt;em&gt;unity&lt;/em&gt; en &lt;em&gt;ubuntu 14.04&lt;/em&gt;, el area de notificacion esta muy bien, mientras uses el tema por defecto.&lt;/p&gt;
+&lt;p&gt;Asi que para resolver esto, se puede tener lo mejor de los dos mundos, usar tu tema favorito en folders y aplicaciones, y los iconos de &lt;em&gt;ubuntu&lt;/em&gt; por defecto en el panel, la combinacion es hermosa.
+Para conseguirlo, en mi caso &lt;em&gt;faience&lt;/em&gt; + &lt;em&gt;ubuntu mono light&lt;/em&gt;, hacemos lo siguiente:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Instalamos los iconos &lt;em&gt;faenza&lt;/em&gt; y &lt;em&gt;faience&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Presionamos &lt;strong&gt;alt + f2&lt;/strong&gt; e ingresamos&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="code sh literal-block"&gt;
+gksu nautilus /usr/share/icons
+&lt;/pre&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Copiamos la carpeta &lt;em&gt;ubuntu-mono-light&lt;/em&gt; (para panel claro) en el mismo directorio &lt;em&gt;icons&lt;/em&gt;, y la renombramos (en mi caso &lt;em&gt;faience-mono-light&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;Editamos el archivo &lt;em&gt;index.theme&lt;/em&gt; contenido en el folder nuevo, modificando &lt;strong&gt;solo&lt;/strong&gt; las lineas siguientes:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="code sh literal-block"&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;Icon Theme&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;Name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Faience-Ubuntu-Mono-Light
+&lt;span class="nv"&gt;Comment&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Faience + Ubuntu-Mono-Light
+&lt;span class="nv"&gt;Inherits&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Faience-Ocre
+&lt;/pre&gt;
+&lt;ol class="arabic simple" start="5"&gt;
+&lt;li&gt;Guardamos y con &lt;em&gt;unity tweak tool&lt;/em&gt; escogemos nuestro tema personalizado.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img alt="" class="align-center" src="/images/captura92630.jpg" /&gt;
+</content><category term="temas"></category></entry></feed>

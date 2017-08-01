@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo - BDD</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/bdd.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-31T18:30:42-05:00</updated><entry><title>Tests con Selenium desde servidor remoto y desde maquina virtual local</title><link href="http://nbicalcarata.github.io/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html" rel="alternate"></link><published>2017-07-31T18:30:42-05:00</published><updated>2017-07-31T18:30:42-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-31:/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html</id><summary type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
+&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
+&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
+&lt;div class="section" id="etc-ssh-ssh-config"&gt;
+&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
+&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+GatewayPorts yes
+&lt;/pre&gt;
+&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+sudo systemctl restart sshd
+&lt;/pre&gt;
+&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh …&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
+&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
+&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
+&lt;div class="section" id="etc-ssh-ssh-config"&gt;
+&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
+&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+GatewayPorts yes
+&lt;/pre&gt;
+&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+sudo systemctl restart sshd
+&lt;/pre&gt;
+&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+ssh -R 4444:localhost:4444 adrian&amp;#64;&amp;lt;ip-servidor&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;En la segunda ejecutamos Selenium con Chromedriver (Descargados en home):&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+&lt;/pre&gt;
+&lt;p&gt;En nuestro &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con &lt;tt class="docutils literal"&gt;php artisan serve&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+php artisan serve --host=&amp;lt;ip_servidor&amp;gt; --port=&amp;lt;puerto&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="behat-yml"&gt;
+&lt;h3&gt;behat.yml&lt;/h3&gt;
+&lt;pre class="code literal-block"&gt;
+base_url: http://&amp;lt;ip_servidor&amp;gt;:&amp;lt;puerto&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="vagrant-y-homestead"&gt;
+&lt;h2&gt;Vagrant y homestead&lt;/h2&gt;
+&lt;p&gt;Hacemos el ssh tunneling, pero sobre la dirección ip de homestead.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+ssh -R 4444:localhost:4444 vagrant&amp;#64;192.168.10.10
+&lt;/pre&gt;
+&lt;p&gt;En una terminal ejecutamos &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt; y &lt;tt class="docutils literal"&gt;chromedriver&lt;/tt&gt; como se indicó anteriormente:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;
+java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
+&lt;/pre&gt;
+&lt;p&gt;En &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; va indicada la url de nuestra aplicación, y en la sección de &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;localhost:4000/wd/hub&lt;/tt&gt; como si se ejecutara en la maquina virtual.&lt;/p&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h3&gt;behat.yml&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;default:
+    translation:
+        locale: en
+    extensions:
+        Laracasts\Behat: ~
+            # env_path: .env.behat
+        Behat\MinkExtension:
+            base_url: &amp;#39;http://interpos.app&amp;#39;
+            default_session: laravel
+            laravel: ~
+            selenium2:
+              wd_host: http://localhost:4444/wd/hub
+              browser: chrome
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;En mi caso, usando el plugin &lt;a class="reference external" href="https://github.com/janko-m/vim-test"&gt;vim-test&lt;/a&gt;, &lt;tt class="docutils literal"&gt;vagrant ssh&lt;/tt&gt; no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; VagrantTransform&lt;span class="p"&gt;(&lt;/span&gt;cmd&lt;span class="p"&gt;)&lt;/span&gt; abort
+  &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;l&lt;/span&gt;:vagrant_project &lt;span class="p"&gt;=&lt;/span&gt; fnamemodify&lt;span class="p"&gt;(&lt;/span&gt;getcwd&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;cd ~/Homestead &amp;amp;&amp;amp; ssh -tt vagrant@192.168.10.10 &amp;quot;&lt;/span&gt;.shellescape&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd /home/vagrant/sitios/&amp;#39;&lt;/span&gt;.vagrant_project.&lt;span class="s1"&gt;&amp;#39;; &amp;#39;&lt;/span&gt;.&lt;span class="k"&gt;a&lt;/span&gt;:cmd&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;endfunction&lt;/span&gt;
+
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#custom_transformations &lt;span class="p"&gt;=&lt;/span&gt; {&lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;: &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;VagrantTransform&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;}
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#transformation &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="selenium"></category><category term="behat"></category><category term="neovim"></category></entry></feed>
