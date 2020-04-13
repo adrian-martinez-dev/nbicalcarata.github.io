@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Gnome terminal darth edition en Ubuntu 14.04 - Adrián Martínez</title>
+    <title>Tests de Selenium con servidor remoto y Vagrant - Adrián Martínez</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -55,44 +55,87 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Gnome terminal darth edition en Ubuntu 14.04</h1>
+    <h1 class="title">Tests de Selenium con servidor remoto y Vagrant</h1>
 
         <div class="date">
-            <p>Escrito el miércoles, 10 de septiembre del 2014.</p>
+            <p>Escrito el lunes, 31 de julio del 2017.</p>
             <!-- por <a rel="author" href="https://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p> -->
         </div>
 
-    <div class="clearboth"><p>Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.</p>
-<p>Descargamos gnome-terminal-darth-edition de <a class="reference external" href="http://download.opensuse.org/repositories/home:/ivonunes/Fedora_20/x86_64/gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm">aqui</a>.</p>
-<div class="section" id="instalamos-alien">
-<h2>Instalamos alien</h2>
-<pre class="code sh literal-block">
-sudo apt install alien
-</pre>
-</div>
-<div class="section" id="convertimos-el-paquete-a-deb">
-<h2>Convertimos el paquete a .deb</h2>
-<pre class="code sh literal-block">
-<span class="nb">cd</span> Descargas
-sudo alien gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm
-sudo apt remove gnome-terminal-data
-sudo apt remove gnome-terminal
-</pre>
-<p>Finalmente instalamos el paquete generado y éste es el resultado final:</p>
-</div>
-<div class="section" id="terminal-maximizada">
-<h2>Terminal maximizada</h2>
-<img alt="" class="align-center" src="/images/Captura2014-09-1011:31:58.png" />
-</div>
-<div class="section" id="ventana">
-<h2>Ventana</h2>
-<img alt="" class="align-center" src="/images/Captura2014-09-1011:34:07.png" />
-</div>
-</div>
+    <div class="clearboth"><h2>Servidor remoto</h2>
+<p>Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling de la siguiente forma:</p>
+<p>En el archivo <code>/etc/ssh/ssh_config</code> modificamos la siguiente linea:</p>
+<div class="highlight"><pre><span></span><code>GatewayPorts yes
+</code></pre></div>
+
+
+<p>Reiniciamos el servicio ssh.</p>
+<div class="highlight"><pre><span></span><code>sudo systemctl restart sshd
+</code></pre></div>
+
+
+<p>Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling.</p>
+<div class="highlight"><pre><span></span><code>ssh -R 4444:localhost:4444 usuario@&lt;ip-servidor&gt;
+</code></pre></div>
+
+
+<p>En la segunda ejecutamos Selenium con Chromedriver.</p>
+<div class="highlight"><pre><span></span><code>java -Dwebdriver.chrome.driver=&#39;/home/adrian/chromedriver&#39; -jar selenium-server-standalone-3.4.0.jar
+</code></pre></div>
+
+
+<p>En nuestro <code>behat.yml</code>, <code>base_url</code> debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con <code>php artisan serve</code>.</p>
+<div class="highlight"><pre><span></span><code>php artisan serve --host=&lt;ip_servidor&gt; --port=&lt;puerto&gt;
+</code></pre></div>
+
+
+<p>En <code>behat.yml</code></p>
+<div class="highlight"><pre><span></span><code>base_url: http://&lt;ip_servidor&gt;:&lt;puerto&gt;
+</code></pre></div>
+
+
+<h2>Vagrant</h2>
+<p>Hacemos el ssh tunneling, pero sobre la dirección IP de homestead.</p>
+<div class="highlight"><pre><span></span><code>ssh -R 4444:localhost:4444 vagrant@192.168.10.10
+</code></pre></div>
+
+
+<p>En una terminal ejecutamos selenium y chromedriver como se indicó anteriormente:</p>
+<div class="highlight"><pre><span></span><code>java -Dwebdriver.chrome.driver=&#39;/home/adrian/chromedriver&#39; -jar selenium-server-standalone-3.4.0.jar
+</code></pre></div>
+
+
+<p>En <code>behat.yml</code>, en <code>base_url</code> va indicada la url de nuestra aplicación, y en la sección de <code>selenium</code>, <code>localhost:4000/wd/hub</code> como si se ejecutara en la maquina virtual.</p>
+<h3>behat.yml</h3>
+<div class="highlight"><pre><span></span><code><span class="k">default</span><span class="o">:</span>
+    <span class="n">translation</span><span class="o">:</span>
+        <span class="n">locale</span><span class="o">:</span> <span class="n">en</span>
+    <span class="n">extensions</span><span class="o">:</span>
+        <span class="n">Laracasts</span><span class="o">\</span><span class="n">Behat</span><span class="o">:</span> <span class="o">~</span>
+            <span class="err">#</span> <span class="n">env_path</span><span class="o">:</span> <span class="o">.</span><span class="na">env</span><span class="o">.</span><span class="na">behat</span>
+        <span class="n">Behat</span><span class="o">\</span><span class="n">MinkExtension</span><span class="o">:</span>
+            <span class="n">base_url</span><span class="o">:</span> <span class="s1">&#39;http://interpos.app&#39;</span>
+            <span class="n">default_session</span><span class="o">:</span> <span class="n">laravel</span>
+            <span class="n">laravel</span><span class="o">:</span> <span class="o">~</span>
+            <span class="n">selenium2</span><span class="o">:</span>
+              <span class="n">wd_host</span><span class="o">:</span> <span class="n">http</span><span class="o">://</span><span class="n">localhost</span><span class="o">:</span><span class="mi">4444</span><span class="sr">/wd/</span><span class="n">hub</span>
+              <span class="n">browser</span><span class="o">:</span> <span class="n">chrome</span>
+</code></pre></div>
+
+
+<p>En mi caso, usando el plugin <a href="https://github.com/janko-m/vim-test">vim-test</a>, <code>vagrant ssh</code> no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="p">!</span> VagrantTransform<span class="p">(</span>cmd<span class="p">)</span> abort
+  <span class="k">let</span> <span class="k">l</span>:vagrant_project <span class="p">=</span> fnamemodify<span class="p">(</span>getcwd<span class="p">(),</span><span class="s2">&quot;:t&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s2">&quot;cd ~/Homestead &amp;&amp; ssh -tt vagrant@192.168.10.10 &quot;</span>.shellescape<span class="p">(</span><span class="s1">&#39;cd /home/vagrant/sitios/&#39;</span>.vagrant_project.<span class="s1">&#39;; &#39;</span>.<span class="k">a</span>:cmd<span class="p">)</span>
+<span class="k">endfunction</span>
+
+<span class="k">let</span> <span class="k">g</span>:test#custom_transformations <span class="p">=</span> {<span class="s1">&#39;vagrant&#39;</span>: <span class="k">function</span><span class="p">(</span><span class="s1">&#39;VagrantTransform&#39;</span><span class="p">)</span>}
+<span class="k">let</span> <span class="k">g</span>:test#transformation <span class="p">=</span> <span class="s1">&#39;vagrant&#39;</span>
+</code></pre></div></div>
 
         <div class="tags">
             <p>Esta entrada fue etiquetada en  
-                <a href="https://nbicalcarata.github.io/tag/terminal.html">#terminal</a></p>
+                <a href="https://nbicalcarata.github.io/tag/behat.html">#behat</a> y                 <a href="https://nbicalcarata.github.io/tag/selenium.html">#selenium</a></p>
         </div>
 
 

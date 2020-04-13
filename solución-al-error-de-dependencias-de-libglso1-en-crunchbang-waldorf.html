@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf - Ziggurat Vertigo</title>
+    <title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf - Adrián Martínez</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -13,11 +13,11 @@
     <meta name="dc.license" content="">
 
     <!-- favicon -->
-    <link rel="icon" href="/theme/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
 
     <!-- newsfeeds -->
-        <link href="http://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Full Atom Feed" />
-        <link href="http://nbicalcarata.github.io/feeds/crunchbang.atom.xml" type="application/atom+xml" rel="alternate" title="Ziggurat Vertigo Categories Atom Feed" />
+        <link href="https://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Full Atom Feed" />
+        <link href="https://nbicalcarata.github.io/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
     <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
     <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
     <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
-    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
     <!--[if lt IE 8]>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
     <![endif]-->
@@ -46,8 +46,8 @@
             <li><a href="/pages/acerca-de.html">Acerca de</a></li>
 
        </ul>
-       <div id="blogtitle"><a href="/">Ziggurat Vertigo</a></div>
-       <div id="blogsubtitle"><a href="/">Apuntes diversos y hojas trampa</a></div>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
      </div>
     </div>
 
@@ -58,8 +58,8 @@
     <h1 class="title">Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf</h1>
 
         <div class="date">
-            <p>Escrito el miércoles, 18 de diciembre del 2013
-            por <a rel="author" href="http://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p>
+            <p>Escrito el miércoles, 18 de diciembre del 2013.</p>
+            <!-- por <a rel="author" href="https://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p> -->
         </div>
 
     <div class="clearboth"><p>Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación de librerías de compatibilidad con 32 bits para poder ejecutar Steam.</p>
@@ -106,6 +106,10 @@ libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
 <p>ldconfig sirve para volver a crear el cache de las librerías compartidas, y con ello así nos olvidamos de este problema, o al menos hasta que vuelva a intentar instalar Steam.</p>
 </div>
 
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="https://nbicalcarata.github.io/tag/crunchbang.html">#crunchbang</a></p>
+        </div>
 
 
           </section>
@@ -119,56 +123,50 @@ libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
 <div class="section-container">
    <h3>Categorias</h3>
    <ul>
-        <li><a href="http://nbicalcarata.github.io/category/bdd.html">BDD <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/crunchbang.html">crunchbang <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/fedora.html">fedora <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/opensuse.html">opensuse <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/ubuntu.html">ubuntu <i class="fa fa-folder-open fa-fw"></i></a></li>
-        <li><a href="http://nbicalcarata.github.io/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="https://nbicalcarata.github.io/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="https://nbicalcarata.github.io/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="https://nbicalcarata.github.io/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="https://nbicalcarata.github.io/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="https://nbicalcarata.github.io/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
    </ul>
 </div>
 
 <div class="section-container">
    <h3>Etiquetas</h3>
-   <ul class="tagcloud">      <li><a href="http://nbicalcarata.github.io/tag/bdd.html">bdd</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/behat.html">behat</a> (2)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/clojure.html">clojure</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/fedora.html">fedora</a> (2)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/gvim.html">gvim</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/homestead.html">homestead</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/html.html">html</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/laravel.html">laravel</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/neovim.html">neovim</a> (4)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/postinstall.html">postinstall</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/quakelive.html">quakelive</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/selenium.html">selenium</a> (2)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/temas.html">temas</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/vagrant.html">vagrant</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/vim.html">vim</a> (1)</li>
-      <li><a href="http://nbicalcarata.github.io/tag/wine.html">wine</a> (1)</li>
+   <ul class="tagcloud">      <li><a href="https://nbicalcarata.github.io/tag/behat.html">behat</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/html.html">html</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/python.html">python</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/vim.html">vim</a> (1)</li>
+      <li><a href="https://nbicalcarata.github.io/tag/wine.html">wine</a> (1)</li>
    </ul>
 </div>
 
 <div class="section-container">
    <h3>Feeds</h3>
    <ul>
-      <li><a href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="alternate">atom feed <i class="fa fa-rss fa-fw"></i></a></li>
+      <li><a href="https://nbicalcarata.github.io/feeds/all.atom.xml" rel="alternate">atom feed <i class="fa fa-rss fa-fw"></i></a></li>
    </ul>
 </div>
 
 
-          <div class="section-container" id="copyright">
-            <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p>
-            <p>El contenido de este blog está bajo licencia <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 Internacional</a>.</p>
-          </div>
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
        </div>
     </div>
 

@@ -1,426 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ziggurat Vertigo</title><link href="http://nbicalcarata.github.io/" rel="alternate"></link><link href="http://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>http://nbicalcarata.github.io/</id><updated>2017-07-31T18:30:42-05:00</updated><entry><title>Tests con Selenium desde servidor remoto y desde maquina virtual local</title><link href="http://nbicalcarata.github.io/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html" rel="alternate"></link><published>2017-07-31T18:30:42-05:00</published><updated>2017-07-31T18:30:42-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-31:/tests-con-selenium-desde-servidor-remoto-y-desde-maquina-virtual-local.html</id><summary type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
-&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
-&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
-&lt;div class="section" id="etc-ssh-ssh-config"&gt;
-&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
-&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-GatewayPorts yes
-&lt;/pre&gt;
-&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-sudo systemctl restart sshd
-&lt;/pre&gt;
-&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh …&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="servidor-de-desarrollo"&gt;
-&lt;h2&gt;Servidor de desarrollo&lt;/h2&gt;
-&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling:&lt;/p&gt;
-&lt;div class="section" id="etc-ssh-ssh-config"&gt;
-&lt;h3&gt;/etc/ssh/ssh_config&lt;/h3&gt;
-&lt;p&gt;Modificamos la linea siguiente:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-GatewayPorts yes
-&lt;/pre&gt;
-&lt;p&gt;Reiniciamos el servicio ssh:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-sudo systemctl restart sshd
-&lt;/pre&gt;
-&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-ssh -R 4444:localhost:4444 usuario&amp;#64;&amp;lt;ip-servidor&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;En la segunda ejecutamos Selenium con Chromedriver (Descargados en home):&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
-&lt;/pre&gt;
-&lt;p&gt;En nuestro &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con &lt;tt class="docutils literal"&gt;php artisan serve&lt;/tt&gt;:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-php artisan serve --host=&amp;lt;ip_servidor&amp;gt; --port=&amp;lt;puerto&amp;gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="behat-yml"&gt;
-&lt;h3&gt;behat.yml&lt;/h3&gt;
-&lt;pre class="code literal-block"&gt;
-base_url: http://&amp;lt;ip_servidor&amp;gt;:&amp;lt;puerto&amp;gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="vagrant-y-homestead"&gt;
-&lt;h2&gt;Vagrant y homestead&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adrián Martínez</title><link href="https://nbicalcarata.github.io/" rel="alternate"></link><link href="https://nbicalcarata.github.io/feeds/all.atom.xml" rel="self"></link><id>https://nbicalcarata.github.io/</id><updated>2017-07-31T18:11:04-05:00</updated><entry><title>Tests de Selenium con servidor remoto y Vagrant</title><link href="https://nbicalcarata.github.io/tests-de-selenium-con-servidor-remoto-y-vagrant.html" rel="alternate"></link><published>2017-07-31T18:11:04-05:00</published><updated>2017-07-31T18:11:04-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-31:/tests-de-selenium-con-servidor-remoto-y-vagrant.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;Servidor remoto&lt;/h2&gt;
+&lt;p&gt;Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling de la siguiente forma:&lt;/p&gt;
+&lt;p&gt;En el archivo &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt; modificamos la siguiente linea:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;GatewayPorts yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Reiniciamos el servicio ssh.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo systemctl restart sshd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ssh -R 4444:localhost:4444 usuario@&amp;lt;ip-servidor&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En la segunda ejecutamos Selenium con Chromedriver.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;java -Dwebdriver.chrome.driver=&amp;#39;/home/adrian/chromedriver&amp;#39; -jar selenium-server-standalone-3.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En nuestro &lt;code&gt;behat.yml&lt;/code&gt;, &lt;code&gt;base_url&lt;/code&gt; debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con &lt;code&gt;php artisan serve&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;php artisan serve --host=&amp;lt;ip_servidor&amp;gt; --port=&amp;lt;puerto&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En &lt;code&gt;behat.yml&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;base_url: http://&amp;lt;ip_servidor&amp;gt;:&amp;lt;puerto&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Vagrant&lt;/h2&gt;
 &lt;p&gt;Hacemos el ssh tunneling, pero sobre la dirección IP de homestead.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-ssh -R 4444:localhost:4444 vagrant&amp;#64;192.168.10.10
-&lt;/pre&gt;
-&lt;p&gt;En una terminal ejecutamos &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt; y &lt;tt class="docutils literal"&gt;chromedriver&lt;/tt&gt; como se indicó anteriormente:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-java -Dwebdriver.chrome.driver='/home/adrian/chromedriver' -jar selenium-server-standalone-3.4.0.jar
-&lt;/pre&gt;
-&lt;p&gt;En &lt;tt class="docutils literal"&gt;behat.yml&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;base_url&lt;/tt&gt; va indicada la url de nuestra aplicación, y en la sección de &lt;tt class="docutils literal"&gt;selenium&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;localhost:4000/wd/hub&lt;/tt&gt; como si se ejecutara en la maquina virtual.&lt;/p&gt;
-&lt;div class="section" id="id1"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ssh -R 4444:localhost:4444 vagrant@192.168.10.10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En una terminal ejecutamos selenium y chromedriver como se indicó anteriormente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;java -Dwebdriver.chrome.driver=&amp;#39;/home/adrian/chromedriver&amp;#39; -jar selenium-server-standalone-3.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En &lt;code&gt;behat.yml&lt;/code&gt;, en &lt;code&gt;base_url&lt;/code&gt; va indicada la url de nuestra aplicación, y en la sección de &lt;code&gt;selenium&lt;/code&gt;, &lt;code&gt;localhost:4000/wd/hub&lt;/code&gt; como si se ejecutara en la maquina virtual.&lt;/p&gt;
 &lt;h3&gt;behat.yml&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;default:
-    translation:
-        locale: en
-    extensions:
-        Laracasts\Behat: ~
-            # env_path: .env.behat
-        Behat\MinkExtension:
-            base_url: &amp;#39;http://interpos.app&amp;#39;
-            default_session: laravel
-            laravel: ~
-            selenium2:
-              wd_host: http://localhost:4444/wd/hub
-              browser: chrome
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;En mi caso, usando el plugin &lt;a class="reference external" href="https://github.com/janko-m/vim-test"&gt;vim-test&lt;/a&gt;, &lt;tt class="docutils literal"&gt;vagrant ssh&lt;/tt&gt; no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; VagrantTransform&lt;span class="p"&gt;(&lt;/span&gt;cmd&lt;span class="p"&gt;)&lt;/span&gt; abort
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;translation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;locale&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;en&lt;/span&gt;
+    &lt;span class="n"&gt;extensions&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;Laracasts&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="n"&gt;Behat&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;
+            &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;env_path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;env&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;behat&lt;/span&gt;
+        &lt;span class="n"&gt;Behat&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="n"&gt;MinkExtension&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://interpos.app&amp;#39;&lt;/span&gt;
+            &lt;span class="n"&gt;default_session&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;laravel&lt;/span&gt;
+            &lt;span class="n"&gt;laravel&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;
+            &lt;span class="n"&gt;selenium2&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+              &lt;span class="n"&gt;wd_host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;://&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;4444&lt;/span&gt;&lt;span class="sr"&gt;/wd/&lt;/span&gt;&lt;span class="n"&gt;hub&lt;/span&gt;
+              &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;chrome&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;En mi caso, usando el plugin &lt;a href="https://github.com/janko-m/vim-test"&gt;vim-test&lt;/a&gt;, &lt;code&gt;vagrant ssh&lt;/code&gt; no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; VagrantTransform&lt;span class="p"&gt;(&lt;/span&gt;cmd&lt;span class="p"&gt;)&lt;/span&gt; abort
   &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;l&lt;/span&gt;:vagrant_project &lt;span class="p"&gt;=&lt;/span&gt; fnamemodify&lt;span class="p"&gt;(&lt;/span&gt;getcwd&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;cd ~/Homestead &amp;amp;&amp;amp; ssh -tt vagrant@192.168.10.10 &amp;quot;&lt;/span&gt;.shellescape&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd /home/vagrant/sitios/&amp;#39;&lt;/span&gt;.vagrant_project.&lt;span class="s1"&gt;&amp;#39;; &amp;#39;&lt;/span&gt;.&lt;span class="k"&gt;a&lt;/span&gt;:cmd&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;endfunction&lt;/span&gt;
 
 &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#custom_transformations &lt;span class="p"&gt;=&lt;/span&gt; {&lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;: &lt;span class="k"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;VagrantTransform&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;}
 &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="k"&gt;g&lt;/span&gt;:test#transformation &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;vagrant&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</content><category term="selenium"></category><category term="behat"></category><category term="neovim"></category></entry><entry><title>Fedora 26 y Laravel Homestead, abrácense y dense un beso</title><link href="http://nbicalcarata.github.io/fedora-26-y-laravel-homestead-abr%C3%A1cense-y-dense-un-beso.html" rel="alternate"></link><published>2017-07-29T13:02:41-05:00</published><updated>2017-07-29T13:02:41-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/fedora-26-y-laravel-homestead-abrácense-y-dense-un-beso.html</id><summary type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
-&lt;h2&gt;Homestead en Fedora 26&lt;/h2&gt;
-&lt;div class="section" id="instalacion"&gt;
-&lt;h3&gt;Instalación&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant box add laravel/homestead
-git clone https://github.com/laravel/homestead.git Homestead
-&lt;span class="nb"&gt;cd&lt;/span&gt; Homestead
-git checkout v5.4.0
-bash init.sh
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="homestead-yml"&gt;
-&lt;h3&gt;Homestead.yml&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;folders:
-    - map: ~/sitios
-      to: /home/vagrant/sitios
-      type: &amp;quot;nfs&amp;quot;
-
-sites:
-    - map: interpos.app
-      to: /home/vagrant/sitios/interpos/public …&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="homestead-en-fedora-26"&gt;
-&lt;h2&gt;Homestead en Fedora 26&lt;/h2&gt;
-&lt;div class="section" id="instalacion"&gt;
-&lt;h3&gt;Instalación&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant box add laravel/homestead
-git clone https://github.com/laravel/homestead.git Homestead
-&lt;span class="nb"&gt;cd&lt;/span&gt; Homestead
-git checkout v5.4.0
-bash init.sh
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="homestead-yml"&gt;
-&lt;h3&gt;Homestead.yml&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;folders:
-    - map: ~/sitios
-      to: /home/vagrant/sitios
-      type: &amp;quot;nfs&amp;quot;
-
-sites:
-    - map: interpos.app
-      to: /home/vagrant/sitios/interpos/public
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Siempre que se modifique &lt;tt class="docutils literal"&gt;homestead.yml&lt;/tt&gt; hay que hacer &lt;tt class="docutils literal"&gt;vagrant &lt;span class="pre"&gt;--reload&lt;/span&gt; provision&lt;/tt&gt; para que se vean reflejados los cambios.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="etc-hosts"&gt;
-&lt;h3&gt;/etc/hosts&lt;/h3&gt;
-&lt;pre class="code literal-block"&gt;
-192.168.10.10  interpos.app
-&lt;/pre&gt;
-&lt;p&gt;Si tenemos código existente en la carpeta de proyectos:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-php artisan config:clear
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="soporte-nfs"&gt;
-&lt;h3&gt;Soporte NFS&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vagrant plugin install vagrant-bindfs
-sudo dnf install nfs-utils nfs-kernel-server firewall-config
-sudo systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; nfs-server
-sudo systemctl start nfs-server
-sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;nfs
-sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;rpc-bind
-sudo firewall-cmd --permanent --add-service&lt;span class="o"&gt;=&lt;/span&gt;mountd
-sudo firewall-cmd --reload
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Desde la versión 2.1.1 de &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nfs-utils&lt;/span&gt;&lt;/tt&gt; está deshabilitado el soporte a UDP por defecto, por lo que &lt;tt class="docutils literal"&gt;vagrant up&lt;/tt&gt;, se queda bloqueado en &lt;tt class="docutils literal"&gt;==&amp;gt; &lt;span class="pre"&gt;homestead-7:&lt;/span&gt; Mounting NFS shared &lt;span class="pre"&gt;folders...&lt;/span&gt;&lt;/tt&gt;, solo hay que editar &lt;tt class="docutils literal"&gt;/etc/sysconfig/nfs&lt;/tt&gt; y añadir &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--udp&lt;/span&gt;&lt;/tt&gt; a &lt;tt class="docutils literal"&gt;RPCNFSDARGS&lt;/tt&gt;, la anterior solución la encontré en este &lt;a class="reference external" href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-RPCNFSDARGS=&amp;quot;--udp&amp;quot;
-&lt;/pre&gt;
-&lt;p&gt;Virtualbox 5.1.24 &lt;a class="reference external" href="https://www.virtualbox.org/ticket/16911"&gt;bug&lt;/a&gt; workaround.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-sudo ip link set vboxnet0 up
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="firewall-con-gui"&gt;
-&lt;h3&gt;Firewall con GUI&lt;/h3&gt;
-&lt;p&gt;Tomado de &lt;a class="reference external" href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-Example for easily configuring firewalld using the &amp;quot;firewall-config&amp;quot; GUI:
-- Choose &amp;quot;Configuration: Permanent&amp;quot; from the drop down menu
-- Select the zone you want to modify (i chose &amp;quot;internal&amp;quot;).
-- Go to the &amp;quot;Interfaces&amp;quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
-- Go to the &amp;quot;Services&amp;quot; tab, check &amp;quot;mountd&amp;quot;, &amp;quot;nfs&amp;quot; and &amp;quot;rpc-bind&amp;quot;
-- Go to the global &amp;quot;Services&amp;quot; tab (next to &amp;quot;Zones&amp;quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
-- Finally choose &amp;quot;Options/Reload Firewalld&amp;quot;.
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</content><category term="laravel"></category><category term="homestead"></category><category term="vagrant"></category></entry><entry><title>Behat, hoja trampa</title><link href="http://nbicalcarata.github.io/behat-hoja-trampa.html" rel="alternate"></link><published>2017-07-29T00:03:22-05:00</published><updated>2017-07-29T00:03:22-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/behat-hoja-trampa.html</id><summary type="html">&lt;div class="section" id="command-line-behat"&gt;
-&lt;h2&gt;Command line (behat)&lt;/h2&gt;
-&lt;pre class="code literal-block"&gt;
---init                           Create the features directory
---config=archivo.yml             Use config file
---format=html -out=report.html   Html report
---expand                         Display details
---story-syntax --lang=es         Language
---tags='&amp;#64;group1.&amp;#64;group2'         Return tests on groups
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="feature"&gt;
-&lt;h2&gt;Feature&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Feature:&lt;/span&gt;&lt;span class="nf"&gt; Descriptive text of what is desired&lt;/span&gt;
-&lt;span class="nf"&gt;    In order to realize a named business …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</summary><content type="html">&lt;div class="section" id="command-line-behat"&gt;
-&lt;h2&gt;Command line (behat)&lt;/h2&gt;
-&lt;pre class="code literal-block"&gt;
---init                           Create the features directory
---config=archivo.yml             Use config file
---format=html -out=report.html   Html report
---expand                         Display details
---story-syntax --lang=es         Language
---tags='&amp;#64;group1.&amp;#64;group2'         Return tests on groups
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="feature"&gt;
-&lt;h2&gt;Feature&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Feature:&lt;/span&gt;&lt;span class="nf"&gt; Descriptive text of what is desired&lt;/span&gt;
-&lt;span class="nf"&gt;    In order to realize a named business value&lt;/span&gt;
-&lt;span class="nf"&gt;    As an explicit system actor&lt;/span&gt;
-&lt;span class="nf"&gt;    I want to ...&lt;/span&gt;
-
-&lt;span class="nf"&gt;    &lt;/span&gt;&lt;span class="k"&gt;Scenario:&lt;/span&gt;&lt;span class="nf"&gt; Some determinable business situation&lt;/span&gt;
-&lt;span class="k"&gt;        Given &lt;/span&gt;&lt;span class="nf"&gt;some precondition&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;And &lt;/span&gt;&lt;span class="nf"&gt;some other precondition&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;When &lt;/span&gt;&lt;span class="nf"&gt;some action by the actor&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;And &lt;/span&gt;&lt;span class="nf"&gt;some other action&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;And &lt;/span&gt;&lt;span class="nf"&gt;yet another action&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;Then &lt;/span&gt;&lt;span class="nf"&gt;some testable outcome is achieved&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;And &lt;/span&gt;&lt;span class="nf"&gt;something else we can check happens to&lt;/span&gt;
-
-&lt;span class="nf"&gt;    &lt;/span&gt;&lt;span class="k"&gt;Scenario:&lt;/span&gt;&lt;span class="nf"&gt; A diferent situation...&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="behat-in-two-words"&gt;
-&lt;h2&gt;Behat in two words&lt;/h2&gt;
-&lt;p&gt;Behat automates the &amp;quot;acceptance testing&amp;quot; of the agile methodology &amp;quot;Scrum&amp;quot;. Each
-test is written in natural language with the gherkin syntax.&lt;/p&gt;
-&lt;p&gt;A feature is described by a &amp;lt;my-feature.feature&amp;gt; file. A feature is a set of
-cases, called &amp;quot;scenarios&amp;quot;.&lt;/p&gt;
-&lt;p&gt;Each scenario is defined by:&lt;/p&gt;
-&lt;ul class="simple"&gt;
-&lt;li&gt;Context (Given)&lt;/li&gt;
-&lt;li&gt;Triggering events (When)&lt;/li&gt;
-&lt;li&gt;An expected result (Then)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;====== Use examples ======&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Scenario Outline:&lt;/span&gt;&lt;span class="nf"&gt; Some determinable bussiness situation&lt;/span&gt;
-&lt;span class="k"&gt;        Given &lt;/span&gt;&lt;span class="nf"&gt;I have &lt;/span&gt;&lt;span class="nv"&gt;&amp;lt;initialAmount&amp;gt;&lt;/span&gt;&lt;span class="nf"&gt; euros&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;When &lt;/span&gt;&lt;span class="nf"&gt;I add &lt;/span&gt;&lt;span class="nv"&gt;&amp;lt;money&amp;gt;&lt;/span&gt;&lt;span class="nf"&gt; euros&lt;/span&gt;
-&lt;span class="nf"&gt;        &lt;/span&gt;&lt;span class="k"&gt;Then &lt;/span&gt;&lt;span class="nf"&gt;I should have now &lt;/span&gt;&lt;span class="nv"&gt;&amp;lt;finalAmount&amp;gt;&lt;/span&gt;&lt;span class="nf"&gt; euros&lt;/span&gt;
-
-&lt;span class="nf"&gt;    &lt;/span&gt;&lt;span class="k"&gt;Examples:&lt;/span&gt;
-&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="nv"&gt; initialAmount&lt;/span&gt;&lt;span class="k"&gt; |&lt;/span&gt;&lt;span class="nv"&gt; money&lt;/span&gt;&lt;span class="k"&gt;     |&lt;/span&gt;&lt;span class="nv"&gt; finalAmount&lt;/span&gt;&lt;span class="k"&gt; |&lt;/span&gt;&lt;span class="nf"&gt;&lt;/span&gt;
-&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 15&lt;/span&gt;&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 5&lt;/span&gt;&lt;span class="k"&gt;         |&lt;/span&gt;&lt;span class="s"&gt; 20&lt;/span&gt;&lt;span class="k"&gt;          |&lt;/span&gt;&lt;span class="nf"&gt;&lt;/span&gt;
-&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 40&lt;/span&gt;&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 10&lt;/span&gt;&lt;span class="k"&gt;        |&lt;/span&gt;&lt;span class="s"&gt; 50&lt;/span&gt;&lt;span class="k"&gt;          |&lt;/span&gt;&lt;span class="nf"&gt;&lt;/span&gt;
-&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 20&lt;/span&gt;&lt;span class="k"&gt;            |&lt;/span&gt;&lt;span class="s"&gt; 5&lt;/span&gt;&lt;span class="k"&gt;         |&lt;/span&gt;&lt;span class="s"&gt; 25&lt;/span&gt;&lt;span class="k"&gt;          |&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="web-apps-mink"&gt;
-&lt;h2&gt;Web apps (Mink)&lt;/h2&gt;
-&lt;p&gt;Surf&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;am on &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;url&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;go to &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;url&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;reload the page&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;move backward one page&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;move forward one page&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;press &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;button&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;follow &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;link&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Forms&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;fill in &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; with &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;fill in &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; for &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;fill in the following&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;select &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_option&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; from &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_select&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;additionally select &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_option&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; from &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_select&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;check &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_checkbox&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;uncheck &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_checkbox&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;attach the file &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;/path/file.file&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; to &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_file&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Assertions&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should see &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;content&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the response should contain &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;content&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should not see &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;content&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the response should not contain &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;content&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; field should contain &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; field should not contain &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_checkbox&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; checkbox should be checked&lt;/span&gt;
-&lt;span class="nf"&gt;the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;form_checkbox&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; checkbox should not be checked&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should be on &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;page&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the url should match &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;url&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="nf"&gt;the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;num_position&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; element should contain &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot;&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should see &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;value&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; in the &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; element&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should see an &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; element&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should not see an &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; element&lt;/span&gt;
-&lt;span class="k"&gt;I &lt;/span&gt;&lt;span class="nf"&gt;should see number &amp;quot;&lt;/span&gt;&lt;span class="s"&gt;element&lt;/span&gt;&lt;span class="nf"&gt;&amp;quot; elements&lt;/span&gt;
-&lt;span class="nf"&gt;the response status code should be code&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="section" id="mink-cheat-sheet"&gt;
-&lt;h2&gt;Mink Cheat Sheet&lt;/h2&gt;
-&lt;p&gt;Session&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;$session = new \Behat\Mink\Session($driver);&lt;/span&gt;
-&lt;span class="x"&gt;$session-&amp;gt;start();   // start&lt;/span&gt;
-&lt;span class="x"&gt;$session-&amp;gt;reset();   // soft-reset:&lt;/span&gt;
-&lt;span class="x"&gt;$session-&amp;gt;restart(); // hard-reset:&lt;/span&gt;
-
-&lt;span class="x"&gt;From the main context:&lt;/span&gt;
-&lt;span class="x"&gt;$session = $this-&amp;gt;getSession();&lt;/span&gt;
-
-&lt;span class="x"&gt;From a sub-context&lt;/span&gt;
-&lt;span class="x"&gt;$session = $this-&amp;gt;getMainContext()-&amp;gt;getSession();&lt;/span&gt;
-
-&lt;span class="x"&gt;isStarted() Checks whether session was started&lt;/span&gt;
-&lt;span class="x"&gt;start() Starts session&lt;/span&gt;
-&lt;span class="x"&gt;stop() Stop session&lt;/span&gt;
-&lt;span class="x"&gt;restart() Restart session&lt;/span&gt;
-&lt;span class="x"&gt;reset() Reset session&lt;/span&gt;
-&lt;span class="x"&gt;getPage() Returns page element&lt;/span&gt;
-&lt;span class="x"&gt;getSelectorHandler() Returns Selector Handler&lt;/span&gt;
-&lt;span class="x"&gt;visit($url) Visit specified URL&lt;/span&gt;
-&lt;span class="x"&gt;setBasicAuth($u,$p) HTTP Basic authentification&lt;/span&gt;
-&lt;span class="x"&gt;setRequestHeader($n,$v) Set request header&lt;/span&gt;
-&lt;span class="x"&gt;getResponseHeaders() Get all response headers&lt;/span&gt;
-&lt;span class="x"&gt;setCookie($n,$v) Sets cookie&lt;/span&gt;
-&lt;span class="x"&gt;getCookie($n) Returns cookie&lt;/span&gt;
-&lt;span class="x"&gt;getStatusCode() Returns response code&lt;/span&gt;
-&lt;span class="x"&gt;getCurrentUrl() Returns current URL&lt;/span&gt;
-&lt;span class="x"&gt;reload() Reload current page&lt;/span&gt;
-&lt;span class="x"&gt;back() Moves backward&lt;/span&gt;
-&lt;span class="x"&gt;forward() Move forward&lt;/span&gt;
-&lt;span class="x"&gt;executeScript($script) Executes javascript&lt;/span&gt;
-&lt;span class="x"&gt;evaluateScript($script) Returns javascript&amp;#39; response&lt;/span&gt;
-&lt;span class="x"&gt;wait($time, $condition) Waits some time or until&lt;/span&gt;
-&lt;span class="x"&gt;javascript condition is true&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Available drivers&lt;/p&gt;
-&lt;dl class="docutils"&gt;
-&lt;dt&gt;Goutte&amp;nbsp;:&lt;/dt&gt;
-&lt;dd&gt;&lt;a class="reference external" href="https://github.com/fabpot/Goutte"&gt;https://github.com/fabpot/Goutte&lt;/a&gt;&lt;/dd&gt;
-&lt;dt&gt;Sahi&amp;nbsp;:&lt;/dt&gt;
-&lt;dd&gt;&lt;a class="reference external" href="http://sourceforge.net/projects/sahi/"&gt;http://sourceforge.net/projects/sahi/&lt;/a&gt;&lt;/dd&gt;
-&lt;dt&gt;Zombie&amp;nbsp;:&lt;/dt&gt;
-&lt;dd&gt;&lt;a class="reference external" href="http://zombie.labnotes.org/"&gt;http://zombie.labnotes.org/&lt;/a&gt;&lt;/dd&gt;
-&lt;dt&gt;Selenium (1 &amp;amp; 2 )&amp;nbsp;:&lt;/dt&gt;
-&lt;dd&gt;&lt;a class="reference external" href="http://seleniumhq.org/"&gt;http://seleniumhq.org/&lt;/a&gt;&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;p&gt;Elements&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-$el-&amp;gt;has($selector, $locator)
-$el-&amp;gt;find($selector, $locator)
-$el-&amp;gt;findAll($selector, $locator)
-$el-&amp;gt;getText()
-$el-&amp;gt;getHtml()
-&lt;/pre&gt;
-&lt;p&gt;HTML nodes&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-$el-&amp;gt;isVisible()
-$el-&amp;gt;getValue()
-$el-&amp;gt;getTagName()
-$el-&amp;gt;getXpath()
-$el-&amp;gt;hasAttribute($name)
-$el-&amp;gt;getAttribute($name)
-&lt;/pre&gt;
-&lt;p&gt;Forms&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-$el-&amp;gt;press()
-$el-&amp;gt;check()
-$el-&amp;gt;uncheck()
-$el-&amp;gt;isChecked()
-$el-&amp;gt;selectOption($option, $multiple)
-$el-&amp;gt;attachFile($path)
-$el-&amp;gt;keypress()
-$el-&amp;gt;keyDown()
-$el-&amp;gt;keyUp()
-&lt;/pre&gt;
-&lt;p&gt;Events&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;
-$el-&amp;gt;click()
-$el-&amp;gt;doubleClick()
-$el-&amp;gt;rightClick()
-$el-&amp;gt;mouseOver()
-$el-&amp;gt;focus()
-$el-&amp;gt;blur()
-$el-&amp;gt;dragTo($element)
-&lt;/pre&gt;
-&lt;p&gt;Default parameters &amp;lt;behat.yml&amp;gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;default:
- context:
- parameters:
- default_session: goutte
- javascript_session: sahi
- base_url: http://localhost
- browser: firefox
- goutte:
- zend_config:
- adapter:
-Zend\Http\Client\Adapter\Proxy
- proxy_host: host.com
- proxy_port: 8080
- sahi:
- host: localhost
- port: 9999
- zombie:
- host: 127.0.0.1
- port: 8124
- node_bin: node
- auto_server: true
- selenium:
- host: localhost
- port: 4444
- webdriver:
- host http://localhost:4444/wd/hub
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-</content><category term="behat"></category><category term="bdd"></category><category term="selenium"></category></entry><entry><title>Universal Ctags</title><link href="http://nbicalcarata.github.io/universal-ctags.html" rel="alternate"></link><published>2017-07-28T22:45:35-05:00</published><updated>2017-07-28T22:45:35-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/universal-ctags.html</id><summary type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
-&lt;h2&gt;Instalación de Universal Ctags en Fedora 26&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install autoconf automake
-git clone https://github.com/universal-ctags/ctags
-&lt;span class="nb"&gt;cd&lt;/span&gt; ctags
-./autogen.sh
-./configure
-make
-sudo make install
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-</summary><content type="html">&lt;div class="section" id="instalacion-de-universal-ctags-en-fedora-26"&gt;
-&lt;h2&gt;Instalación de Universal Ctags en Fedora 26&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install autoconf automake
-git clone https://github.com/universal-ctags/ctags
-&lt;span class="nb"&gt;cd&lt;/span&gt; ctags
-./autogen.sh
-./configure
-make
-sudo make install
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-</content><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Bloq mayus como Control y Escape con caps2esc</title><link href="http://nbicalcarata.github.io/bloq-mayus-como-control-y-escape-con-caps2esc.html" rel="alternate"></link><published>2017-07-28T18:08:07-05:00</published><updated>2017-07-28T18:08:07-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/bloq-mayus-como-control-y-escape-con-caps2esc.html</id><summary type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonómica, ya que la posición de los dedos permanece la mayor parte del tiempo en el centro del teclado.
-Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer …&lt;/p&gt;</summary><content type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonómica, ya que la posición de los dedos permanece la mayor parte del tiempo en el centro del teclado.
-Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actúa como control cuando se presiona en combinación con alguna otra tecla.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="behat"></category><category term="selenium"></category></entry><entry><title>Universal Ctags</title><link href="https://nbicalcarata.github.io/universal-ctags.html" rel="alternate"></link><published>2017-07-29T12:38:00-05:00</published><updated>2017-07-29T12:38:00-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-29:/universal-ctags.html</id><summary type="html"></summary><content type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo dnf install autoconf automake
+$ git clone https://github.com/universal-ctags/ctags
+$ cd ctags
+$ ./autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="cheatsheet"></category></entry><entry><title>Bloq mayus como Control y Escape con caps2esc</title><link href="https://nbicalcarata.github.io/bloq-mayus-como-control-y-escape-con-caps2esc.html" rel="alternate"></link><published>2017-07-28T18:08:07-05:00</published><updated>2017-07-28T18:08:07-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-07-28:/bloq-mayus-como-control-y-escape-con-caps2esc.html</id><summary type="html"></summary><content type="html">&lt;p&gt;El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con &lt;a class="reference external" href="https://github.com/oblitum/caps2esc"&gt;caps2esc&lt;/a&gt; es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actua como control cuando se presiona en combinación con alguna otra tecla.&lt;/p&gt;
 &lt;div class="section" id="instalacion-de-caps2esc-en-fedora-26"&gt;
 &lt;h2&gt;Instalación de caps2esc en Fedora 26&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dnf install systemd-devel libevdev-devel
@@ -445,21 +101,65 @@ systemctl start caps2esc
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Los comandos anteriores instalan las dependencias, se clona el repositorio, compilan con gcc, se copia el binario a /usr/bin, se establece un servicio de systemd para que se inicie con el sistema, este servicio se activa y se arranca.&lt;/p&gt;
 &lt;/div&gt;
-</content><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Gnome terminal darth edition en Ubuntu 14.04</title><link href="http://nbicalcarata.github.io/gnome-terminal-darth-edition-en-ubuntu-1404.html" rel="alternate"></link><published>2014-09-10T11:19:10+05:00</published><updated>2014-09-10T11:19:10+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-09-10:/gnome-terminal-darth-edition-en-ubuntu-1404.html</id><summary type="html">&lt;p&gt;Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.&lt;/p&gt;
-&lt;p&gt;Descargamos gnome-terminal-darth-edition de &lt;a class="reference external" href="http://download.opensuse.org/repositories/home:/ivonunes/Fedora_20/x86_64/gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
-&lt;div class="section" id="instalamos-alien"&gt;
-&lt;h2&gt;Instalamos alien&lt;/h2&gt;
-&lt;pre class="code sh literal-block"&gt;
-sudo apt install alien
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class="section" id="convertimos-el-paquete-a-deb"&gt;
-&lt;h2&gt;Convertimos el paquete a .deb&lt;/h2&gt;
-&lt;pre class="code sh literal-block"&gt;
-&lt;span class="nb"&gt;cd&lt;/span&gt; Descargas
-sudo alien gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm
-sudo apt remove gnome-terminal-data
-sudo apt …&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.&lt;/p&gt;
+</content><category term="utilidades"></category><category term="fedora"></category><category term="neovim"></category></entry><entry><title>Laravel Homestead en Fedora 26</title><link href="https://nbicalcarata.github.io/laravel-homestead-en-fedora-26.html" rel="alternate"></link><published>2017-06-29T17:15:59-05:00</published><updated>2017-06-29T17:15:59-05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2017-06-29:/laravel-homestead-en-fedora-26.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;Instalación&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ vagrant box add laravel/homestead
+$ git clone https://github.com/laravel/homestead.git Homestead
+$ cd Homestead
+$ git checkout v5.4.0
+$ bash init.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Homestead.yml&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;folders&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="k"&gt;map&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;sitios&lt;/span&gt;
+      &lt;span class="k"&gt;to&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sitios&lt;/span&gt;
+      &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;nfs&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;sites&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="k"&gt;map&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;interpos&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;
+      &lt;span class="k"&gt;to&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vagrant&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sitios&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;interpos&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;public&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;/etc/hosts&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;192.168.10.10  mysite.app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Soporte NFS&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ vagrant plugin install vagrant-bindfs
+$ sudo dnf install nfs-utils nfs-kernel-server firewall-config
+$ sudo systemctl enable nfs-server
+$ sudo systemctl start nfs-server
+$ sudo firewall-cmd --permanent --add-service=nfs
+$ sudo firewall-cmd --permanent --add-service=rpc-bind
+$ sudo firewall-cmd --permanent --add-service=mountd
+$ sudo firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Desde la versión 2.1.1 de &lt;code&gt;nfs-utils&lt;/code&gt; está deshabilitado el soporte a UDP por defecto, por lo que &lt;code&gt;vagrant up&lt;/code&gt;, se queda bloqueado en &lt;code&gt;==&amp;gt; homestead-7: Mounting NFS shared folders...&lt;/code&gt;, para resolver ésto, hay que editar &lt;code&gt;/etc/sysconfig/nfs&lt;/code&gt; y añadir &lt;code&gt;--udp&lt;/code&gt; a &lt;code&gt;RPCNFSDARGS&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;La anterior solución la encontré en este &lt;a href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/"&gt;enlace&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;RPCNFSDARGS=&amp;quot;--udp&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Virtualbox 5.1.24 &lt;a href="https://www.virtualbox.org/ticket/16911"&gt;bug&lt;/a&gt; workaround&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo ip link set vboxnet0 up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Firewall con GUI&lt;/h2&gt;
+&lt;p&gt;Tomado de &lt;a href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2"&gt;aquí&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Example for easily configuring firewalld using the &amp;quot;firewall-config&amp;quot; GUI:
+- Choose &amp;quot;Configuration: Permanent&amp;quot; from the drop down menu
+- Select the zone you want to modify (i chose &amp;quot;internal&amp;quot;).
+- Go to the &amp;quot;Interfaces&amp;quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
+- Go to the &amp;quot;Services&amp;quot; tab, check &amp;quot;mountd&amp;quot;, &amp;quot;nfs&amp;quot; and &amp;quot;rpc-bind&amp;quot;
+- Go to the global &amp;quot;Services&amp;quot; tab (next to &amp;quot;Zones&amp;quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
+- Finally choose &amp;quot;Options/Reload Firewalld&amp;quot;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="laravel"></category><category term="vagrant"></category></entry><entry><title>Gnome terminal darth edition en Ubuntu 14.04</title><link href="https://nbicalcarata.github.io/gnome-terminal-darth-edition-en-ubuntu-1404.html" rel="alternate"></link><published>2014-09-10T11:19:10+05:00</published><updated>2014-09-10T11:19:10+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-09-10:/gnome-terminal-darth-edition-en-ubuntu-1404.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Terminal con tema oscura independiente del tema gtk3, con la barra de titulo oculta al tener la terminal maximizada.&lt;/p&gt;
 &lt;p&gt;Descargamos gnome-terminal-darth-edition de &lt;a class="reference external" href="http://download.opensuse.org/repositories/home:/ivonunes/Fedora_20/x86_64/gnome-terminal-darth-edition-3.10.2-4.4.x86_64.rpm"&gt;aqui&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="section" id="instalamos-alien"&gt;
 &lt;h2&gt;Instalamos alien&lt;/h2&gt;
@@ -485,14 +185,7 @@ sudo apt remove gnome-terminal
 &lt;h2&gt;Ventana&lt;/h2&gt;
 &lt;img alt="" class="align-center" src="/images/Captura2014-09-1011:34:07.png" /&gt;
 &lt;/div&gt;
-</content><category term="terminal"></category></entry><entry><title>Hoja trampa de Tmux y Tmuxinator</title><link href="http://nbicalcarata.github.io/hoja-trampa-de-tmux-y-tmuxinator.html" rel="alternate"></link><published>2014-08-01T16:16:43+05:00</published><updated>2014-08-01T16:16:43+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-08-01:/hoja-trampa-de-tmux-y-tmuxinator.html</id><summary type="html">&lt;p&gt;Aqui esta una lista de los atajos de teclado de &lt;em&gt;tmux&lt;/em&gt; y comandos de &lt;em&gt;tmuxinator&lt;/em&gt;, varios de ellos son personalizados, anexo los gists con mis configuraciones.&lt;/p&gt;
-&lt;div class="section" id="tmux"&gt;
-&lt;h2&gt;Tmux&lt;/h2&gt;
-&lt;pre class="code sh literal-block"&gt;
-tmux -2                 Inicia con soporte para &lt;span class="m"&gt;256&lt;/span&gt; colores
-ctrl+a, c               Nueva pestaña
-ctrl+a, &lt;span class="c1"&gt;#               Ir a la pestaña #
-&lt;/span&gt;ctrl+a, s               Split …&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Aqui esta una lista de los atajos de teclado de &lt;em&gt;tmux&lt;/em&gt; y comandos de &lt;em&gt;tmuxinator&lt;/em&gt;, varios de ellos son personalizados, anexo los gists con mis configuraciones.&lt;/p&gt;
+</content><category term="linux"></category><category term="terminal"></category></entry><entry><title>Hoja trampa de Tmux y Tmuxinator</title><link href="https://nbicalcarata.github.io/hoja-trampa-de-tmux-y-tmuxinator.html" rel="alternate"></link><published>2014-08-01T16:16:43+05:00</published><updated>2014-08-01T16:16:43+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-08-01:/hoja-trampa-de-tmux-y-tmuxinator.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Aqui esta una lista de los atajos de teclado de &lt;em&gt;tmux&lt;/em&gt; y comandos de &lt;em&gt;tmuxinator&lt;/em&gt;, varios de ellos son personalizados, anexo los gists con mis configuraciones.&lt;/p&gt;
 &lt;div class="section" id="tmux"&gt;
 &lt;h2&gt;Tmux&lt;/h2&gt;
 &lt;pre class="code sh literal-block"&gt;
@@ -580,7 +273,7 @@ mux doctor                              Examina problemas con la configuración
 mux &lt;span class="nb"&gt;help&lt;/span&gt;                                Muestra la ayuda
 &lt;/pre&gt;
 &lt;/div&gt;
-</content><category term="tmux"></category><category term="tmuxinator"></category></entry><entry><title>Eliminando los bordes de ventana de GVim</title><link href="http://nbicalcarata.github.io/eliminando-los-bordes-de-ventana-de-gvim.html" rel="alternate"></link><published>2014-06-14T19:42:16+05:00</published><updated>2014-06-14T19:42:16+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-14:/eliminando-los-bordes-de-ventana-de-gvim.html</id><summary type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
+</content><category term="linux"></category><category term="tmux"></category><category term="tmuxinator"></category></entry><entry><title>Eliminando los bordes de ventana de GVim</title><link href="https://nbicalcarata.github.io/eliminando-los-bordes-de-ventana-de-gvim.html" rel="alternate"></link><published>2014-06-14T19:42:16+05:00</published><updated>2014-06-14T19:42:16+05:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-14:/eliminando-los-bordes-de-ventana-de-gvim.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
 &lt;pre class="code bash literal-block"&gt;
 style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
 bg&lt;span class="o"&gt;[&lt;/span&gt;NORMAL&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#242424&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# this matches my gvim theme 'Normal' bg color.
@@ -590,18 +283,7 @@ widget &lt;span class="s2"&gt;&amp;quot;vim-main-window.*GtkForm&amp;quot;&lt;/s
 &lt;p&gt;Antes y después&lt;/p&gt;
 &lt;img alt="" src="/images/Captura192813.png" /&gt;
 &lt;img alt="" src="/images/Captura193101.png" /&gt;
-</summary><content type="html">&lt;p&gt;Para quitar el borde de la ventana que aparece al maximizar &lt;em&gt;GVim&lt;/em&gt; solo hay que crear un archivo &lt;em&gt;.gtkrc-2.0&lt;/em&gt; en nuestro &lt;em&gt;home&lt;/em&gt; y le pegamos éste código&lt;/p&gt;
-&lt;pre class="code bash literal-block"&gt;
-style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
-bg&lt;span class="o"&gt;[&lt;/span&gt;NORMAL&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#242424&amp;quot;&lt;/span&gt; &lt;span class="c1"&gt;# this matches my gvim theme 'Normal' bg color.
-&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
-widget &lt;span class="s2"&gt;&amp;quot;vim-main-window.*GtkForm&amp;quot;&lt;/span&gt; style &lt;span class="s2"&gt;&amp;quot;vimfix&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;Antes y después&lt;/p&gt;
-&lt;img alt="" src="/images/Captura192813.png" /&gt;
-&lt;img alt="" src="/images/Captura193101.png" /&gt;
-</content><category term="vim"></category><category term="gvim"></category></entry><entry><title>Mezclar los iconos por defecto del panel de Ubuntu 14.04 con Faience</title><link href="http://nbicalcarata.github.io/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html" rel="alternate"></link><published>2014-06-11T06:10:26+00:00</published><updated>2014-06-11T06:10:26+00:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-11:/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html</id><summary type="html">&lt;p&gt;Existe un detalle que ya esta resuelto en &lt;em&gt;gnome shell&lt;/em&gt;, los iconos del panel y los de la bandeja de sistema.
-En &lt;em&gt;gnome shell&lt;/em&gt; estan siguiendo ciertas lineas de diseño que benefician la experiencia de usuario, por ejemplo al hacer consistentes los iconos en el panel superior eliminaron el desastre …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Existe un detalle que ya esta resuelto en &lt;em&gt;gnome shell&lt;/em&gt;, los iconos del panel y los de la bandeja de sistema.
+</content><category term="editor"></category><category term="vim"></category><category term="gvim"></category></entry><entry><title>Mezclar los iconos por defecto del panel de Ubuntu 14.04 con Faience</title><link href="https://nbicalcarata.github.io/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html" rel="alternate"></link><published>2014-06-11T06:10:26+00:00</published><updated>2014-06-11T06:10:26+00:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-06-11:/mezclar-los-iconos-por-defecto-del-panel-de-ubuntu-1404-con-faience.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Existe un detalle que ya esta resuelto en &lt;em&gt;gnome shell&lt;/em&gt;, los iconos del panel y los de la bandeja de sistema.
 En &lt;em&gt;gnome shell&lt;/em&gt; estan siguiendo ciertas lineas de diseño que benefician la experiencia de usuario, por ejemplo al hacer consistentes los iconos en el panel superior eliminaron el desastre que se convertia gnome 2 al cambiar de tema de iconos, en caso de que algunos indicadores no fueran soportados por éste.&lt;/p&gt;
 &lt;p&gt;En el caso de &lt;em&gt;unity&lt;/em&gt; en &lt;em&gt;ubuntu 14.04&lt;/em&gt;, el area de notificacion esta muy bien, mientras uses el tema por defecto.&lt;/p&gt;
 &lt;p&gt;Asi que para resolver esto, se puede tener lo mejor de los dos mundos, usar tu tema favorito en folders y aplicaciones, y los iconos de &lt;em&gt;ubuntu&lt;/em&gt; por defecto en el panel, la combinacion es hermosa.
@@ -627,12 +309,8 @@ gksu nautilus /usr/share/icons
 &lt;li&gt;Guardamos y con &lt;em&gt;unity tweak tool&lt;/em&gt; escogemos nuestro tema personalizado.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;img alt="" class="align-center" src="/images/captura92630.jpg" /&gt;
-</content><category term="temas"></category></entry><entry><title>Ajustes de post instalación de Fedora</title><link href="http://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
-Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes características:&lt;/p&gt;
-&lt;pre class="code sh literal-block"&gt;
-Distribution: Fedora release &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Heisenbug&lt;span class="o"&gt;)&lt;/span&gt;
-Kernel: Linux &lt;span class="m"&gt;3&lt;/span&gt;.13.5-200.fc20.x86_64 x86_64 …&lt;/pre&gt;</summary><content type="html">&lt;p&gt;Fedora es mi distribución linux favorita, y esta es mi guía personal sobre los ajustes que hago después de una instalación desde cero.
-Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes características:&lt;/p&gt;
+</content><category term="linux"></category><category term="ubuntu"></category></entry><entry><title>Ajustes de post instalación de Fedora 20</title><link href="https://nbicalcarata.github.io/ajustes-de-post-instalacion-de-fedora.html" rel="alternate"></link><published>2014-03-04T18:05:03-06:00</published><updated>2014-03-04T18:05:03-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-03-04:/ajustes-de-post-instalacion-de-fedora.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Fedora es mi distro favorita, y esta es mi guía personal sobre los ajustes que hago despues de una instalación desde cero.
+Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes caracteristicas:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 Distribution: Fedora release &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Heisenbug&lt;span class="o"&gt;)&lt;/span&gt;
 Kernel: Linux &lt;span class="m"&gt;3&lt;/span&gt;.13.5-200.fc20.x86_64 x86_64
@@ -679,20 +357,20 @@ dracut /boot/initramfs-&lt;span class="k"&gt;$(&lt;/span&gt;uname -r&lt;span cla
 &lt;/div&gt;
 &lt;div class="section" id="powertop"&gt;
 &lt;h3&gt;Powertop&lt;/h3&gt;
-&lt;p&gt;Powertop es una utilidad que sirve para gestionar las opciones de ahorro de energía que tiene disponible nuestro hardware, nos muestra una lista de los dispositivos y la cantidad de energía que están utilizando, y también nos permite saber si estas opciones están activas.
-Ejecutamos &lt;tt class="docutils literal"&gt;powertop&lt;/tt&gt; con permisos de superusuario y al desplazarnos con tab en &lt;tt class="docutils literal"&gt;Tunables&lt;/tt&gt; aparecen los dispositivos con su respectiva opción de ahorro de energía, &lt;tt class="docutils literal"&gt;good&lt;/tt&gt; para activada, &lt;tt class="docutils literal"&gt;bad&lt;/tt&gt; para desactivada.&lt;/p&gt;
+&lt;p&gt;Powertop es una utilidad que sirve para gestionar las opciones de ahorro de energia que tiene disponible nuestro hardware, nos muestra una lista de los dispositivos y la cantidad de energia que estan utilizando, y tambien nos permite saber si estas opciones estan activas.
+Ejecutamos &lt;tt class="docutils literal"&gt;powertop&lt;/tt&gt; con permisos de superusuario y al desplazarnos con tab en &lt;tt class="docutils literal"&gt;Tunables&lt;/tt&gt; aparecen los dispositivos con su respectiva opcion de ahorro de energia, &lt;tt class="docutils literal"&gt;good&lt;/tt&gt; para activada, &lt;tt class="docutils literal"&gt;bad&lt;/tt&gt; para desactivada.&lt;/p&gt;
 &lt;p&gt;Existen varias maneras de que aparezcan en &lt;tt class="docutils literal"&gt;good&lt;/tt&gt;, la forma mas sencilla, que fue implementada en la versión 2.5 es con la opción &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;-html&lt;/span&gt;&lt;/tt&gt;, con la cual nos genera un archivo html donde nos muestra los comandos a utilizar para hacer los cambios permanentes.&lt;/p&gt;
 &lt;p&gt;Ejecutamos:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 sudo su
 powertop -html
 &lt;/pre&gt;
-&lt;p&gt;Esto nos genera un archivo llamado &lt;tt class="docutils literal"&gt;tml.html&lt;/tt&gt; en nuestra carpeta &lt;tt class="docutils literal"&gt;home&lt;/tt&gt;, al abrirlo en la opción &lt;tt class="docutils literal"&gt;Tuning&lt;/tt&gt; nos muestra los scripts a ejecutar al inicio para activar las gestiones de energía de los dispositivos que lo necesiten.&lt;/p&gt;
+&lt;p&gt;Esto nos genera un archivo llamado &lt;tt class="docutils literal"&gt;tml.html&lt;/tt&gt; en nuestra carpeta &lt;tt class="docutils literal"&gt;home&lt;/tt&gt;, al abrirlo en la opción &lt;tt class="docutils literal"&gt;Tuning&lt;/tt&gt; nos muestra los scripts a ejecutar al inicio para activar las gestiones de energia de los dispositivos que lo necesiten.&lt;/p&gt;
 &lt;p&gt;Creamos el script:&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 gedit /usr/local/bin/startup.sh
 &lt;/pre&gt;
-&lt;p&gt;Y pegamos los comandos, en mi caso deje desactivada el ahorro de energía para el ratón y el teclado, porque es incomodo hacer click para despertarlo.&lt;/p&gt;
+&lt;p&gt;Y pegamos los comandos, en mi caso deje desactivada el ahorro de energia para el raton y el teclado, porque es incomodo hacer click para despertarlo.&lt;/p&gt;
 &lt;p&gt;[gist:id=9734529 ]&lt;/p&gt;
 &lt;p&gt;Lo hacemos ejecutable y lo arrancamos&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
@@ -735,9 +413,9 @@ sudo yum install audacious audacious-libs audacious-plugins audacious-plugins-fr
 &lt;p&gt;Fedora es una gran distro, lo intente con opensuse y derivadas de debian, pero la verdad no me convencen tanto, solo espero que se resuelva pronto lo de Catalyst, aunque el driver libre funciona correctamente, lo ideal seria tener instalado el privativo para sacarle todo el jugo a la tarjeta gráfica.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="postinstall"></category></entry><entry><title>Playonlinux sin audio en OpenSuse 13.1</title><link href="http://nbicalcarata.github.io/playonlinux-sin-audio-en-opensuse-131.html" rel="alternate"></link><published>2014-02-11T14:50:12-06:00</published><updated>2014-02-11T14:50:12-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-11:/playonlinux-sin-audio-en-opensuse-131.html</id><summary type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se ejecuta perfecto, solo que no tenia audio y al iniciar sesión no arranca si dejas seleccionada la opción &amp;quot;Remember me&amp;quot;.
-El audio lo solucioné instalando la librería &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;alsa-plugins-pulse-32bit&lt;/span&gt;&lt;/tt&gt;, y con el detalle del login solo basta desmarcar la opción &amp;quot;Remember me&amp;quot;, así que hay que teclear el nombre de usuario o correo y contraseña cada vez que arranquemos el juego. Happy fragging.&lt;/p&gt;
-</content><category term="playonlinux"></category><category term="wine"></category><category term="quakelive"></category></entry><entry><title>Configurando Vim</title><link href="http://nbicalcarata.github.io/configurando-vim.html" rel="alternate"></link><published>2014-02-10T03:00:48-06:00</published><updated>2014-02-10T03:00:48-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-10:/configurando-vim.html</id><summary type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.&lt;/p&gt;
+</content><category term="linux"></category><category term="fedora"></category></entry><entry><title>Playonlinux sin audio en OpenSuse 13.1</title><link href="https://nbicalcarata.github.io/playonlinux-sin-audio-en-opensuse-131.html" rel="alternate"></link><published>2014-02-11T14:50:12-06:00</published><updated>2014-02-11T14:50:12-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-11:/playonlinux-sin-audio-en-opensuse-131.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Debido a que id software decidió terminar con Quake Live en Linux, me puse a la tarea de instalarlo con playonlinux en opensuse 13.1 de 64 bits (abandoné Fedora porque hasta el momento nadie mantiene el driver catalyst de Ati). Me llevé la sorpresa de que el juego se ejecuta perfecto, solo que no tenia audio y al iniciar sesión no arranca si dejas seleccionada la opción &amp;quot;Remember me&amp;quot;.
+El audio lo solucioné instalando la libreria &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;alsa-plugins-pulse-32bit&lt;/span&gt;&lt;/tt&gt;, y con el detalle del login solo basta desmarcar la opción &amp;quot;Remember me&amp;quot;, asi que hay que teclear el nombre de usuario o correo y contraseña cada vez que arranquemos el juego. Happy fragging.&lt;/p&gt;
+</content><category term="linux"></category><category term="playonlinux"></category><category term="wine"></category><category term="opensuse"></category><category term="quake live"></category></entry><entry><title>Configurando Vim</title><link href="https://nbicalcarata.github.io/configurando-vim.html" rel="alternate"></link><published>2014-02-10T03:00:48-06:00</published><updated>2014-02-10T03:00:48-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-02-10:/configurando-vim.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.&lt;/p&gt;
 &lt;p&gt;Para poder hacer esto hay que leerse los .vimrc de otras personas, esto es importante para saber que opciones se estan usando y por qué. El .vimrc de spf13 es muy fácil de leer, cada sección viene comentada con su funcionalidad respectiva.&lt;/p&gt;
 &lt;div class="section" id="vundle"&gt;
 &lt;h2&gt;Vundle&lt;/h2&gt;
@@ -819,7 +497,7 @@ npm install jshint -g
 &lt;p&gt;Este post se estará actualizando regularmente, porque vim es muy extenso y nunca se termina de encontrarle funcionalidades nuevas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</content><category term="neovim"></category></entry><entry><title>Instalación y configuración de Light Table</title><link href="http://nbicalcarata.github.io/instalacion-y-configuracion-de-light-table.html" rel="alternate"></link><published>2014-01-09T17:39:30-06:00</published><updated>2014-01-09T17:39:30-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-01-09:/instalacion-y-configuracion-de-light-table.html</id><summary type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.&lt;/p&gt;
+</content><category term="editor"></category><category term="neovim"></category></entry><entry><title>Instalación y configuración de Light Table en Linux</title><link href="https://nbicalcarata.github.io/instalacion-y-configuracion-de-light-table-en-linux.html" rel="alternate"></link><published>2014-01-09T17:39:30-06:00</published><updated>2014-01-09T17:39:30-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2014-01-09:/instalacion-y-configuracion-de-light-table-en-linux.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en &lt;a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table"&gt;kickstarter&lt;/a&gt; por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.&lt;/p&gt;
 &lt;div class="section" id="instalacion"&gt;
 &lt;h2&gt;Instalación&lt;/h2&gt;
 &lt;!-- TEASER_END --&gt;
@@ -924,7 +602,7 @@ Para agregar atajos de teclado damos &lt;em&gt;ctrl + space&lt;/em&gt; y escribi
 &lt;p&gt;Estos son los atajos que yo agregué, recomiendo explorar bastante el editor antes de agregar atajos de teclado.&lt;/p&gt;
 &lt;p&gt;En lo personal este editor me gusta mucho, y aunque va en la version 0.6.0 lo encuentro bastante funcional y entretenido de usar, aunque no olvidemos que esta en desarrollo y hay todavia muchos detalles por corregir para poder utilizarlo sin problemas.&lt;/p&gt;
 &lt;/div&gt;
-</content><category term="html"></category><category term="clojure"></category></entry><entry><title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf</title><link href="http://nbicalcarata.github.io/soluci%C3%B3n-al-error-de-dependencias-de-libglso1-en-crunchbang-waldorf.html" rel="alternate"></link><published>2013-12-18T00:19:05-06:00</published><updated>2013-12-18T00:19:05-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-18:/solución-al-error-de-dependencias-de-libglso1-en-crunchbang-waldorf.html</id><summary type="html">&lt;p&gt;Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación de librerías de compatibilidad con 32 bits para poder ejecutar Steam.&lt;/p&gt;
+</content><category term="editor"></category><category term="html"></category><category term="clojure"></category></entry><entry><title>Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf</title><link href="https://nbicalcarata.github.io/soluci%C3%B3n-al-error-de-dependencias-de-libglso1-en-crunchbang-waldorf.html" rel="alternate"></link><published>2013-12-18T00:19:05-06:00</published><updated>2013-12-18T00:19:05-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-18:/solución-al-error-de-dependencias-de-libglso1-en-crunchbang-waldorf.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Despues de una instalación fallida de Steam en CrunchBang 11 (basado en Debian 7) me aparecía un error con smplayer sobre la ausencia de el paquete libGL.so.1, y con vlc el uso del procesador se me disparaba al 100%, al parecer esto tuvo que ver con la instalación de librerías de compatibilidad con 32 bits para poder ejecutar Steam.&lt;/p&gt;
 &lt;pre class="code sh literal-block"&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;adrian&amp;#64;crunchbang ~&lt;span class="o"&gt;]&lt;/span&gt;$ sudo apt-get install libgl1-mesa-glx:i386
 Leyendo lista de paquetes... Hecho
@@ -966,6 +644,5 @@ libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1.2
 libgl1-mesa-glx:amd64: /usr/lib/x86_64-linux-gnu/libGL.so.1
 &lt;/pre&gt;
 &lt;p&gt;ldconfig sirve para volver a crear el cache de las librerías compartidas, y con ello así nos olvidamos de este problema, o al menos hasta que vuelva a intentar instalar Steam.&lt;/p&gt;
-</content></entry><entry><title>Primer post via terminal con Nikola</title><link href="http://nbicalcarata.github.io/primer-post-via-terminal-con-nikola.html" rel="alternate"></link><published>2013-12-17T01:31:38-06:00</published><updated>2013-12-17T01:31:38-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-17:/primer-post-via-terminal-con-nikola.html</id><summary type="html">&lt;p&gt;Decidi hacerme un blog y me encontre esta herramienta escrita en python llamada Nikola, que sirve para generar paginas estaticas.&lt;/p&gt;
-</summary><content type="html">&lt;p&gt;Decidi hacerme un blog y me encontre esta herramienta escrita en python llamada Nikola, que sirve para generar paginas estaticas.&lt;/p&gt;
-</content><category term="python"></category></entry></feed>
+</content><category term="linux"></category><category term="crunchbang"></category></entry><entry><title>Primer post</title><link href="https://nbicalcarata.github.io/primer-post.html" rel="alternate"></link><published>2013-12-17T01:31:38-06:00</published><updated>2013-12-17T01:31:38-06:00</updated><author><name>Adrián Martínez</name></author><id>tag:nbicalcarata.github.io,2013-12-17:/primer-post.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Decidi hacerme un blog y éste es mi primer post.&lt;/p&gt;
+</content><category term="misc"></category><category term="python"></category></entry></feed>

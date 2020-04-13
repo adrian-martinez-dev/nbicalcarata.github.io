@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Entradas con etiqueta "tmux" - Adrián Martínez</title>
+    <title>Laravel Homestead en Fedora 26 - Adrián Martínez</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -17,6 +17,7 @@
 
     <!-- newsfeeds -->
         <link href="https://nbicalcarata.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Full Atom Feed" />
+        <link href="https://nbicalcarata.github.io/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -54,16 +55,78 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Entradas con etiqueta “#tmux”</h1>        <article class="entry-overview">
-            <div class="detail">
-                <header><h3>
-                    <a href="https://nbicalcarata.github.io/hoja-trampa-de-tmux-y-tmuxinator.html" rel="bookmark" title="Permalink to Hoja trampa de Tmux y Tmuxinator">
-                        Hoja trampa de Tmux y Tmuxinator
-                    </a>
-                </h3></header>
-                <div class="summary"></div>
-            </div>
-        </article>
+    <h1 class="title">Laravel Homestead en Fedora 26</h1>
+
+        <div class="date">
+            <p>Escrito el jueves, 29 de junio del 2017.</p>
+            <!-- por <a rel="author" href="https://nbicalcarata.github.io/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><h2>Instalación</h2>
+<div class="highlight"><pre><span></span><code>$ vagrant box add laravel/homestead
+$ git clone https://github.com/laravel/homestead.git Homestead
+$ cd Homestead
+$ git checkout v5.4.0
+$ bash init.sh
+</code></pre></div>
+
+
+<h2>Homestead.yml</h2>
+<div class="highlight"><pre><span></span><code><span class="n">folders</span><span class="p">:</span>
+    <span class="o">-</span> <span class="k">map</span><span class="p">:</span> <span class="o">~/</span><span class="n">sitios</span>
+      <span class="k">to</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">vagrant</span><span class="o">/</span><span class="n">sitios</span>
+      <span class="k">type</span><span class="p">:</span> <span class="ss">&quot;nfs&quot;</span>
+
+<span class="n">sites</span><span class="p">:</span>
+    <span class="o">-</span> <span class="k">map</span><span class="p">:</span> <span class="n">interpos</span><span class="p">.</span><span class="n">app</span>
+      <span class="k">to</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">vagrant</span><span class="o">/</span><span class="n">sitios</span><span class="o">/</span><span class="n">interpos</span><span class="o">/</span><span class="k">public</span>
+</code></pre></div>
+
+
+<h2>/etc/hosts</h2>
+<div class="highlight"><pre><span></span><code>192.168.10.10  mysite.app
+</code></pre></div>
+
+
+<h2>Soporte NFS</h2>
+<div class="highlight"><pre><span></span><code>$ vagrant plugin install vagrant-bindfs
+$ sudo dnf install nfs-utils nfs-kernel-server firewall-config
+$ sudo systemctl enable nfs-server
+$ sudo systemctl start nfs-server
+$ sudo firewall-cmd --permanent --add-service=nfs
+$ sudo firewall-cmd --permanent --add-service=rpc-bind
+$ sudo firewall-cmd --permanent --add-service=mountd
+$ sudo firewall-cmd --reload
+</code></pre></div>
+
+
+<p>Desde la versión 2.1.1 de <code>nfs-utils</code> está deshabilitado el soporte a UDP por defecto, por lo que <code>vagrant up</code>, se queda bloqueado en <code>==&gt; homestead-7: Mounting NFS shared folders...</code>, para resolver ésto, hay que editar <code>/etc/sysconfig/nfs</code> y añadir <code>--udp</code> a <code>RPCNFSDARGS</code>.</p>
+<p>La anterior solución la encontré en este <a href="https://robertbasic.com/blog/enable-udp-for-nfs-on-fedora/">enlace</a>.</p>
+<div class="highlight"><pre><span></span><code>RPCNFSDARGS=&quot;--udp&quot;
+</code></pre></div>
+
+
+<h2>Virtualbox 5.1.24 <a href="https://www.virtualbox.org/ticket/16911">bug</a> workaround</h2>
+<div class="highlight"><pre><span></span><code>$ sudo ip link set vboxnet0 up
+</code></pre></div>
+
+
+<h2>Firewall con GUI</h2>
+<p>Tomado de <a href="https://meta.discourse.org/t/solved-nfs-mount-hangs-need-vagrant-file-for-fedora-23/41314/2">aquí</a>.</p>
+<div class="highlight"><pre><span></span><code>Example for easily configuring firewalld using the &quot;firewall-config&quot; GUI:
+- Choose &quot;Configuration: Permanent&quot; from the drop down menu
+- Select the zone you want to modify (i chose &quot;internal&quot;).
+- Go to the &quot;Interfaces&quot; tab, assign vboxnet0 (or other host-only adapter) to the zone.
+- Go to the &quot;Services&quot; tab, check &quot;mountd&quot;, &quot;nfs&quot; and &quot;rpc-bind&quot;
+- Go to the global &quot;Services&quot; tab (next to &quot;Zones&quot;), select NFS and add Port 2049 UDP (only TCP is predefined).
+- Finally choose &quot;Options/Reload Firewalld&quot;.
+</code></pre></div></div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="https://nbicalcarata.github.io/tag/laravel.html">#laravel</a> y                 <a href="https://nbicalcarata.github.io/tag/vagrant.html">#vagrant</a></p>
+        </div>
+
 
           </section>
        </div>

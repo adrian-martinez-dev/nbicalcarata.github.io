@@ -52,6 +52,10 @@ body {
     max-width: 85%;
 }
 
+img {
+    max-width: 100%;
+}
+
 div.highlight pre, pre.literal-block {
     margin: 5px;
     font-family: 'Inconsolata', 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
@@ -61,8 +65,8 @@ div.highlight pre, pre.literal-block {
 div.highlight, pre.literal-block {
     border: 1px solid #DDDDDD;
     font-family: 'Inconsolata','Consolas','Menlo','Deja Vu Sans Mono','Bitstream Vera Sans Mono',monospace;
-    margin: 20px 0;
     overflow: auto;
+    margin-bottom: 15px;
     padding: 10px;
 }
 
@@ -86,11 +90,13 @@ cite {
 }
 
 code {
-    background-color: #EEEEEE;
     font-family: 'Inconsolata', 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
-    border: 1px solid #ddd;
-    padding: 0 2px 2px 3px;
-    font-size: 0.8em;
+}
+
+p code {
+   background-color: #EEEEEE;
+   border: 1px solid #ddd;
+   font-size: 0.8em;
 }
 
 table {
