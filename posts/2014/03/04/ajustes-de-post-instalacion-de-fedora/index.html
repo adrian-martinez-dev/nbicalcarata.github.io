@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Ajustes de post instalación de Fedora 20 - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Ajustes de post instalación de Fedora 20</h1>
+
+        <div class="date">
+            <p>Escrito el martes, 04 de marzo del 2014.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>Fedora es mi distro favorita, y esta es mi guía personal sobre los ajustes que hago despues de una instalación desde cero.
+Mi netbook es una Sony Vaio de 11.6 pulgadas con las siguientes caracteristicas:</p>
+<pre class="code sh literal-block">
+Distribution: Fedora release <span class="m">20</span> <span class="o">(</span>Heisenbug<span class="o">)</span>
+Kernel: Linux <span class="m">3</span>.13.5-200.fc20.x86_64 x86_64
+RAM: <span class="m">3640664</span> kB
+Video: Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> Wrestler <span class="o">[</span>Radeon HD <span class="m">6320</span><span class="o">]</span>
+Audio: Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> Wrestler HDMI Audio
+Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> SBx00 Azalia <span class="o">(</span>Intel HDA<span class="o">)</span> <span class="o">(</span>rev <span class="m">40</span><span class="o">)</span>
+Ethernet: Qualcomm Atheros AR8131 Gigabit Ethernet <span class="o">(</span>rev c0<span class="o">)</span>
+Wireless: Qualcomm Atheros AR9285 Wireless Network Adapter <span class="o">(</span>PCI-Express<span class="o">)</span> <span class="o">(</span>rev <span class="m">01</span><span class="o">)</span>
+</pre>
+<div class="section" id="ajustes">
+<h2>Ajustes</h2>
+<p>Actualización del sistema</p>
+<pre class="code sh literal-block">
+su -
+yum update
+yum install gnome-tweak-tool Zim redshift-gtk cryptkeeper gparted powertop htop git git-core python-devel gnome-session-properties libreoffice-langpack-es
+</pre>
+<p>Para agregarle extensiones a gnome shell entramos a <a class="reference external" href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>  y activamos las siguientes:</p>
+<ul class="simple">
+<li>User theme</li>
+<li>Dash to dock</li>
+<li>Media player indicator</li>
+<li>Coverflow alt tab</li>
+<li>Caffeine</li>
+<li>Drop down terminal</li>
+<li>Avanced volume mixer</li>
+</ul>
+<p>Existe un detalle con la terminal que en lugar de mostrar el usuario en el prompt despliega <tt class="docutils literal"><span class="pre">bash-4.2$</span></tt>, esto se corrige editando nuestro <tt class="docutils literal">.bash_profile</tt> y le agregamos la linea</p>
+<pre class="code sh literal-block">
+<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;[\u&#64;\h \W]\$ &quot;</span>
+</pre>
+<div class="section" id="driver-catalyst">
+<h3>Driver Catalyst</h3>
+<p><strong>Atención, el siguiente paso ya no funciona en Fedora 20 debido a que hasta la fecha nadie mantiene el driver privativo</strong>, lo adjunto para el caso de que se vuelva a empaquetar a los repositorios de RPM fusion.</p>
+<div class="highlight"><pre><span></span>su
+yum update kernel
+yum --nogpgcheck install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm
+yum install akmod-catalyst xorg-x11-drv-catalyst xorg-x11-drv-catalyst-libs.i686
+mv /boot/initramfs-<span class="k">$(</span>uname -r<span class="k">)</span>.img /boot/initramfs-<span class="k">$(</span>uname -r<span class="k">)</span>-radeon.img
+dracut /boot/initramfs-<span class="k">$(</span>uname -r<span class="k">)</span>.img <span class="k">$(</span>uname -r<span class="k">)</span>
+</pre></div>
+<p>Y reiniciamos la máquina.</p>
+</div>
+<div class="section" id="powertop">
+<h3>Powertop</h3>
+<p>Powertop es una utilidad que sirve para gestionar las opciones de ahorro de energia que tiene disponible nuestro hardware, nos muestra una lista de los dispositivos y la cantidad de energia que estan utilizando, y tambien nos permite saber si estas opciones estan activas.
+Ejecutamos <tt class="docutils literal">powertop</tt> con permisos de superusuario y al desplazarnos con tab en <tt class="docutils literal">Tunables</tt> aparecen los dispositivos con su respectiva opcion de ahorro de energia, <tt class="docutils literal">good</tt> para activada, <tt class="docutils literal">bad</tt> para desactivada.</p>
+<p>Existen varias maneras de que aparezcan en <tt class="docutils literal">good</tt>, la forma mas sencilla, que fue implementada en la versión 2.5 es con la opción <tt class="docutils literal"><span class="pre">-html</span></tt>, con la cual nos genera un archivo html donde nos muestra los comandos a utilizar para hacer los cambios permanentes.</p>
+<p>Ejecutamos:</p>
+<pre class="code sh literal-block">
+sudo su
+powertop -html
+</pre>
+<p>Esto nos genera un archivo llamado <tt class="docutils literal">tml.html</tt> en nuestra carpeta <tt class="docutils literal">home</tt>, al abrirlo en la opción <tt class="docutils literal">Tuning</tt> nos muestra los scripts a ejecutar al inicio para activar las gestiones de energia de los dispositivos que lo necesiten.</p>
+<p>Creamos el script:</p>
+<pre class="code sh literal-block">
+gedit /usr/local/bin/startup.sh
+</pre>
+<p>Y pegamos los comandos, en mi caso deje desactivada el ahorro de energia para el raton y el teclado, porque es incomodo hacer click para despertarlo.</p>
+<p>[gist:id=9734529 ]</p>
+<p>Lo hacemos ejecutable y lo arrancamos</p>
+<pre class="code sh literal-block">
+chmod +x /usr/local/bin/startup.sh
+/usr/local/bin/startup.sh
+</pre>
+<p>Si funciona sin problemas lo agregamos al arranque del sistema</p>
+<pre class="code sh literal-block">
+gedit /etc/rc.d/rc.local
+</pre>
+<p>Pegamos esto:</p>
+<pre class="code sh literal-block">
+<span class="ch">#!/bin/bash
+</span>/usr/local/bin/startup.sh
+<span class="nb">exit</span>
+</pre>
+<p>Le damos permisos de ejecución</p>
+<pre class="code sh literal-block">
+chmod +x /etc/rc.d/rc.local
+</pre>
+<p>Iniciamos el servicio y checamos su status</p>
+<pre class="code sh literal-block">
+systemctl start rc-local
+systemctl status rc-local
+</pre>
+<p>Y reiniciamos de nuevo, todo lo anterior hecho como root.</p>
+</div>
+<div class="section" id="codecs-java-flash-y-utilidades">
+<h3>Codecs, java, flash y utilidades</h3>
+<p>Para esto instalamos Fedy, desde <a class="reference external" href="http://satya164.github.io/fedy/">http://satya164.github.io/fedy/</a>, con el siguiente comando:</p>
+<pre class="code sh literal-block">
+su -c <span class="s2">&quot;curl http://satya164.github.io/fedy/fedy-installer -o fedy-installer &amp;&amp; chmod +x fedy-installer &amp;&amp; ./fedy-installer&quot;</span>
+</pre>
+</div>
+<div class="section" id="audacious">
+<h3>Audacious</h3>
+<pre class="code sh literal-block">
+sudo yum install audacious audacious-libs audacious-plugins audacious-plugins-freeworld audacious-plugins-freeworld-aac audacious-plugins-freeworld-ffaudio audacious-plugins-freeworld-mp3
+</pre>
+<p>Fedora es una gran distro, lo intente con opensuse y derivadas de debian, pero la verdad no me convencen tanto, solo espero que se resuelva pronto lo de Catalyst, aunque el driver libre funciona correctamente, lo ideal seria tener instalado el privativo para sacarle todo el jugo a la tarjeta gráfica.</p>
+</div>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/fedora.html">#fedora</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

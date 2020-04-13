@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Tests de Selenium con servidor remoto y Vagrant - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Tests de Selenium con servidor remoto y Vagrant</h1>
+
+        <div class="date">
+            <p>Escrito el lunes, 31 de julio del 2017.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><h2>Servidor remoto</h2>
+<p>Con el entorno de desarrollo (neovim + tmux) ejecutándose en servidor remoto, habilitamos en éste el ssh tunneling de la siguiente forma:</p>
+<p>En el archivo <code>/etc/ssh/ssh_config</code> modificamos la siguiente linea:</p>
+<div class="highlight"><pre><span></span><code>GatewayPorts yes
+</code></pre></div>
+
+
+<p>Reiniciamos el servicio ssh.</p>
+<div class="highlight"><pre><span></span><code>sudo systemctl restart sshd
+</code></pre></div>
+
+
+<p>Abrimos dos terminales en la maquina local, en la primera, iniciamos el ssh tunneling.</p>
+<div class="highlight"><pre><span></span><code>ssh -R 4444:localhost:4444 usuario@&lt;ip-servidor&gt;
+</code></pre></div>
+
+
+<p>En la segunda ejecutamos Selenium con Chromedriver.</p>
+<div class="highlight"><pre><span></span><code>java -Dwebdriver.chrome.driver=&#39;/home/adrian/chromedriver&#39; -jar selenium-server-standalone-3.4.0.jar
+</code></pre></div>
+
+
+<p>En nuestro <code>behat.yml</code>, <code>base_url</code> debe apuntar a la IP de nuestro servidor y al puerto que tenemos abierto, donde se esta ejecutando nuestra aplicación de laravel con <code>php artisan serve</code>.</p>
+<div class="highlight"><pre><span></span><code>php artisan serve --host=&lt;ip_servidor&gt; --port=&lt;puerto&gt;
+</code></pre></div>
+
+
+<p>En <code>behat.yml</code></p>
+<div class="highlight"><pre><span></span><code>base_url: http://&lt;ip_servidor&gt;:&lt;puerto&gt;
+</code></pre></div>
+
+
+<h2>Vagrant</h2>
+<p>Hacemos el ssh tunneling, pero sobre la dirección IP de homestead.</p>
+<div class="highlight"><pre><span></span><code>ssh -R 4444:localhost:4444 vagrant@192.168.10.10
+</code></pre></div>
+
+
+<p>En una terminal ejecutamos selenium y chromedriver como se indicó anteriormente:</p>
+<div class="highlight"><pre><span></span><code>java -Dwebdriver.chrome.driver=&#39;/home/adrian/chromedriver&#39; -jar selenium-server-standalone-3.4.0.jar
+</code></pre></div>
+
+
+<p>En <code>behat.yml</code>, en <code>base_url</code> va indicada la url de nuestra aplicación, y en la sección de <code>selenium</code>, <code>localhost:4000/wd/hub</code> como si se ejecutara en la maquina virtual.</p>
+<h3>behat.yml</h3>
+<div class="highlight"><pre><span></span><code><span class="k">default</span><span class="o">:</span>
+    <span class="n">translation</span><span class="o">:</span>
+        <span class="n">locale</span><span class="o">:</span> <span class="n">en</span>
+    <span class="n">extensions</span><span class="o">:</span>
+        <span class="n">Laracasts</span><span class="o">\</span><span class="n">Behat</span><span class="o">:</span> <span class="o">~</span>
+            <span class="err">#</span> <span class="n">env_path</span><span class="o">:</span> <span class="o">.</span><span class="na">env</span><span class="o">.</span><span class="na">behat</span>
+        <span class="n">Behat</span><span class="o">\</span><span class="n">MinkExtension</span><span class="o">:</span>
+            <span class="n">base_url</span><span class="o">:</span> <span class="s1">&#39;http://interpos.app&#39;</span>
+            <span class="n">default_session</span><span class="o">:</span> <span class="n">laravel</span>
+            <span class="n">laravel</span><span class="o">:</span> <span class="o">~</span>
+            <span class="n">selenium2</span><span class="o">:</span>
+              <span class="n">wd_host</span><span class="o">:</span> <span class="n">http</span><span class="o">://</span><span class="n">localhost</span><span class="o">:</span><span class="mi">4444</span><span class="sr">/wd/</span><span class="n">hub</span>
+              <span class="n">browser</span><span class="o">:</span> <span class="n">chrome</span>
+</code></pre></div>
+
+
+<p>En mi caso, usando el plugin <a href="https://github.com/janko-m/vim-test">vim-test</a>, <code>vagrant ssh</code> no me permitía mandar el comando a ejecutar directamente a la maquina virtual, así que usando la función VagrantTransform (adaptada del ejemplo de la documentación) lo conseguí satisfactoriamente:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="p">!</span> VagrantTransform<span class="p">(</span>cmd<span class="p">)</span> abort
+  <span class="k">let</span> <span class="k">l</span>:vagrant_project <span class="p">=</span> fnamemodify<span class="p">(</span>getcwd<span class="p">(),</span><span class="s2">&quot;:t&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s2">&quot;cd ~/Homestead &amp;&amp; ssh -tt vagrant@192.168.10.10 &quot;</span>.shellescape<span class="p">(</span><span class="s1">&#39;cd /home/vagrant/sitios/&#39;</span>.vagrant_project.<span class="s1">&#39;; &#39;</span>.<span class="k">a</span>:cmd<span class="p">)</span>
+<span class="k">endfunction</span>
+
+<span class="k">let</span> <span class="k">g</span>:test#custom_transformations <span class="p">=</span> {<span class="s1">&#39;vagrant&#39;</span>: <span class="k">function</span><span class="p">(</span><span class="s1">&#39;VagrantTransform&#39;</span><span class="p">)</span>}
+<span class="k">let</span> <span class="k">g</span>:test#transformation <span class="p">=</span> <span class="s1">&#39;vagrant&#39;</span>
+</code></pre></div></div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/behat.html">#behat</a> y                 <a href="/tag/selenium.html">#selenium</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

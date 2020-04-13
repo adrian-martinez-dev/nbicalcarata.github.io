@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Bloq mayus como Control y Escape con caps2esc - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Bloq mayus como Control y Escape con caps2esc</h1>
+
+        <div class="date">
+            <p>Escrito el viernes, 28 de julio del 2017.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>El uso de vim se vuelve mas natural cuando se remapea la tecla bloq mayus como control, de esta forma los comandos son insertados de forma ergonomica, ya que la posicion de los dedos permanece la mayor parte del tiempo en el centro del teclado.
+Con <a class="reference external" href="https://github.com/oblitum/caps2esc">caps2esc</a> es posible hacer esto, ademas se vuelve una tecla escape adicional (cuando se teclea por si sola), y actua como control cuando se presiona en combinación con alguna otra tecla.</p>
+<div class="section" id="instalacion-de-caps2esc-en-fedora-26">
+<h2>Instalación de caps2esc en Fedora 26</h2>
+<div class="highlight"><pre><span></span>sudo dnf install systemd-devel libevdev-devel
+git clone https://github.com/oblitum/caps2esc.git
+<span class="nb">cd</span> caps2esc
+gcc caps2esc.c -o caps2esc -I/usr/include/libevdev-1.0 -levdev -ludev
+sudo su
+cp caps2esc /usr/bin
+
+<span class="nb">echo</span> <span class="s2">&quot;[Unit]</span>
+<span class="s2">Description=caps2esc</span>
+
+<span class="s2">[Service]</span>
+<span class="s2">ExecStart=/usr/bin/nice -n -20 /usr/bin/caps2esc</span>
+
+<span class="s2">[Install]</span>
+<span class="s2">WantedBy=multi-user.target&quot;</span> &gt; /etc/systemd/system/caps2esc.service
+
+systemctl <span class="nb">enable</span> caps2esc
+systemctl start caps2esc
+<span class="nb">exit</span>
+</pre></div>
+<p>Los comandos anteriores instalan las dependencias, se clona el repositorio, compilan con gcc, se copia el binario a /usr/bin, se establece un servicio de systemd para que se inicie con el sistema, este servicio se activa y se arranca.</p>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/fedora.html">#fedora</a> y                 <a href="/tag/neovim.html">#neovim</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

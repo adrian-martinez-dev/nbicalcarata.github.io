@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Hoja trampa de Tmux y Tmuxinator - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Hoja trampa de Tmux y Tmuxinator</h1>
+
+        <div class="date">
+            <p>Escrito el viernes, 01 de agosto del 2014.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>Aqui esta una lista de los atajos de teclado de <em>tmux</em> y comandos de <em>tmuxinator</em>, varios de ellos son personalizados, anexo los gists con mis configuraciones.</p>
+<div class="section" id="tmux">
+<h2>Tmux</h2>
+<pre class="code sh literal-block">
+tmux -2                 Inicia con soporte para <span class="m">256</span> colores
+ctrl+a, c               Nueva pestaña
+ctrl+a, <span class="c1">#               Ir a la pestaña #
+</span>ctrl+a, s               Split horizontal
+ctrl+a, v               Split vertical
+ctrl+a, o               Moverse entre splits
+ctrl+a, x               Cerrar split o panel
+ctrl+a, !               Cerrar todos excepto el actual
+ctrl+a+flecha arriba    Redimensionar hacia arriba panel actual
+ctrl+a+flecha abajo     Redimendionar hacia abajo panel actual
+ctrl+a, <span class="o">[</span>               Habilitar scroll <span class="o">(</span>vim<span class="o">)</span>
+q                       Salir del scroll mode
+</pre>
+<div class="section" id="tmux-conf">
+<h3>tmux.conf</h3>
+<div class="gist">
+    <script src='https://gist.github.com/a8b972922a184560a02c.js'></script>
+    <noscript>
+        <pre><code>#Source snapshot
+source ~/dotfiles/snapshot_tmuxline
+
+# Use C-a instead of C-b as the prefix
+set -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+
+#set 256 colors
+set -g default-terminal "screen-256color"
+
+# set default shell
+set -g default-command "exec /bin/bash"
+
+set -g display-time 2000
+
+# set vi style key binding
+set -g status-keys vi
+setw -g mode-keys vi
+
+# be more responsive, changing the default delay
+set -sg escape-time 1
+
+# set scrollback
+set -g history-limit 10000
+
+# Start numbering at 1
+set-option -g base-index 1
+set-window-option -g pane-base-index 1
+
+# force a reload of the config file
+unbind r
+bind r source-file ~/.tmux.conf  \; display "Reloaded!"
+
+# automatic window renaming
+set-window-option -g automatic-rename on
+
+# aggresive resize
+setw -g aggressive-resize on
+
+# Saner splitting.
+bind v split-window -h
+bind s split-window -v
+bind S choose-session
+
+# Activity
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Log output to a text file on demand
+bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"</code></pre>
+    </noscript>
+</div>
+</div>
+</div>
+<div class="section" id="tmuxinator">
+<h2>Tmuxinator</h2>
+<pre class="code sh literal-block">
+mux new &lt;nombre_del_proyecto&gt;           Crea un proyecto nuevo
+mux start &lt;nombre_del_proyecto&gt;         Arranca el proyecto
+mux list                                Muestra una lista de los proyectos existentes
+mux delete &lt;nombre_del_proyecto&gt;        Borra el proyecto
+mux doctor                              Examina problemas con la configuración
+mux <span class="nb">help</span>                                Muestra la ayuda
+</pre>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/tmux.html">#tmux</a> y                 <a href="/tag/tmuxinator.html">#tmuxinator</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

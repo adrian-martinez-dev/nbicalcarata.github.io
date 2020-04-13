@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Configurando Vim - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Configurando Vim</h1>
+
+        <div class="date">
+            <p>Escrito el lunes, 10 de febrero del 2014.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>Despues de haber usado un tiempo la distribución spf-13 de vim opté por configurarlo a mi gusto para tener mas control sobre su comportamiento. Usar una distro predefinida es muy cómodo pero debido a que me encontré con uno que otro bug y como soy bastante quisquilloso al respecto decidí desinstalarla.</p>
+<p>Para poder hacer esto hay que leerse los .vimrc de otras personas, esto es importante para saber que opciones se estan usando y por qué. El .vimrc de spf13 es muy fácil de leer, cada sección viene comentada con su funcionalidad respectiva.</p>
+<div class="section" id="vundle">
+<h2>Vundle</h2>
+<p>Es una abreviación de Vim Bundle, y sirve para administrar los plugins.</p>
+<div class="section" id="instalacion">
+<h3>Instalación</h3>
+<pre class="code sh literal-block">
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+</pre>
+</div>
+<div class="section" id="configuracion">
+<h3>Configuración</h3>
+<p>Ésta es una configuración de ejemplo para nuestro .vimrc, donde los bundles son los plugins que necesitemos instalar, estos son repos de github por lo que es una manera muy practica de tenerlos centralizados y actualizados.</p>
+<div class="highlight"><pre><span></span><span class="k">set</span> <span class="nb">nocompatible</span>              <span class="c">&quot; be iMproved, required</span>
+<span class="k">filetype</span> off                  <span class="c">&quot; required</span>
+
+<span class="c">&quot; set the runtime path to include Vundle and initialize</span>
+<span class="k">set</span> <span class="nb">rtp</span><span class="p">+=~</span><span class="sr">/.vim/</span>bundle/Vundle.<span class="k">vim</span>
+<span class="k">call</span> vundle#begin<span class="p">()</span>
+<span class="c">&quot; alternatively, pass a path where Vundle should install plugins</span>
+<span class="c">&quot;call vundle#begin(&#39;~/some/path/here&#39;)</span>
+
+<span class="c">&quot; let Vundle manage Vundle, required</span>
+Plugin <span class="s1">&#39;gmarik/Vundle.vim&#39;</span>
+
+<span class="c">&quot; The following are examples of different formats supported.</span>
+<span class="c">&quot; Keep Plugin commands between vundle#begin/end.</span>
+<span class="c">&quot; plugin on GitHub repo</span>
+Plugin <span class="s1">&#39;tpope/vim-fugitive&#39;</span>
+<span class="c">&quot; plugin from http://vim-scripts.org/vim/scripts.html</span>
+Plugin <span class="s1">&#39;L9&#39;</span>
+<span class="c">&quot; Git plugin not hosted on GitHub</span>
+Plugin <span class="s1">&#39;git://git.wincent.com/command-t.git&#39;</span>
+<span class="c">&quot; git repos on your local machine (i.e. when working on your own plugin)</span>
+Plugin <span class="s1">&#39;file:///home/gmarik/path/to/plugin&#39;</span>
+<span class="c">&quot; The sparkup vim script is in a subdirectory of this repo called vim.</span>
+<span class="c">&quot; Pass the path to set the runtimepath properly.</span>
+Plugin <span class="s1">&#39;rstacruz/sparkup&#39;</span><span class="p">,</span> {<span class="s1">&#39;rtp&#39;</span>: <span class="s1">&#39;vim/&#39;</span>}
+<span class="c">&quot; Avoid a name conflict with L9</span>
+Plugin <span class="s1">&#39;user/L9&#39;</span><span class="p">,</span> {<span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;newL9&#39;</span>}
+
+<span class="c">&quot; All of your Plugins must be added before the following line</span>
+<span class="k">call</span> vundle#<span class="k">end</span><span class="p">()</span>            <span class="c">&quot; required</span>
+<span class="k">filetype</span> plugin indent <span class="k">on</span>    <span class="c">&quot; required</span>
+<span class="c">&quot; To ignore plugin indent changes, instead use:</span>
+<span class="c">&quot;filetype plugin on</span>
+<span class="c">&quot; Brief help</span>
+<span class="c">&quot; :PluginList          - list configured plugins</span>
+<span class="c">&quot; :PluginInstall(!)    - install (update) plugins</span>
+<span class="c">&quot; :PluginSearch(!) foo - search (or refresh cache first) for foo</span>
+<span class="c">&quot; :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins</span>
+<span class="c">&quot; see :h vundle for more details or wiki for FAQ</span>
+<span class="c">&quot; Put your non-Plugin stuff after this line</span>
+</pre></div>
+<p>Con <tt class="docutils literal">:PluginInstall</tt> se instalan o actualizan los plugins agregados, esto se puede hacer también desde linea de comandos con <tt class="docutils literal">vim +PluginInstall +qall</tt></p>
+</div>
+</div>
+<div class="section" id="plugins">
+<h2>Plugins</h2>
+<div class="section" id="syntastic">
+<h3>Syntastic</h3>
+<p>Este plugin sirve para el chequeo de sintáxis del código, para instalarlo agregamos a nuestro .vimrc</p>
+<pre class="code vim literal-block">
+Plugin <span class="s1">'scrooloose/syntastic'</span>
+</pre>
+<p>Para comprobar los syntax checkers instalados se usa el comando <tt class="docutils literal">:SyntasticInfo</tt></p>
+<p>Para JavaScript me incliné por jshint al ser un poco mas flexible que jslint, influenciado por este <a class="reference external" href="http://anton.kovalyov.net/p/why-jshint/">post</a>.</p>
+<p>En caso de no tener instalado jshint:</p>
+<pre class="code sh literal-block">
+npm install jshint -g
+</pre>
+<p>El parametro <tt class="docutils literal"><span class="pre">-g</span></tt> es para instalarlo de forma global en el sistema.</p>
+<p>Habilité el validador <tt class="docutils literal">w3</tt> porque me volvi loco con el renderizado incorrecto de una pagina web que estaba modificando y resultó que el error era un simple tag sin cerrar, así que no me importa que me suelte mensajes cada vez que guardo el archivo (asi es como funcionan, este comportamiento puede modificarse).</p>
+<pre class="code vim literal-block">
+<span class="c">&quot;Syntastic ================================</span>
+<span class="k">let</span> <span class="k">g</span>:syntastic_javascript_checkers <span class="p">=</span> [<span class="s1">'jshint'</span>]
+<span class="k">let</span> <span class="k">g</span>:syntastic_html_checkers <span class="p">=</span> [<span class="s1">'w3'</span>]
+</pre>
+<p>Este post se estará actualizando regularmente, porque vim es muy extenso y nunca se termina de encontrarle funcionalidades nuevas.</p>
+</div>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/neovim.html">#neovim</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>

@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <title>Instalación y configuración de Light Table en Linux - Adrián Martínez</title>
+
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="author" content="Adrián Martínez" />
+    <meta name="dc.language" content="es" />
+    <meta name="dc.license" content="">
+
+    <!-- favicon -->
+    <link rel="icon" href="/theme/favicon.png" type="image/x-icon">
+
+    <!-- newsfeeds -->
+
+    <!-- assets -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+    <link href="https://fonts.googleapis.com/css?family=Linden+Hill:400,400italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/simplegrid.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/theme/css/pygments_base16_ocean_dark.css" type="text/css">
+    <!--[if lt IE 8]>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+   <div class="grid grid-pad">
+     <div class="col-1-1">        
+       <ul id="mainnav">
+          <li><a href="/">Inicio</a></li>
+
+            <li><a href="/pages/acerca-de.html">Acerca de</a></li>
+
+       </ul>
+       <div id="blogtitle"><a href="/">Adrián Martínez</a></div>
+       <div id="blogsubtitle"><a href="/"></a></div>
+     </div>
+    </div>
+
+    <div class="grid grid-pad">
+       <div id="left-side" class="col-8-12">
+          <section id="content" class="hyphenate">
+
+    <h1 class="title">Instalación y configuración de Light Table en Linux</h1>
+
+        <div class="date">
+            <p>Escrito el jueves, 09 de enero del 2014.</p>
+            <!-- por <a rel="author" href="/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>Light Table es un editor de texto para programación web que actualmente se encuentra en fase alfa, el proyecto ganó el año pasado el crowfunding en <a class="reference external" href="http://www.kickstarter.com/projects/ibdknox/light-table">kickstarter</a> por la módica cantidad de $316,720 dolares y hace unos dias se liberó su código fuente como fué prometido inicialmente, asi como la infraestructura necesaria para plugins de terceros. El concepto es bastante interesante y promete mucho, el editor permite la evaluación en tiempo real del código escrito, y soporta Clojure, Clojurescript, JavaScript, Html y Python.</p>
+<div class="section" id="instalacion">
+<h2>Instalación</h2>
+<!-- TEASER_END -->
+<p>Para instalarlo nos dirigimos a la pagina oficial del proyecto <a class="reference external" href="http://www.lighttable.com">www.lighttable.com</a> y bajamos el archivo correspondiente a la arquitectura de nuestra computadora, en mi caso 64 bits. Descomprimimos el archivo (esta carpeta yo la copié a <em>/home/adrian/Programas</em>) y ejecutamos el archivo llamado LightTable</p>
+<p>Creamos su respectivo lanzador para que nos aparezca en el menú del sistema:</p>
+<pre class="code sh literal-block">
+sudo geany /usr/share/applications/LightTable.desktop
+</pre>
+<pre class="code sh literal-block">
+<span class="o">[</span>Desktop Entry<span class="o">]</span>
+<span class="nv">Name</span><span class="o">=</span>LightTable
+<span class="nv">Comment</span><span class="o">=</span>LightTable
+<span class="nv">Exec</span><span class="o">=</span>/home/adrian/Programas/LightTable/ltbin
+<span class="nv">Icon</span><span class="o">=</span>/home/adrian/Programas/LightTable/core/img/lticon.png
+<span class="nv">Terminal</span><span class="o">=</span><span class="nb">false</span>
+<span class="nv">Type</span><span class="o">=</span>Application
+</pre>
+<p>Y en caso de que se quiera poder ejecutar desde consola creamos un enlace simbolico en /usr/bin/local</p>
+<pre class="code sh literal-block">
+sudo ln -s /home/adrian/Programas/LightTable/LightTable /usr/local/bin/LightTable
+</pre>
+</div>
+<div class="section" id="configuracion">
+<h2>Configuración</h2>
+<p>En la pantalla de bienvenida vienen los tutoriales para usarlo, en lo cual no abundaré aquí, solo expondré las configuraciones que hice como los behaviours y los keymaps. Los behaviours son una forma de ajustar las preferencias del editor, y los keymaps son los atajos de teclado. El lenguaje en el que esta principalmente programado es Clojure, un dialecto de lisp, el cual usa un paradigma de programación funcional, por lo tanto el sintaxis es algo diferente a lo que estamos acostumbrados.</p>
+</div>
+<div class="section" id="behaviours">
+<h2>Behaviours</h2>
+<p>Presionamos <em>ctrl + space</em> y tecleamos <em>user behaviors</em> y damos <em>enter</em>, nos aparecerá esto:</p>
+<pre class="code clojure literal-block">
+<span class="c1">;; User behaviors</span>
+<span class="c1">;; -----------------------------</span>
+<span class="c1">;; Behaviors are stored as a set of diffs that are merged together</span>
+<span class="c1">;; to create the final set of functionality that makes up Light Table. You can</span>
+<span class="c1">;; modify these diffs to either add or subtract functionality.</span>
+<span class="c1">;;</span>
+<span class="c1">;; Behaviors are added to tags, objects with those tags then automatically gain</span>
+<span class="c1">;; whatever logic the behavior imparts. To see a list of user-level behaviors,</span>
+<span class="c1">;; start typing a word related to the functionality you want in between the square</span>
+<span class="c1">;; brackets (e.g. &quot;theme&quot;).</span>
+
+<span class="p">{</span><span class="ss">:+</span> <span class="p">{</span>
+     <span class="c1">;; The app tag is kind of like global scope. You assign behaviors that affect</span>
+     <span class="c1">;; all of Light Table here</span>
+     <span class="ss">:app</span> <span class="p">[(</span><span class="ss">:lt.objs.style/set-skin</span> <span class="s">&quot;dark&quot;</span><span class="p">)]</span>
+
+     <span class="c1">;; The editor tag is applied to all editors</span>
+     <span class="ss">:editor</span> <span class="p">[</span><span class="ss">:lt.objs.editor/no-wrap</span>
+              <span class="p">(</span><span class="ss">:lt.objs.style/set-theme</span> <span class="s">&quot;default&quot;</span><span class="p">)]</span>
+
+     <span class="c1">;; Here we can add behaviors to just clojure editors</span>
+     <span class="ss">:editor.clojure</span> <span class="p">[(</span><span class="ss">:lt.objs.langs.clj/print-length</span> <span class="mi">1000</span><span class="p">)]}</span>
+
+ <span class="c1">;; You can use the subtract key to remove behavior that may get added by</span>
+ <span class="c1">;; another diff</span>
+ <span class="ss">:-</span> <span class="p">{</span><span class="ss">:app</span> <span class="p">[]}}</span>
+</pre>
+<p>Para editar el tema por defecto, en el tag <em>editor</em>, nos vamos a <em>set-theme</em>, borramos <em>default</em> (sin borrar las comillas) y presionamos <em>tab</em> para disparar el menu contextual del autocompletado y escogemos el que mas nos guste. Lo mismo con <em>set-skin</em>, podemos elegir entre dark o light (viene otra opcion llamada new dark, esa la ignoramos porque esta incompleta).</p>
+<p>El autocompletado viene deshabilitado por defecto, si queremos habilitarlo agregamos:</p>
+<pre class="code clojure literal-block">
+<span class="p">(</span><span class="ss">:lt.plugins.auto-complete/auto-show-on-input</span><span class="p">)</span>
+</pre>
+<p>Habilitar números de linea</p>
+<pre class="code clojure literal-block">
+<span class="p">(</span><span class="ss">:lt.objs.editor/line-numbers</span><span class="p">)</span>
+</pre>
+<p>Cambiar la tipografía</p>
+<pre class="code clojure literal-block">
+<span class="p">(</span><span class="ss">:lt.objs.style/font-settings</span> <span class="s">&quot;Inconsolata&quot;</span> <span class="mi">14</span> <span class="mi">1</span><span class="p">)</span>
+</pre>
+<p>Donde el orden de los argumentos es este: <em>&quot;Fuente&quot; &lt;Tamaño&gt; &lt;Ancho de linea en ems&gt;</em></p>
+<p>Para ver mas opciones del editor tecleamos : y presionamos tab, siempre cuidando que el corchete quede al final de todos los argumentos agregados al tag.</p>
+</div>
+<div class="section" id="keymaps">
+<h2>Keymaps</h2>
+<p><em>ctrl + space</em> dispara el menú principal que nos da todas las opciones del editor y a muchas de ellas le podemos añadir atajos de teclado.
+Para agregar atajos de teclado damos <em>ctrl + space</em> y escribimos <em>user keymap</em> (de preferencia no debemos tocar los default behaviours y default keymaps, nos podemos meter en problemas).</p>
+<pre class="code clojure literal-block">
+<span class="c1">;; User keymap</span>
+<span class="c1">;; -----------------------------</span>
+<span class="c1">;; Keymaps are stored as a set of diffs that are merged together together</span>
+<span class="c1">;; to create the final set of keys. You can modify these diffs to either add</span>
+<span class="c1">;; or subtract bindings.</span>
+<span class="c1">;;</span>
+<span class="c1">;; Like behaviors, keys are bound by tag. When objects with those tags are active</span>
+<span class="c1">;; the key bindings are live. Keys can be bound to any number of Light Table commands,</span>
+<span class="c1">;; allowing you the flexibility to execute multiple operations together. To see a list</span>
+<span class="c1">;; of all the commands you can execute, start typing a word related to the thing you</span>
+<span class="c1">;; want to do in between the square brackets (e.g. type &quot;editor&quot;).</span>
+
+<span class="p">{</span><span class="ss">:+</span> <span class="p">{</span><span class="ss">:app</span> <span class="p">{</span><span class="s">&quot;f9&quot;</span> <span class="p">[</span><span class="ss">:workspace.show</span><span class="p">]</span>
+           <span class="s">&quot;f8&quot;</span> <span class="p">[</span><span class="ss">:toggle-console</span><span class="p">]</span>
+           <span class="s">&quot;ctrl-shift-n&quot;</span> <span class="p">[</span><span class="ss">:tabset.new</span><span class="p">]</span>
+           <span class="s">&quot;ctrl-shift-w&quot;</span> <span class="p">[</span><span class="ss">:tabset.close</span><span class="p">]</span>
+           <span class="s">&quot;ctrl-shift-h&quot;</span> <span class="p">[</span><span class="ss">:tabset.prev</span><span class="p">]</span>
+           <span class="s">&quot;ctrl-shift-l&quot;</span> <span class="p">[</span><span class="ss">:tabset.next</span><span class="p">]</span>
+           <span class="s">&quot;ctrl-shift-p&quot;</span> <span class="p">[</span><span class="ss">:workspace.add-folder</span><span class="p">]}</span>
+
+     <span class="ss">:editor</span> <span class="p">{</span><span class="s">&quot;alt-w&quot;</span> <span class="p">[</span><span class="ss">:editor.watch.watch-selection</span><span class="p">]</span>
+              <span class="s">&quot;alt-shift-w&quot;</span> <span class="p">[</span><span class="ss">:editor.watch.unwatch</span><span class="p">]}}}</span>
+</pre>
+<p>Estos son los atajos que yo agregué, recomiendo explorar bastante el editor antes de agregar atajos de teclado.</p>
+<p>En lo personal este editor me gusta mucho, y aunque va en la version 0.6.0 lo encuentro bastante funcional y entretenido de usar, aunque no olvidemos que esta en desarrollo y hay todavia muchos detalles por corregir para poder utilizarlo sin problemas.</p>
+</div>
+</div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="/tag/clojure.html">#clojure</a> y                 <a href="/tag/html.html">#html</a></p>
+        </div>
+
+
+          </section>
+       </div>
+
+       <div id="right-side" class="col-1-12">&nbsp;</div>
+       <div id="right-side" class="col-3-12">
+
+
+
+<div class="section-container">
+   <h3>Categorias</h3>
+   <ul>
+        <li><a href="/category/cheatsheet.html">cheatsheet <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/editor.html">editor <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/linux.html">linux <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/misc.html">misc <i class="fa fa-folder-open fa-fw"></i></a></li>
+        <li><a href="/category/utilidades.html">utilidades <i class="fa fa-folder-open fa-fw"></i></a></li>
+   </ul>
+</div>
+
+<div class="section-container">
+   <h3>Etiquetas</h3>
+   <ul class="tagcloud">      <li><a href="/tag/behat.html">behat</a> (1)</li>
+      <li><a href="/tag/clojure.html">clojure</a> (1)</li>
+      <li><a href="/tag/crunchbang.html">crunchbang</a> (1)</li>
+      <li><a href="/tag/fedora.html">fedora</a> (2)</li>
+      <li><a href="/tag/gvim.html">gvim</a> (1)</li>
+      <li><a href="/tag/html.html">html</a> (1)</li>
+      <li><a href="/tag/laravel.html">laravel</a> (1)</li>
+      <li><a href="/tag/neovim.html">neovim</a> (2)</li>
+      <li><a href="/tag/opensuse.html">opensuse</a> (1)</li>
+      <li><a href="/tag/playonlinux.html">playonlinux</a> (1)</li>
+      <li><a href="/tag/python.html">python</a> (1)</li>
+      <li><a href="/tag/quake-live.html">quake live</a> (1)</li>
+      <li><a href="/tag/selenium.html">selenium</a> (1)</li>
+      <li><a href="/tag/terminal.html">terminal</a> (1)</li>
+      <li><a href="/tag/tmux.html">tmux</a> (1)</li>
+      <li><a href="/tag/tmuxinator.html">tmuxinator</a> (1)</li>
+      <li><a href="/tag/ubuntu.html">ubuntu</a> (1)</li>
+      <li><a href="/tag/vagrant.html">vagrant</a> (1)</li>
+      <li><a href="/tag/vim.html">vim</a> (1)</li>
+      <li><a href="/tag/wine.html">wine</a> (1)</li>
+   </ul>
+</div>
+
+
+<div class="section-container">
+   <h3>Archivo</h3>
+   <ul>
+      <li><a href="/archives.html">All Archives</a></li>
+    
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/07/index.html">julio 2017</a></li>
+      
+
+            <li><a href="/posts/2017/06/index.html">junio 2017</a></li>
+      
+
+            <li><a href="/posts/2014/09/index.html">septiembre 2014</a></li>
+      
+
+            <li><a href="/posts/2014/08/index.html">agosto 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/06/index.html">junio 2014</a></li>
+      
+
+            <li><a href="/posts/2014/03/index.html">marzo 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/02/index.html">febrero 2014</a></li>
+      
+
+            <li><a href="/posts/2014/01/index.html">enero 2014</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+            <li><a href="/posts/2013/12/index.html">diciembre 2013</a></li>
+      
+
+   </ul>
+</div>
+
+          <!-- <div class="section-container" id="copyright"> -->
+          <!--   <p>Hecho con <a href="http://getpelican.com/">Pelican</a> y <a href="https://github.com/habibillah/pujangga">Pujangga</a>.</p> -->
+          <!-- </div> -->
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+ 
+</body>
+
+</html>
