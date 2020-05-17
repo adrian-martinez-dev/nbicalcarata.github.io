@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Entradas con etiqueta "crunchbang" - Adrián Martínez</title>
+    <title>Django Rest Framework: Llaves foráneas y serializadores anidados - Adrián Martínez</title>
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -18,6 +18,7 @@
     <!-- newsfeeds -->
         <link href="https://adrianmtz.dev/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Full Atom Feed" />
         <link href="https://adrianmtz.dev/rss/index.xml" type="application/rss+xml" rel="alternate" title="Adrián Martínez Full RSS Feed" />
+        <link href="https://adrianmtz.dev/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="Adrián Martínez Categories Atom Feed" />
 
     <!-- assets -->
     <!--[if lt IE 9]>
@@ -55,16 +56,57 @@
        <div id="left-side" class="col-8-12">
           <section id="content" class="hyphenate">
 
-    <h1 class="title">Entradas con etiqueta “#crunchbang”</h1>        <article class="entry-overview">
-            <div class="detail">
-                <header><h3>
-                    <a href="https://adrianmtz.dev/solución-al-error-de-dependencias-de-libglso1-en-crunchbang-waldorf.html" rel="bookmark" title="Permalink to Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf">
-                        Solución al error de dependencias de libGL.so.1 en Crunchbang Waldorf
-                    </a>
-                </h3></header>
-                <div class="summary"></div>
-            </div>
-        </article>
+    <h1 class="title">Django Rest Framework: Llaves foráneas y serializadores anidados</h1>
+
+        <div class="date">
+            <p>Escrito el sábado, 09 de mayo del 2020.</p>
+            <!-- por <a rel="author" href="https://adrianmtz.dev/pages/acerca-de.html">Adrián Martínez</a></p> -->
+        </div>
+
+    <div class="clearboth"><p>Con Django Rest Framework, es relativamente rapido crear apis y levantar servicios para realizar operaciones CRUD (Create, Read, Update y Delete).</p>
+<p>Para hacer el guardado de objectos existentes, me puse a la tarea de investigar la posibilidad de que el servicio reciba una llave foránea en la peticion POST, y que al hacer GET me devuelva el objeto relacionado pero con sus campos completos (el comportamiento por defecto corresponde a devolver solo la llave primaria).</p>
+<p>Entonces teniendo los siguientes modelos:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Album</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">album_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">artist</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">album</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Album</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;tracks&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>Y con sus correspondientes Serializers, sobreescribimos el metodo to_representation:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AlbumSerializer</span><span class="p">(</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Album</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">TrackSerializer</span><span class="p">(</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Track</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+    <span class="k">def</span> <span class="nf">to_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_representation</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="n">response</span><span class="p">[</span><span class="s1">&#39;album&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AlbumSerializer</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">album</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="n">response</span>
+</code></pre></div>
+
+
+<p>El cual nos devolverá una instancia album con todos sus campos en el objeto json.</p>
+<p>Referencias:</p>
+<p><a href="https://stackoverflow.com/a/52246232/4032361">Stackoverflow</a></p></div>
+
+        <div class="tags">
+            <p>Esta entrada fue etiquetada en  
+                <a href="https://adrianmtz.dev/tag/django.html">#Django</a> y                 <a href="https://adrianmtz.dev/tag/drf.html">#DRF</a></p>
+        </div>
+
 
           </section>
        </div>

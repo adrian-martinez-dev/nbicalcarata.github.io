@@ -91,6 +91,7 @@ cite {
 
 code {
     font-family: 'Inconsolata', 'Consolas', 'Menlo', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    cursor: text;
 }
 
 p code {
